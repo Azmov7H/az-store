@@ -1,0 +1,47 @@
+{
+  "HomePage": {
+    "title": "مرحبا بالعالم!",
+    "featuredTitle": "أحذية مميزة"
+  },
+  "Navbar": {
+    "home": "الرئيسية",
+    "shop": "المتجر",
+    "about": "حول",
+    "contact": "اتصل بنا",
+    "menu": "القائمة",
+    "language": "عربي"
+  },
+  "Hero": {
+    "title": "ادخل عالم {brand} للأناقة",
+    "subtitle": "اكتشف أفضل الماركات، الراحة المميزة، وعروض حصرية تصل إلى {discount}.",
+    "shopNow": "تسوق الآن",
+    "exploreMore": "استكشف المزيد"
+  },
+  "Footer": {
+    "brand": "Az Store",
+    "about": "متجر أحذية عصري يقدم أحدث الموديلات من نايك وأديداس وبوما وغيرها. هدفنا أن نقدم لك أفضل جودة بأفضل سعر.",
+    "quickLinks": "روابط سريعة",
+    "home": "الصفحة الرئيسية",
+    "allProducts": "جميع المنتجات",
+    "aboutUs": "من نحن",
+    "contactUs": "تواصل معنا",
+    "categories": "الأقسام",
+    "men": "رجالي",
+    "women": "حريمي",
+    "kids": "أطفال",
+    "accessories": "إكسسوارات",
+    "contact": "تواصل معنا",
+    "phone": "01012345678",
+    "email": "support@azstore.com",
+    "address": "القاهرة، مصر",
+    "copyright": "جميع الحقوق محفوظة."
+  },
+  
+  "LanguageSwitcher": {
+    "label": "اللغة"
+  }
+
+
+
+
+}

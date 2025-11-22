@@ -1,34 +1,36 @@
 "use client"
 
-import React, { useState } from "react"
-import Link from "next/link"
-import { ShoppingBag, Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { ModeToggle } from "./Toggle"
-import Logo from "./Logo"
+import React, { useState } from "react";
+import Link from "next/link";
+import { ShoppingBag, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { ModeToggle } from "./Toggle";
+import Logo from "./Logo";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const t = useTranslations("Navbar"); // namespace للـ Navbar
 
   return (
     <header className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-border bg-background text-foreground">
-      {/* Logo */}
       <Logo />
 
       {/* Desktop Links */}
       <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
         <Link href="/" className="hover:text-primary transition-colors">
-          Home
+          {t("home")}
         </Link>
         <Link href="/shop" className="hover:text-primary transition-colors">
-          Shop
+          {t("shop")}
         </Link>
         <Link href="/about" className="hover:text-primary transition-colors">
-          About
+          {t("about")}
         </Link>
         <Link href="/contact" className="hover:text-primary transition-colors">
-          Contact
+          {t("contact")}
         </Link>
       </nav>
 
@@ -41,9 +43,7 @@ export default function Navbar() {
         >
           <ShoppingBag className="h-5 w-5" />
         </Link>
-        <Button variant="outline" size="sm">
-          EN
-        </Button>
+        <LanguageSwitcher />
 
         {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
@@ -52,32 +52,32 @@ export default function Navbar() {
               variant="ghost"
               size="icon"
               className="md:hidden"
-              aria-label="Toggle Menu"
+              aria-label={t("menu")}
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[250px]  bg-background">
+          <SheetContent side="right" className="w-[250px] bg-background">
             <SheetHeader>
-              <SheetTitle className="text-lg font-semibold">Menu</SheetTitle>
+              <SheetTitle className="text-lg font-semibold">{t("menu")}</SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-4 mt-6 text-sm font-medium p-2">
               <Link href="/" onClick={() => setOpen(false)} className="hover:text-primary">
-                Home
+                {t("home")}
               </Link>
               <Link href="/shop" onClick={() => setOpen(false)} className="hover:text-primary">
-                Shop
+                {t("shop")}
               </Link>
               <Link href="/about" onClick={() => setOpen(false)} className="hover:text-primary">
-                About
+                {t("about")}
               </Link>
               <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-primary">
-                Contact
+                {t("contact")}
               </Link>
             </nav>
           </SheetContent>
         </Sheet>
       </div>
     </header>
-  )
+  );
 }

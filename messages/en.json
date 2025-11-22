@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "featuredTitle": "Featured Shoes"
+  },
+    "Navbar": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "menu": "Menu",
+    "language": "EN"
+  },
+   "Hero": {
+    "title": "Step Into {brand} Style",
+    "subtitle": "Discover top brands, premium comfort, and exclusive deals up to {discount}.",
+    "shopNow": "Shop Now",
+    "exploreMore": "Explore More"
+  },
+    "Footer": {
+    "brand": "Az Store",
+    "about": "Modern shoe store offering the latest Nike, Adidas, Puma, and more. We aim to provide the best quality at the best price.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "allProducts": "All Products",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "categories": "Categories",
+    "men": "Men",
+    "women": "Women",
+    "kids": "Kids",
+    "accessories": "Accessories",
+    "contact": "Contact Us",
+    "phone": "01012345678",
+    "email": "support@azstore.com",
+    "address": "Cairo, Egypt",
+    "copyright": "All rights reserved."
+  },
+   "LanguageSwitcher": {
+    "label": "Language"
+  }
+}

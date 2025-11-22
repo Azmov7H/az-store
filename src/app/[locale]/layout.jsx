@@ -1,20 +1,15 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/context/theme-provider";
 
-
-
+import { NextIntlClientProvider } from 'next-intl';
+import requestConfig from '../../i18n/request';
 export const metadata = {
   title: "Az-store",
-  description: "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+  description:
+    "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
   icons: {
     icon: "/favicon.ico",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
   },
   robots: {
     follow: true,
@@ -22,7 +17,8 @@ export const metadata = {
   },
   openGraph: {
     title: "Az-store",
-    description: "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    description:
+      "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
     url: "https://az-store.vercel.app",
     siteName: "Az-store",
     locale: "en_US",
@@ -31,7 +27,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Az-store",
-    description: "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    description:
+      "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
   },
   keywords: [
     "az-store",
@@ -51,22 +48,24 @@ export const metadata = {
   ],
   creator: "ali nagy",
   publisher: "az-store",
-
 };
 
-export default function RootLayout({ children }) {
+
+export default async function LocaleLayout({ children, params }) {
+ const { locale } = await params;
+  const config = await requestConfig({ requestLocale: locale });
   return (
-    <html lang="en">
-      <body
-        className={` antialiased`}
-      >
-        <ThemeProvider attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-          <Toaster position="top-right" />
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+      <body>
+        <NextIntlClientProvider messages={config.messages}>
+          <ThemeProvider attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+            <Toaster  />
           {children}
-        </ThemeProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

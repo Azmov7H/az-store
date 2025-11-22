@@ -7,61 +7,73 @@ export default function Footer() {
   const t = useTranslations("Footer");
 
   return (
-    <footer className="border-t mt-16 py-10 bg-background">
-      <div className="w-11/12 mx-auto grid md:grid-cols-4 gap-10">
+    <footer className="relative shadow shadow-accent  pt-16 pb-4 overflow-hidden">
+      {/* Wave Shape */}
 
-        {/* Logo + About */}
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 relative z-10">
+        {/* Brand */}
         <div>
-          <h2 className="text-2xl font-bold mb-3">{t("brand")}</h2>
-          <p className="text-muted-foreground text-sm leading-relaxed">{t("about")}</p>
+          <h2 className="text-2xl font-bold text-yellow-400 mb-4">{t("brand")}</h2>
+          <p className="text-sm leading-relaxed">{t("about")}</p>
         </div>
 
         {/* Quick Links */}
         <div>
           <h3 className="font-semibold text-lg mb-4">{t("quickLinks")}</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="hover:text-primary transition">{t("home")}</li>
-            <li className="hover:text-primary transition">{t("allProducts")}</li>
-            <li className="hover:text-primary transition">{t("aboutUs")}</li>
-            <li className="hover:text-primary transition">{t("contactUs")}</li>
+          <ul className="space-y-2">
+            {["home","allProducts","aboutUs","contactUs"].map((link) => (
+              <li
+                key={link}
+                className="hover:text-yellow-400 cursor-pointer transition-colors duration-300"
+              >
+                {t(link)}
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Categories */}
         <div>
           <h3 className="font-semibold text-lg mb-4">{t("categories")}</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="hover:text-primary transition">{t("men")}</li>
-            <li className="hover:text-primary transition">{t("women")}</li>
-            <li className="hover:text-primary transition">{t("kids")}</li>
-            <li className="hover:text-primary transition">{t("accessories")}</li>
+          <ul className="space-y-2">
+            {["men","women","kids","accessories"].map((cat) => (
+              <li
+                key={cat}
+                className="hover:text-yellow-400 cursor-pointer transition-colors duration-300"
+              >
+                {t(cat)}
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Contact & Social */}
         <div>
           <h3 className="font-semibold text-lg mb-4">{t("contact")}</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
-              <Phone className="w-5 h-5 text-primary" /> {t("phone")}
+              <Phone className="w-5 h-5 text-yellow-400" /> {t("phone")}
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="w-5 h-5 text-primary" /> {t("email")}
+              <Mail className="w-5 h-5 text-yellow-400" /> {t("email")}
             </li>
             <li className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-primary" /> {t("address")}
+              <MapPin className="w-5 h-5 text-yellow-400" /> {t("address")}
             </li>
           </ul>
-
           <div className="flex gap-4 mt-6">
-            <Facebook className="w-5 h-5 hover:text-primary cursor-pointer" />
-            <Instagram className="w-5 h-5 hover:text-primary cursor-pointer" />
-            <Twitter className="w-5 h-5 hover:text-primary cursor-pointer" />
+            {[Facebook, Instagram, Twitter].map((Icon, idx) => (
+              <Icon
+                key={idx}
+                className="w-6 h-6 text-gray-300 hover:text-yellow-400 transition-transform transform hover:-translate-y-1 cursor-pointer"
+              />
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="text-center mt-10 text-xs text-muted-foreground">
+      {/* Copyright */}
+      <div className="text-center mt-10 text-xs text-gray-400 relative z-10">
         © {new Date().getFullYear()} {t("brand")}. {t("copyright")}
       </div>
     </footer>

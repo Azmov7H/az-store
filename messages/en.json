@@ -18,7 +18,7 @@
     "exploreMore": "Explore More"
   },
     "Footer": {
-    "brand": "Az Store",
+    "brand": "AN Store",
     "about": "Modern shoe store offering the latest Nike, Adidas, Puma, and more. We aim to provide the best quality at the best price.",
     "quickLinks": "Quick Links",
     "home": "Home",
@@ -31,12 +31,27 @@
     "kids": "Kids",
     "accessories": "Accessories",
     "contact": "Contact Us",
-    "phone": "01012345678",
+    "phone": "01206521571",
     "email": "support@azstore.com",
     "address": "Cairo, Egypt",
     "copyright": "All rights reserved."
   },
    "LanguageSwitcher": {
     "label": "Language"
+  },
+  "Testimonials": {
+    "heading": "What Our Customers Say",
+    "description": "Real feedback from our customers who tried our products.",
+    "client1_name": "Mohamed Ali",
+    "client1_role": "Valued Customer",
+    "client1_text": "The best store I have ever tried, excellent quality and fast delivery. I highly recommend everyone to buy without hesitation.",
+    "client2_name": "Sara Ahmed",
+    "client2_role": "Trusted Customer",
+    "client2_text": "Professional designs and top-notch customer service. It was a great experience and I will definitely repeat it.",
+    "client3_name": "Hassan Youssef",
+    "client3_role": "Loyal Customer",
+    "client3_text": "The price for the value is excellent. I received the product the same day with quality above expectations."
   }
+  
+
 }

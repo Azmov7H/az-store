@@ -12,71 +12,85 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const t = useTranslations("Navbar"); // namespace للـ Navbar
+  const t = useTranslations("Navbar");
 
   return (
-    <header className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-border bg-background text-foreground">
-      <Logo />
+    <header className="fixed top-0 w-full z-50 bg-background shadow-md border-b border-border">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+        
+        {/* Logo */}
+        <Logo />
 
-      {/* Desktop Links */}
-      <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-        <Link href="/" className="hover:text-primary transition-colors">
-          {t("home")}
-        </Link>
-        <Link href="/shop" className="hover:text-primary transition-colors">
-          {t("shop")}
-        </Link>
-        <Link href="/about" className="hover:text-primary transition-colors">
-          {t("about")}
-        </Link>
-        <Link href="/contact" className="hover:text-primary transition-colors">
-          {t("contact")}
-        </Link>
-      </nav>
-
-      {/* Tools */}
-      <div className="flex items-center gap-3">
-        <ModeToggle />
-        <Link
-          href="/cart"
-          className="flex items-center gap-2 hover:text-primary transition-colors"
-        >
-          <ShoppingBag className="h-5 w-5" />
-        </Link>
-        <LanguageSwitcher />
-
-        {/* Mobile Menu */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label={t("menu")}
+        {/* Desktop Links */}
+        <nav className="hidden md:flex items-center gap-8 font-medium text-sm">
+          {["home", "shop", "about", "contact"].map((link) => (
+            <Link
+              key={link}
+              href={link === "home" ? "/" : `/${link}`}
+              className="relative group hover:text-primary transition-colors"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] bg-background">
-            <SheetHeader>
-              <SheetTitle className="text-lg font-semibold">{t("menu")}</SheetTitle>
-            </SheetHeader>
-            <nav className="flex flex-col gap-4 mt-6 text-sm font-medium p-2">
-              <Link href="/" onClick={() => setOpen(false)} className="hover:text-primary">
-                {t("home")}
-              </Link>
-              <Link href="/shop" onClick={() => setOpen(false)} className="hover:text-primary">
-                {t("shop")}
-              </Link>
-              <Link href="/about" onClick={() => setOpen(false)} className="hover:text-primary">
-                {t("about")}
-              </Link>
-              <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-primary">
-                {t("contact")}
-              </Link>
-            </nav>
-          </SheetContent>
-        </Sheet>
+              {t(link)}
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Tools */}
+        <div className=" flex items-center gap-3">
+          
+
+          <Link
+            href="/cart"
+            className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+            aria-label={t("cart")}
+          >
+            <ShoppingBag className="h-5 w-5 text-foreground" />
+          </Link>
+          <div className="hidden md:flex gap-2 items-center">
+            <ModeToggle />
+
+          <LanguageSwitcher />
+          </div>
+
+          {/* Mobile Menu */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label={t("menu")}
+              >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-64 bg-background p-6">
+              <SheetHeader>
+                <SheetTitle className="text-lg font-semibold">{t("menu")}</SheetTitle>
+              </SheetHeader>
+
+              <nav className="flex flex-col gap-5 mt-6 text-sm font-medium">
+                {["home", "shop", "about", "contact"].map((link) => (
+                  <Link
+                    key={link}
+                    href={link === "home" ? "/" : `/${link}`}
+                    onClick={() => setOpen(false)}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {t(link)}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="mt-6 border-t pt-4">
+                <div className="flex items-center gap-3">
+                  <ModeToggle />
+                  <LanguageSwitcher />
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );

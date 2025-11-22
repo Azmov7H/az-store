@@ -8,57 +8,57 @@ export default function Hero() {
   const t = useTranslations("Hero");
 
   return (
-    <section className="relative w-full h-[75vh] rounded-2xl overflow-hidden flex items-center justify-start px-10">
-      {/* Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center" />
+<section className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden">
+  {/* Background Image */}
+ 
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+  
 
-      {/* Content */}
-      <div className="relative z-10 max-w-2xl animate-fadeIn">
-        {/* Title */}
-        <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
-          {t.rich("title", {
-            brand: (chunks) => <span className="text-yellow-300">{chunks}<Logo /></span>
-          })}
-        </h1>
+  {/* Content */}
+  <div className="relative z-10 text-center max-w-3xl">
+    <h1 className="text-5xl md:text-6xl font-extrabold  leading-tight mb-4">
+      {t.rich("title", {
+        brand: (chunks) => (
+          <span className=" inline-flex items-center gap-2">
+            {chunks} <Logo />
+          </span>
+        )
+      })}
+    </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-neutral-200 mt-4">
-          {t.rich("subtitle", {
-            discount: (chunks) => (
-              <span className="font-semibold text-yellow-300">{chunks} 50% OFF</span>
-            )
-          })}
-        </p>
+    <p className="text-lg md:text-xl  mb-8">
+      {t.rich("subtitle", {
+        discount: (chunks) => (
+          <span className="font-semibold text-orange-500">{chunks} 50% OFF</span>
+        )
+      })}
+    </p>
 
-        {/* Buttons */}
-        <div className="mt-8 flex gap-4">
-          <Button className="px-6 py-3 bg-yellow-300 text-black rounded-xl font-semibold hover:bg-yellow-400 transition-all">
-            {t("shopNow")}
-          </Button>
+    <div className="flex flex-col md:flex-row justify-center gap-4">
+      <Button className="px-8 py-4  font-bold rounded-xl hover:scale-105 hover:bg-yellow-400 transition-all">
+        {t("shopNow")}
+      </Button>
 
-          <Button
-            variant="outline"
-            className="px-6 py-3 text-white border-white hover:bg-white hover:text-black transition-all rounded-xl"
-          >
-            {t("exploreMore")}
-          </Button>
-        </div>
-      </div>
+      <Button
+        variant="outline"
+        className="px-8 py-4  hover:bg-white hover:text-black transition-all"
+      >
+        {t("exploreMore")}
+      </Button>
+    </div>
+  </div>
 
-      {/* Fade-in Animation */}
-      <style>{`
-        .animate-fadeIn {
-          opacity: 0;
-          animation: fadeIn .9s ease forwards;
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-    </section>
+  <style>{`
+    @keyframes bgSlide {
+      0% { background-position: center top; }
+      50% { background-position: center bottom; }
+      100% { background-position: center top; }
+    }
+    .animate-bgSlide {
+      animation: bgSlide 20s linear infinite;
+    }
+  `}</style>
+</section>
+
   );
 }

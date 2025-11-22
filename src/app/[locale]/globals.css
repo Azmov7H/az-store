@@ -42,97 +42,155 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
+/* theme.css */
 
+/* ======================== */
+/* Light Mode (Default)     */
+/* ======================== */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --input: #f5f5f5;
+  --border: #e5e7eb;
+  --ring: #d1d5db;
+
+  --primary: #111111;
+  --primary-foreground: #ffffff;
+
+  --secondary: #6b7280; /* gray-500 */
+  --secondary-foreground: #ffffff;
+
+  --accent: #111111;
+  --accent-foreground: #ffffff;
+
+  --destructive: #dc2626; /* red-600 */
+  --destructive-foreground: #ffffff;
+
+  --muted: #f3f4f6; /* gray-100 */
+  --muted-foreground: #6b7280;
+
+  --radius: 0.625rem; /* default rounded */
 }
 
+/* ======================== */
+/* Dark Mode                */
+/* ======================== */
 .dark {
-  --background: #221d10;
-  --foreground: oklch(0.984 0.003 247.858);
+  --background: #1a1a1a;
+  --foreground: #FFD700; /* gold */
+  --card: #2c2c2c;
+  --card-foreground: #FFD700;
+  --popover: #2c2c2c;
+  --popover-foreground: #FFD700;
+  --input: #2c2c2c;
+  --border: #555555;
+  --ring: #FFD700;
 
-  --card: oklch(68.612% 0.14351 75.028 / 0.457);
-  --card-foreground: oklch(0.984 0.003 247.858);
+  --primary: #FFD700;
+  --primary-foreground: #1a1a1a;
 
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
+  --secondary: #FFD700;
+  --secondary-foreground: #1a1a1a;
 
-  /* GOLD MODE */
-  --primary: oklch(0.78 0.19 80);
-  --primary-foreground: oklch(0.12 0.04 260);
+  --accent: #FFD700;
+  --accent-foreground: #1a1a1a;
 
-  --accent: oklch(0.78 0.19 80);
-  --accent-foreground: oklch(0.12 0.04 260);
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
 
-  --secondary: oklch(0.78 0.19 80);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: #333333;
+  --muted-foreground: #FFD700;
 
-  --muted: oklch(0.78 0.19 80);
-  --muted-foreground: oklch(87.967% 0.0398 256.637);
-
-  --destructive: oklch(0.704 0.191 22.216);
-
-  --border: oklch(0.78 0.19 80 / 25%);
-  --input: oklch(1 0 0 / 15%);
-
-  --ring: oklch(0.78 0.19 80);
-
-  --chart-1: oklch(0.78 0.19 80);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-
-  --sidebar: oklch(0.78 0.19 80);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-
-  --sidebar-primary: oklch(66.409% 0.13816 75.034 / 0.29);
-  --sidebar-primary-foreground: oklch(0.12 0.04 260);
-
-  --sidebar-accent: oklch(0.78 0.19 80);
-  --sidebar-accent-foreground: oklch(0.12 0.04 260);
-
-  --sidebar-border: oklch(0.78 0.19 80 / 25%);
-  --sidebar-ring: oklch(0.78 0.19 80);
+  --radius: 0.625rem;
 }
 
-
+/* ======================== */
+/* Apply to ShadCN Components */
+/* ======================== */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[var(--background)] text-[var(--foreground)];
+  }
+
+  /* Card, Popover, Sheet */
+  .card, .popover, .sheet-content {
+    @apply bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)];
+  }
+
+  /* Buttons */
+  button {
+    @apply rounded-[var(--radius)] transition-all duration-200;
+  }
+  button[data-variant="default"] {
+    @apply bg-[var(--primary)] text-[var(--primary-foreground)];
+  }
+  button[data-variant="secondary"] {
+    @apply bg-[var(--secondary)] text-[var(--secondary-foreground)];
+  }
+  button[data-variant="destructive"] {
+    @apply bg-[var(--destructive)] text-[var(--destructive-foreground)];
+  }
+  button[data-variant="outline"] {
+    @apply border-[var(--border)] text-[var(--primary)];
+  }
+  button[data-variant="ghost"] {
+    @apply text-[var(--foreground)];
+  }
+
+  /* Inputs, Textareas, Selects */
+  input, textarea, select {
+    @apply bg-[var(--input)] text-[var(--foreground)] border-[var(--border)] rounded-[var(--radius)];
+  }
+
+  /* Tooltips */
+  .tooltip-content {
+    @apply bg-[var(--popover)] text-[var(--popover-foreground)];
+  }
+
+  /* Tabs */
+  .tab-list {
+    @apply border-b-[var(--border)];
+  }
+  .tab {
+    @apply text-[var(--foreground)];
+  }
+  .tab[data-state="active"] {
+    @apply text-[var(--primary)];
+  }
+
+  /* Checkbox, Radio, Switch */
+  input[type="checkbox"], input[type="radio"] {
+    @apply border-[var(--border)] text-[var(--primary)];
+  }
+
+  /* Badges */
+  .badge {
+    @apply bg-[var(--accent)] text-[var(--accent-foreground)] rounded-[var(--radius)];
+  }
+
+  /* Toasts */
+  .toast {
+    @apply bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)];
+  }
+
+  /* Dropdowns / Menus */
+  .dropdown-menu, .menu-content {
+    @apply bg-[var(--popover)] text-[var(--popover-foreground)] border-[var(--border)];
+  }
+
+  /* Scrollbar (optional) */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
   }
 }

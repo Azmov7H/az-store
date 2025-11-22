@@ -1,39 +1,49 @@
-import React from 'react'
-import ProductImages from '@/components/shop/ProductImages'
-import ProductInfo from '@/components/shop/ProductInfo'
-import ProductColors from '@/components/shop/ProductColors'
-import ProductActions from '@/components/shop/ProductActions'
-import { Card } from '@/components/ui/card'
-import ProductSizes from '@/components/shop/ProductSizes'
+import OrderForm from "@/components/shop/OrderForm";
+import Image from "next/image";
 
+export default async function Page({ params }) {
+  const { id } =await params; // بدون await
 
-async function GetProductByid(id) {
-  const res =await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/shoes/${id}`)
-  const data = await res.json()
-  return data
-}
-export const generateMetadata = async ({ params }) => {
-  const {id}  = await params
-  const product = await GetProductByid(id)
-  return {
-    title: product.title,
-    description: product.description,
+  const BASE_HOST = process.env.NEXT_PUBLIC_API_URL ?? "";
 
-  }
-}
-export default async function page({params}) {
-  const {id}  = await params
-  const product = await GetProductByid(id)
+  // جلب المنتج SSR
+  const productRes = await fetch(`${BASE_HOST}/api/shoe/${id}`, { cache: "no-store" });
+  if (!productRes.ok) return <div>Product not found</div>;
+  const product = await productRes.json();
+
+  // جلب القوائم SSR
+  const locationsRes = await fetch(`${BASE_HOST}/api/order/locations`, { cache: "no-store" });
+  const locations = locationsRes.ok ? await locationsRes.json() : {};
+
   return (
-    <div className='w-full grid grid-cols-1 p-2 gap-3 items-center justify-center mt-3 md:grid-cols-2'>
-      <ProductImages image={product.image} name={product.title} />
-      <Card className='flex flex-col justify-center gap-8 p-3'>
-        <ProductInfo {...product} />
-        <ProductColors colors={product.availableColors} />
-        <ProductSizes sizes={product.availableSizes} />
-        <ProductActions product={product} />
-      </Card>
+    <main className="container mx-auto py-10 px-4">
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* صورة المنتج */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden">
+          {product.image && (
+            <Image
+              src={product.image}
+              alt={product.title}
+              width={800}
+              height={600}
+              className="w-full h-[400px] md:h-[500px] object-cover"
+            />
+          )}
+        </div>
 
-    </div>
-  )
+        {/* تفاصيل المنتج + OrderForm */}
+        <div className="flex flex-col justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{product.title}</h1>
+            <p className="mt-3 text-gray-700 dark:text-gray-300">{product.description}</p>
+            <p className="mt-5 text-2xl font-semibold text-primary">{product.price} EGP</p>
+          </div>
+
+          <div className="mt-8">
+            <OrderForm product={product} initialLocations={locations} />
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }

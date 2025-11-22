@@ -8,9 +8,13 @@ export default function Homelayout({children}) {
     <div>
       
        <CartProvider>
-        <Navbar />
+        
+          <Navbar />
+          <div className="p-8 mt-8">
         {children}
+        </div>
         <Footer />
+        
         </CartProvider>   
         
     </div>

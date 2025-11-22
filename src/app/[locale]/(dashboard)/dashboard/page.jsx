@@ -1,13 +1,13 @@
 // app/orders/page.jsx
-import OrderCard from "@/components/OrderCard"
-import { fetchOrders } from "@/lib/api"
+
+import { getOrders } from "@/lib/api"
 
 export const dynamic = "force-dynamic"
 
 export default async function OrdersPage() {
   let orders = []
   try {
-    orders = await fetchOrders()
+    orders = await getOrders()
   } catch (err) {
     // handle server error (render fallback)
     orders = []

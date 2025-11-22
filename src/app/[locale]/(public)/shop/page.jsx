@@ -7,7 +7,7 @@ import Link from 'next/link'
 // Server Action – SSR fetch with revalidation
 async function getProducts() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/shoes`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/shoe`,
     { next: { revalidate: 60 } } // SSR + cache hữu–friendly
   )
 

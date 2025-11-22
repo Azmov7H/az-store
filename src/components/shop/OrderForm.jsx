@@ -1,133 +1,89 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
+  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
+  DropdownMenuLabel
+} from "@/components/ui/dropdown-menu";
 
-export default function OrderForm({ product, onClose }) {
+export default function OrderForm({ product, initialLocations }) {
   const [form, setForm] = useState({
     customerName: "",
     phone: "",
-    city: "Cairo",
+    city: Object.keys(initialLocations)[0] || "",
     district: "",
     street: "",
     selectedColor: product.availableColors[0],
     selectedSize: product.availableSizes[0],
     quantity: 1,
-  })
+  });
 
-  const [locations, setLocations] = useState({}) // هنجلب منها districts
-
-  // Fetch locations from backend
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/locations`)
-        const data = await res.json()
-        setLocations(data)
-      } catch (err) {
-        console.error("Failed to fetch locations", err)
-      }
-    }
-    fetchLocations()
-  }, [])
+  const [locations] = useState(initialLocations);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-    if (name === "city") setForm((prev) => ({ ...prev, district: "" }))
-  }
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    if (name === "city") setForm(prev => ({ ...prev, district: "" }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, product: product._id }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.message)
-      toast.success("Order placed!")
-      onClose && onClose()
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      toast.success("Order placed successfully!");
+      setForm(prev => ({ ...prev, customerName: "", phone: "", street: "", quantity: 1 }));
     } catch (err) {
-      toast.error(err.message)
+      toast.error(err.message);
     }
-  }
+  };
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        name="customerName"
-        placeholder="Full Name"
-        value={form.customerName}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        type="tel"
-        name="phone"
-        placeholder="Phone Number"
-        value={form.phone}
-        onChange={handleChange}
-        required
-      />
+      <Input name="customerName" value={form.customerName} onChange={handleChange} placeholder="Full Name" required />
+      <Input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" required />
+      <Input name="street" value={form.street} onChange={handleChange} placeholder="Street" required />
 
       {/* City */}
       <DropdownMenu>
-        <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">{form.city}</DropdownMenuTrigger>
+        <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">{form.city || "Select City"}</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>City</DropdownMenuLabel>
-          {locations && Object.keys(locations).map((c) => (
-            <DropdownMenuItem key={c} onClick={() => setForm((prev) => ({ ...prev, city: c, district: "" }))}>
-              {c}
-            </DropdownMenuItem>
+          {Object.keys(locations).map(c => (
+            <DropdownMenuItem key={c} onClick={() => setForm(prev => ({ ...prev, city: c, district: "" }))}>{c}</DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
 
       {/* District */}
       <DropdownMenu>
-        <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">
-          {form.district || "Select District"}
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">{form.district || "Select District"}</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>District</DropdownMenuLabel>
-          {form.city && locations[form.city]?.map((d) => (
-            <DropdownMenuItem key={d} onClick={() => setForm((prev) => ({ ...prev, district: d }))}>
-              {d}
-            </DropdownMenuItem>
+          {form.city && locations[form.city]?.map(d => (
+            <DropdownMenuItem key={d} onClick={() => setForm(prev => ({ ...prev, district: d }))}>{d}</DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <Input
-        type="text"
-        name="street"
-        placeholder="Street"
-        value={form.street}
-        onChange={handleChange}
-        required
-      />
 
       {/* Color */}
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">{form.selectedColor}</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Color</DropdownMenuLabel>
-          {product.availableColors.map((color) => (
-            <DropdownMenuItem key={color} onClick={() => setForm((prev) => ({ ...prev, selectedColor: color }))}>
-              {color}
-            </DropdownMenuItem>
+          {product.availableColors.map(color => (
+            <DropdownMenuItem key={color} onClick={() => setForm(prev => ({ ...prev, selectedColor: color }))}>{color}</DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -137,15 +93,15 @@ export default function OrderForm({ product, onClose }) {
         <DropdownMenuTrigger className="w-full border px-3 py-2 rounded">{form.selectedSize}</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Size</DropdownMenuLabel>
-          {product.availableSizes.map((size) => (
-            <DropdownMenuItem key={size} onClick={() => setForm((prev) => ({ ...prev, selectedSize: size }))}>
-              {size}
-            </DropdownMenuItem>
+          {product.availableSizes.map(size => (
+            <DropdownMenuItem key={size} onClick={() => setForm(prev => ({ ...prev, selectedSize: size }))}>{size}</DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button type="submit" className="bg-primary text-white">Confirm Order</Button>
+      <Button type="submit" className="bg-primary text-white py-3 rounded-lg hover:bg-primary/90 transition">
+        Confirm Order
+      </Button>
     </form>
-  )
+  );
 }

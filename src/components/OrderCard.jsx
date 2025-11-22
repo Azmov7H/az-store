@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { fetchProductById } from "@/lib/api"
+import { getOrderById } from "@/lib/api"
 import OrderDialog from "./OrderDialog"
 
 import {
@@ -26,7 +26,7 @@ export default function OrderCard({ order, onUpdated, onDeleted }) {
   useEffect(() => {
     ;(async () => {
       try {
-        const p = await fetchProductById(order.product)
+        const p = await getOrderById(order.product)
         setProduct(p)
       } catch {}
     })()

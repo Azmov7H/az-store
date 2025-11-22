@@ -6,7 +6,7 @@ import Testimonials from '@/components/home/Testimonials';
 export default async function Home() {
 
   return (
-    <main className="p-8 mt-4">
+    <main className="p-8 ">
 
       <Hero />
       <Fetcher />

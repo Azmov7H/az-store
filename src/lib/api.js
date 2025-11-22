@@ -1,7 +1,7 @@
 // lib/api.js
 
 // ================== SHOE ==================
-const BASE_SHOE = `${process.env.NEXT_PUBLIC_API_UR}/api/shoe`
+const BASE_SHOE = `${process.env.NEXT_PUBLIC_API_URL}/api/shoe`
 
 export async function getShoes() {
   const res = await fetch(BASE_SHOE, { cache: "no-store" });

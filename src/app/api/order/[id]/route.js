@@ -1,50 +1,36 @@
-import Shoe from "@/lib/models/Shoe";
-import connectDB from "@/lib/mongodb";
+import { connectDB } from "@/lib/mongodb";
+import Order from "@/models/Order";
 
-export async function GET(req, context) {
-  await connectDB();
+connectDB();
 
-  const { id } = await context.params;
-
+export async function GET(req, { params }) {
+  const { id } = await params; // ⚠️ في Next.js 16 params ليست promise
   try {
-    const shoe = await Shoe.findById(id);
-
-    if (!shoe) {
-      return new Response(JSON.stringify({ error: "Shoe not found" }), {
-        status: 404,
-      });
-    }
-
-    return new Response(JSON.stringify(shoe), { status: 200 });
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "Failed to fetch product" }),
-      { status: 500 }
-    );
+    const order = await Order.findById(id).populate("product");
+    if (!order) return new Response(JSON.stringify({ error: "Order not found" }), { status: 404 });
+    return new Response(JSON.stringify(order), { status: 200 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
 }
 
-export async function DELETE(req, context) {
-  await connectDB();
-
-  const { id } = await context.params;
-
+export async function PUT(req, { params }) {
+  const { id } = params;
+  const data = await req.json();
   try {
-    const deleted = await Shoe.findByIdAndDelete(id);
+    const updatedOrder = await Order.findByIdAndUpdate(id, data, { new: true });
+    return new Response(JSON.stringify(updatedOrder), { status: 200 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+  }
+}
 
-    if (!deleted) {
-      return new Response(JSON.stringify({ error: "Shoe not found" }), {
-        status: 404,
-      });
-    }
-
-    return new Response(JSON.stringify({ message: "Deleted" }), {
-      status: 200,
-    });
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "Delete failed" }),
-      { status: 500 }
-    );
+export async function DELETE(req, { params }) {
+  const { id } = params;
+  try {
+    await Order.findByIdAndDelete(id);
+    return new Response(JSON.stringify({ message: "Order deleted" }), { status: 200 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
 }

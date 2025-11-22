@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "sonner"
-import { updateOrder, fetchProductById } from "@/lib/api"
+import { updateOrder, getOrderById } from "@/lib/api"
 
 export default function OrderDialog({ open, setOpen, order, onUpdated }) {
 
@@ -46,7 +46,7 @@ export default function OrderDialog({ open, setOpen, order, onUpdated }) {
 
       ;(async () => {
         try {
-          const prod = await fetchProductById(order.product)
+          const prod = await getOrderById(order.product)
           setProduct(prod)
         } catch {}
       })()

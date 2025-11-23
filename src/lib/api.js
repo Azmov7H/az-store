@@ -42,7 +42,7 @@ export async function deleteShoe(id) {
 }
 
 // ================== ORDER ==================
-const BASE_ORDER =  `${process.env.NEXT_PUBLIC_API_UR}/order`;
+const BASE_ORDER =  `${process.env.NEXT_PUBLIC_API_URL}/api/order`;
 
 export async function getOrders() {
   const res = await fetch(BASE_ORDER, { cache: "no-store" });

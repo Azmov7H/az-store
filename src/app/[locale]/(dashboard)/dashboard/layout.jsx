@@ -1,17 +1,24 @@
-import React from 'react'
+import React from "react"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 
-export default function Dashboardlayout({children}) {
+export default function Dashboardlayout({ children }) {
   return (
-    <div>
-      <SidebarProvider>
+    <SidebarProvider>
+      <div className="flex min-h-screen bg-background">
+        
+        {/* Sidebar ثابتة */}
         <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-      </SidebarProvider>
-    </div>
+
+        {/* Main Content */}
+        <main className="flex-1 px-6 py-4">
+
+          {/* زر فتح/إغلاق السايدبار */}
+          <SidebarTrigger className="mb-4" />
+
+          {children}
+        </main>
+      </div>
+    </SidebarProvider>
   )
 }

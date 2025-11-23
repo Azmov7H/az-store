@@ -8,6 +8,7 @@ export default async function OrdersPage() {
   let orders = []
   try {
     orders = await getOrders()
+    console.log(orders)
   } catch (err) {
     // handle server error (render fallback)
     orders = []

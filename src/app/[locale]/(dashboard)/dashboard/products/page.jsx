@@ -1,22 +1,24 @@
 "use client"
-import React, { useEffect, useState } from "react"
+
+import { useEffect, useState } from "react"
 import ProductCard from "@/components/ShoeCard"
 import ProductDialog from "@/components/ProductDialog"
 import { getShoes, createShoe, updateShoe, deleteShoe } from "@/lib/api"
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner" // أو أي مكتبة toast تستخدمها
+import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function ProductsPage() {
   const [shoes, setShoes] = useState([])
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const fetchShoes = async () => {
     try {
       setLoading(true)
       const data = await getShoes()
-      setShoes(data)
+      setShoes(data.shoes)
     } catch (err) {
       console.error(err)
       toast.error("Failed to load products.")
@@ -38,24 +40,23 @@ export default function ProductsPage() {
     try {
       if (selected) {
         await updateShoe(selected._id, form)
-        toast.success("Product updated!")
+        toast.success("Product updated successfully.")
       } else {
         await createShoe(form)
-        toast.success("Product created!")
+        toast.success("Product created successfully.")
       }
       setOpen(false)
       fetchShoes()
     } catch (err) {
       console.error(err)
-      toast.error("Failed to submit product.")
+      toast.error("Failed to save product.")
     }
   }
 
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this product?")) return
     try {
       await deleteShoe(id)
-      toast.success("Product deleted!")
+      toast.success("Product deleted.")
       fetchShoes()
     } catch (err) {
       console.error(err)
@@ -64,24 +65,33 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="p-6 ">
-      <div className="flex justify-between mb-4 items-center">
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-bold">Products</h1>
         <Button onClick={handleCreate}>+ Add Product</Button>
       </div>
 
       {loading ? (
-        <div className="text-center py-5 text-gray-500">Loading...</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <Skeleton key={i} className="h-60 w-full rounded-lg" />
+          ))}
+        </div>
       ) : shoes.length === 0 ? (
-        <div className="text-center py-10 text-gray-500">No products found.</div>
+        <p className="text-center text-muted-foreground py-10">
+          No products found.
+        </p>
       ) : (
-        <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {shoes.map((shoe) => (
             <ProductCard
               key={shoe._id}
-              shoe={shoe}
-              onEdit={(s) => { setSelected(s); setOpen(true) }}
-              onDelete={handleDelete}
+              product={shoe}
+              onEdit={() => {
+                setSelected(shoe)
+                setOpen(true)
+              }}
+              onDelete={() => handleDelete(shoe._id)}
             />
           ))}
         </div>

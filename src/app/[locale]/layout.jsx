@@ -62,7 +62,7 @@ export default async function LocaleLayout({ children, params }) {
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange>
-            <Toaster  />
+            <Toaster   position="top-right" richColors/>
           {children}
           </ThemeProvider>
         </NextIntlClientProvider>

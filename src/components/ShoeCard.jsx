@@ -1,38 +1,38 @@
 "use client"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
+
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
 
-export default function ProductCard({ shoe, onEdit, onDelete }) {
+export default function ProductCard({ product, onEdit, onDelete }) {
   return (
-    <Card className="rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all">
-      <CardHeader className="p-0">
-        <div className="relative w-full h-48">
-          <Image
-            src={shoe.image}
-            alt={shoe.title}
-            fill
-            className="object-cover"
-          />
-        </div>
+    <Card className="rounded-lg shadow-md hover:shadow-lg transition-shadow">
+      <CardHeader className="p-2">
+        <CardTitle className="text-lg font-bold">{product.title}</CardTitle>
       </CardHeader>
-
-      <CardContent className="p-4 space-y-1">
-        <CardTitle className="text-lg">{shoe.title}</CardTitle>
-        <p className="text-muted-foreground text-sm">{shoe.description}</p>
-
-        <div className="flex items-center justify-between pt-2">
-          <p className="font-semibold">${shoe.price}</p>
-          <Badge>{shoe.category}</Badge>
-        </div>
+      <CardContent className="p-2">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-40 object-cover rounded-md mb-2"
+        />
+        <p className="text-sm text-muted-foreground">{product.description}</p>
+        <p className="mt-2 font-semibold">Price: {product.price} EGP</p>
+        {product.discount > 0 && (
+          <p className="text-sm text-red-500">Discount: {product.discount}%</p>
+        )}
+        <p className="text-sm mt-1">Stock: {product.stock}</p>
+        <p className="text-sm mt-1">
+          Sizes: {product.availableSizes?.join(", ")}
+        </p>
+        <p className="text-sm mt-1">
+          Colors: {product.availableColors?.join(", ")}
+        </p>
       </CardContent>
-
-      <CardFooter className="flex justify-between p-4">
-        <Button variant="outline" onClick={() => onEdit(shoe)}>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline" size="sm" onClick={onEdit}>
           Edit
         </Button>
-        <Button variant="destructive" onClick={() => onDelete(shoe._id)}>
+        <Button variant="destructive" size="sm" onClick={onDelete}>
           Delete
         </Button>
       </CardFooter>

@@ -1,18 +1,20 @@
 // lib/api.js
 
 // ================== SHOE ==================
-const BASE_SHOE = `${process.env.NEXT_PUBLIC_API_URL}/api/shoe`
+const BASE_SHOE = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes`
 
 export async function getShoes() {
   const res = await fetch(BASE_SHOE, { cache: "no-store" });
+  const data =await res.json()
+  
   if (!res.ok) throw new Error("Failed to fetch shoes");
-  return res.json();
+  return data.data || []
 }
 
 export async function getShoeById(id) {
   const res = await fetch(`${BASE_SHOE}/${id}`);
-  if (!res.ok) throw new Error("Failed to fetch shoe");
-  return res.json();
+  const data =await res.json()
+  return data.data
 }
 
 export async function createShoe(data) {
@@ -42,7 +44,7 @@ export async function deleteShoe(id) {
 }
 
 // ================== ORDER ==================
-const BASE_ORDER =  `${process.env.NEXT_PUBLIC_API_URL}/api/order`;
+const BASE_ORDER =  `${process.env.NEXT_PUBLIC_API_URL}/api/orders`;
 
 export async function getOrders() {
   const res = await fetch(BASE_ORDER, { cache: "no-store" });

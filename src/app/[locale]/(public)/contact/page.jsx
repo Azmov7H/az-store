@@ -1,47 +1,101 @@
 "use client"
-import React, { useState } from "react"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
 
-export default function CommentForm({ onAdded }) {
-  const [form, setForm] = useState({ username: "", email: "", commit: "" })
+export default function ContactPage() {
   const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" })
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    setForm(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.username || !form.email || !form.commit) return toast.error("All fields required")
     setLoading(true)
+
     try {
-      const res = await fetch("http://127.0.0.1:5000/api/commit", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       })
-      if (!res.ok) throw new Error("Failed to submit comment")
-      const newComment = await res.json()
-      toast.success("Comment added!")
-      setForm({ username: "", email: "", commit: "" })
-      onAdded && onAdded(newComment)
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error || "Something went wrong")
+
+      setForm({ name: "", email: "", phone: "", message: "" })
+      toast({ title: "Success", description: data.message || "Message sent successfully" })
     } catch (err) {
-      toast.error(err.message)
+      console.error(err)
+      toast({ title: "Error", description: err.message || "Failed to send message" })
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <Input name="username" placeholder="Your Name" value={form.username} onChange={handleChange} />
-      <Input name="email" type="email" placeholder="Your Email" value={form.email} onChange={handleChange} />
-      <Textarea name="commit" placeholder="Your Comment" value={form.commit} onChange={handleChange} />
-      <Button type="submit" disabled={loading}>{loading ? "Submitting..." : "Submit"}</Button>
-    </form>
+    <div className="max-w-3xl mx-auto p-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Contact Us</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="phone">Phone (optional)</Label>
+              <Input
+                id="phone"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label htmlFor="message">Message</Label>
+              <Textarea
+                id="message"
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

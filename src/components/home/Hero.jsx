@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Logo from "../layout/Logo";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function Hero() {
   const t = useTranslations("Hero");
@@ -36,14 +37,9 @@ export default function Hero() {
 
     <div className="flex flex-col md:flex-row justify-center gap-4">
       <Button className="px-8 py-4  font-bold rounded-xl hover:scale-105 hover:bg-yellow-400 transition-all">
+        <Link href={"/shop"}>
         {t("shopNow")}
-      </Button>
-
-      <Button
-        variant="outline"
-        className="px-8 py-4  hover:bg-white hover:text-black transition-all"
-      >
-        {t("exploreMore")}
+        </Link>
       </Button>
     </div>
   </div>

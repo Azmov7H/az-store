@@ -9,10 +9,15 @@ import { ModeToggle } from "./Toggle";
 import Logo from "./Logo";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useContext } from "react";
+import { CartContext } from "@/context/ClientLayout";
+import { Badge } from "@/components/ui/badge";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Navbar");
+  const cart = useContext(CartContext);
+  const itemCount = cart?.items?.reduce((a, c) => a + c.quantity, 0) || 0;
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background shadow-md border-b border-border">
@@ -39,13 +44,22 @@ export default function Navbar() {
         <div className=" flex items-center gap-3">
           
 
-          <Link
-            href="/cart"
-            className="p-2 rounded-full hover:bg-primary/10 transition-colors"
-            aria-label={t("cart")}
-          >
-            <ShoppingBag className="h-5 w-5 text-foreground" />
-          </Link>
+              <Link
+      href="/cart"
+      className="relative p-2 rounded-full hover:bg-primary/10 transition-colors"
+      aria-label={t("cart")}
+    >
+      <ShoppingBag className="h-5 w-5 text-foreground" />
+
+      {itemCount > 0 && (
+        <Badge
+          className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] h-4 w-4 flex items-center justify-center p-0"
+        >
+          {itemCount}
+        </Badge>
+      )}
+    </Link>
+  
           <div className="hidden md:flex gap-2 items-center">
             <ModeToggle />
 

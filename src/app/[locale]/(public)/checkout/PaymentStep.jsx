@@ -13,7 +13,7 @@ export default function PaymentStep({ formData, items, clear, onBack }) {
     (sum, item) => sum + item.price * item.quantity * (1 - (item.discount || 0)/100),
     0
   )
-  const shipping = items.length >= 3 ? 0 : 10
+  const shipping = items.length >= 3 ? 0 : 50
   const total = subtotal + shipping
 
   const handleSubmit = async () => {

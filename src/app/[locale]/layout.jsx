@@ -94,27 +94,7 @@ export default async function LocaleLayout({ children, params }) {
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
-        <script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Store",
-      name: "Ali-store",
-      url: "https://ali-store-sh.vercel.app",
-      logo: "https://ali-store-sh.vercel.app/logo.png",
-      image:
-        "https://res.cloudinary.com/do15wh7gm/image/upload/v1764809161/e4293e74-e1a7-4857-9c83-81ac3a27162d_wgjcjk.jpg",
-      description:
-        "Premium online shoe store offering Nike, Adidas, Puma and more.",
-      sameAs: [
-        "https://twitter.com/AliStore",
-        "https://instagram.com/AliStore",
-        "https://facebook.com/AliStore"
-      ]
-    })
-  }}
-/>
+
 
         <NextIntlClientProvider messages={config.messages}>
           <ThemeProvider attribute="class"

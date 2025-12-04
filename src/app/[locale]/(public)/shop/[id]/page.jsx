@@ -3,7 +3,7 @@ import { getShoeById } from "@/lib/api";
 
 
 export async function generateMetadata({ params }) {
-  const { id } =await params;
+  const { id } = await params;
   const product = await getShoeById(id);
 
   return {
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
           alt: product.title
         }
       ],
-      type: "product",
+      type: "article",
     },
     twitter: {
       card: "summary_large_image",
@@ -40,5 +40,30 @@ export default async function ProductSSRPage({ params }) {
 
   const product = await getShoeById(id)
 
-  return <ProductPage product={product} />;
+  return(
+  <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.title,
+          image: product.image,
+          description: product.description,
+          brand: "Ali-store",
+          offers: {
+            "@type": "Offer",
+            url: `https://ali-store-sh.vercel.app/en/shop/${id}`,
+            priceCurrency: "USD",
+            price: product.price,
+            availability: "https://schema.org/InStock"
+          }
+        })
+      }}
+    />
+    <ProductPage product={product} />
+
+  </>
+  )
 }

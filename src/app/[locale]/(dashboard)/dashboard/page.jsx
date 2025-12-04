@@ -37,65 +37,62 @@ export default async function OrdersPage({ params }) {
 
 function OrderCard({ order , t}) {
   return (
-    <Card className="border border-border rounded-xl">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold">
-           {order.orderId}
-        </CardTitle>
-      </CardHeader>
+<Card className="border border-border rounded-xl flex flex-col justify-between h-full p-4">
+  <CardHeader>
+    <CardTitle className="text-lg font-semibold truncate">{order.orderId}</CardTitle>
+  </CardHeader>
 
-      <CardContent className="space-y-4 text-sm">
-        {/* Customer Section */}
-        <Section title={t("customerInfo")}>
-          <Item label={"Name"} value={order.customerName} />
-          <Item label={"customerEmail"} value={order.customerEmail} />
-          <Item label={"customerPhone"} value={order.customerPhone} />
-        </Section>
+  <CardContent className="flex flex-col gap-4 text-sm">
+    <Section title={t("customerInfo")}>
+      <Item label={t("name")} value={order.customerName} />
+      <Item label={t("email")} value={order.customerEmail} />
+      <Item label={t("phone")} value={order.customerPhone} />
+    </Section>
 
-        {/* Address Section */}
-        <Section title={t("address")}>
-          <Item label={t("city")} value={order.customerCity} />
-          <Item label={t("district")} value={order.customerDistrict} />
-          <Item label={t("street")} value={order.customerStreet} />
-        </Section>
+    <Section title={t("address")}>
+      <Item label={t("city")} value={order.customerCity} />
+      <Item label={t("district")} value={order.customerDistrict} />
+      <Item label={t("street")} value={order.customerStreet} />
+    </Section>
 
-        {/* Products */}
-        <Section title={t("products")}>
-          <div className="space-y-2">
-            {order.products.map((p, idx) => (
-              <Card key={idx} className="bg-muted/40 p-3 border">
-                <p><strong>{t("productName")}:</strong> {p.title}</p>
-                <p><strong>{t("price")}:</strong> {p.price} {t("currency")}</p>
-                <p><strong>{t("quantity")}:</strong> {p.quantity}</p>
-                <p><strong>{t("color")}:</strong> {p.selectedColor || t("noValue")}</p>
-                <p><strong>{t("size")}:</strong> {p.selectedSize || t("noValue")}</p>
-              </Card>
-            ))}
+    <Section title={t("products")}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {order.products.map((p, idx) => (
+          <div key={idx} className="bg-muted/10 p-2 border rounded-md">
+            <p><strong>{t("productName")}:</strong> {p.title}</p>
+            <p><strong>{t("price")}:</strong> {p.price} {t("currency")}</p>
+            <p><strong>{t("quantity")}:</strong> {p.quantity}</p>
+            <p><strong>{t("color")}:</strong> {p.selectedColors || t("noValue")}</p>
+            <p><strong>{t("size")}:</strong> {p.selectedSizes || t("noValue")}</p>
           </div>
-        </Section>
+        ))}
+      </div>
+    </Section>
 
-        {/* Price Info */}
-        <Section title={t("pricing")}>
-          <Item label={t("subtotal")} value={`${order.subtotal} ${t("currency")}`} />
-          <Item label={t("discount")} value={`${order.discount} ${t("currency")}`} />
-          <Item label={t("total")} value={`${order.total} ${t("currency")}`} />
-        </Section>
+    <Section title={t("pricing")}>
+      <Item label={t("subtotal")} value={`${order.subtotal} ${t("currency")}`} />
+      <Item label={t("discount")} value={`${order.discount} ${t("currency")}`} />
+      <Item label={t("total")} value={`${order.total} ${t("currency")}`} />
+    </Section>
 
-        {/* Status */}
-        <div className="flex items-center gap-2">
-          <strong>{t("status")}:</strong>
-          <Badge variant={order.status === "pending" ? "secondary" : "default"}>
-            {t(`status_${order.status}`)}
-          </Badge>
-        </div>
+    <div className="flex items-center justify-between mt-2">
+      <Badge
+        className={cn(
+          "text-white px-2 py-1 rounded-full text-xs",
+          order.status === "pending" ? "bg-yellow-500" :
+          order.status === "completed" ? "bg-green-500" :
+          "bg-red-500"
+        )}
+      >
+        {t(`status_${order.status}`)}
+      </Badge>
+      <span className="text-xs text-muted-foreground">
+        {new Date(order.createdAt).toLocaleDateString()} 
+      </span>
+    </div>
+  </CardContent>
+</Card>
 
-        {/* Date */}
-        <Item
-          label={t("createdAt")}
-          value={new Date(order.createdAt).toLocaleString()}
-        />
-      </CardContent>
-    </Card>
   )
 }
 

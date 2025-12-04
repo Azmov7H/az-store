@@ -64,109 +64,121 @@ export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-xl">
+      <DialogContent
+        className="
+          w-full 
+          max-w-lg 
+          md:max-w-2xl 
+          lg:max-w-3xl 
+          max-h-[90vh] 
+          p-4
+        "
+      >
         <DialogHeader>
-          <DialogTitle>{defaultData?._id ? t("editProduct") : t("addProduct")}</DialogTitle>
+          <DialogTitle>
+            {defaultData?._id ? t("editProduct") : t("addProduct")}
+          </DialogTitle>
         </DialogHeader>
 
-        <ScrollArea className="grid gap-4 py-4">
+        <ScrollArea className="max-h-[65vh] px-1">
+          <div className="grid gap-4 py-2">
 
-          {/* Title */}
-          <div className="flex flex-col gap-2">
-            <Label>{t("productName")}</Label>
-            <Input
-              value={form.title}
-              onChange={(e) => handleChange("title", e.target.value)}
-              placeholder={t("enterProductName")}
-            />
-          </div>
-
-          {/* Price & Discount */}
-          <div className="grid grid-cols-2 gap-4">
+            {/* Title */}
             <div className="flex flex-col gap-2">
-              <Label>{t("price")}</Label>
+              <Label>{t("productName")}</Label>
               <Input
-                type="number"
-                value={form.price}
-                onChange={(e) => handleChange("price", e.target.value)}
-                placeholder={t("enterPrice")}
+                value={form.title}
+                onChange={(e) => handleChange("title", e.target.value)}
+                placeholder={t("enterProductName")}
               />
             </div>
+
+            {/* Price & Discount */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label>{t("price")}</Label>
+                <Input
+                  type="number"
+                  value={form.price}
+                  onChange={(e) => handleChange("price", e.target.value)}
+                  placeholder={t("enterPrice")}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>{t("discount")}</Label>
+                <Input
+                  type="number"
+                  value={form.discount}
+                  onChange={(e) => handleChange("discount", e.target.value)}
+                  placeholder={t("enterDiscount")}
+                />
+              </div>
+            </div>
+
+            {/* Stock & Category */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label>{t("stock")}</Label>
+                <Input
+                  type="number"
+                  value={form.stock}
+                  onChange={(e) => handleChange("stock", e.target.value)}
+                  placeholder={t("enterStock")}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>{t("category")}</Label>
+                <Input
+                  value={form.category}
+                  onChange={(e) => handleChange("category", e.target.value)}
+                  placeholder={t("enterCategory")}
+                />
+              </div>
+            </div>
+
+            {/* Sizes & Colors */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label>{t("sizes")}</Label>
+                <Input
+                  value={form.sizes}
+                  onChange={(e) => handleChange("sizes", e.target.value)}
+                  placeholder={t("enterSizesCommaSeparated")}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>{t("colors")}</Label>
+                <Input
+                  value={form.colors}
+                  onChange={(e) => handleChange("colors", e.target.value)}
+                  placeholder={t("enterColorsCommaSeparated")}
+                />
+              </div>
+            </div>
+
+            {/* Description */}
             <div className="flex flex-col gap-2">
-              <Label>{t("discount")}</Label>
+              <Label>{t("description")}</Label>
+              <Textarea
+                value={form.description}
+                onChange={(e) => handleChange("description", e.target.value)}
+                placeholder={t("enterDescription")}
+              />
+            </div>
+
+            {/* Image URL */}
+            <div className="flex flex-col gap-2">
+              <Label>{t("imageUrl")}</Label>
               <Input
-                type="number"
-                value={form.discount}
-                onChange={(e) => handleChange("discount", e.target.value)}
-                placeholder={t("enterDiscount")}
+                value={form.image}
+                onChange={(e) => handleChange("image", e.target.value)}
+                placeholder={t("enterImageUrl")}
               />
             </div>
           </div>
-
-          {/* Stock & Category */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <Label>{t("stock")}</Label>
-              <Input
-                type="number"
-                value={form.stock}
-                onChange={(e) => handleChange("stock", e.target.value)}
-                placeholder={t("enterStock")}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>{t("category")}</Label>
-              <Input
-                value={form.category}
-                onChange={(e) => handleChange("category", e.target.value)}
-                placeholder={t("enterCategory")}
-              />
-            </div>
-          </div>
-
-          {/* Sizes & Colors */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <Label>{t("sizes")}</Label>
-              <Input
-                value={form.sizes}
-                onChange={(e) => handleChange("sizes", e.target.value)}
-                placeholder={t("enterSizesCommaSeparated")}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>{t("colors")}</Label>
-              <Input
-                value={form.colors}
-                onChange={(e) => handleChange("colors", e.target.value)}
-                placeholder={t("enterColorsCommaSeparated")}
-              />
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="flex flex-col gap-2">
-            <Label>{t("description")}</Label>
-            <Textarea
-              value={form.description}
-              onChange={(e) => handleChange("description", e.target.value)}
-              placeholder={t("enterDescription")}
-            />
-          </div>
-
-          {/* Image URL */}
-          <div className="flex flex-col gap-2">
-            <Label>{t("imageUrl")}</Label>
-            <Input
-              value={form.image}
-              onChange={(e) => handleChange("image", e.target.value)}
-              placeholder={t("enterImageUrl")}
-            />
-          </div>
-
         </ScrollArea>
 
-        <DialogFooter className="flex justify-end gap-2">
+        <DialogFooter className="flex justify-end gap-2 pt-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             {t("cancel")}
           </Button>

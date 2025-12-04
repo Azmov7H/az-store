@@ -29,17 +29,32 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-max">
+      <DialogContent
+        className="
+          w-full
+          max-w-lg
+          sm:max-w-xl
+          md:max-w-2xl
+          lg:max-w-3xl
+          max-h-[90vh]
+          overflow-y-auto
+          p-4
+        "
+      >
         <DialogHeader>
-          <DialogTitle>{product.title}</DialogTitle>
-          <DialogDescription>{product.description.length > 40
-    ? product.description.slice(0, 40) + "..."
-    : product.description}</DialogDescription>
+          <DialogTitle className="text-xl sm:text-2xl">{product.title}</DialogTitle>
+
+          <DialogDescription className="text-sm sm:text-base">
+            {product.description.length > 60
+              ? product.description.slice(0, 60) + "..."
+              : product.description}
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
           {/* Image */}
-          <div className="relative h-80 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+          <div className="relative w-full h-64 sm:h-72 md:h-80 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
             <Image
               src={product.image || "/placeholder.svg"}
               alt={product.title}
@@ -53,27 +68,30 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
 
             {/* Price */}
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-2xl font-bold">${finalPrice.toFixed(2)}</span>
                 {discount > 0 && (
                   <>
-                    <span className="line-through opacity-60">${product.price.toFixed(2)}</span>
+                    <span className="line-through opacity-60">
+                      ${product.price.toFixed(2)}
+                    </span>
                     <Badge className="bg-red-600 text-white">-{discount}%</Badge>
                   </>
                 )}
               </div>
             </div>
 
-            {/* Color */}
+            {/* Colors */}
             {product.availableColors?.length > 0 && (
               <div>
                 <label className="text-sm font-semibold">{t("color")}</label>
-                <div className="flex gap-3 mt-2">
+                <div className="flex flex-wrap gap-3 mt-2">
                   {product.availableColors.map((color) => (
                     <Button
                       key={color}
                       variant={selectedColor === color ? "default" : "outline"}
                       onClick={() => setSelectedColor(color)}
+                      className="text-sm"
                     >
                       {color}
                     </Button>
@@ -82,7 +100,7 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
               </div>
             )}
 
-            {/* Size */}
+            {/* Sizes */}
             {product.availableSizes?.length > 0 && (
               <div>
                 <label className="text-sm font-semibold">{t("size")}</label>
@@ -92,6 +110,7 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
                       key={size}
                       variant={selectedSize === size ? "default" : "outline"}
                       onClick={() => setSelectedSize(size)}
+                      className="text-sm"
                     >
                       {size}
                     </Button>
@@ -107,6 +126,7 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
                 <Button variant="outline" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                   −
                 </Button>
+
                 <input
                   type="number"
                   value={quantity}
@@ -115,6 +135,7 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
                   }
                   className="w-16 text-center border rounded"
                 />
+
                 <Button variant="outline" onClick={() => setQuantity(quantity + 1)}>
                   +
                 </Button>
@@ -131,7 +152,7 @@ export default function ProductDialog({ product, open, onClose, onAddToCart }) {
           </div>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="mt-4">
           <AddToCartButton
             onClick={() => onAddToCart(quantity, selectedColor, selectedSize)}
             disabled={product.stock === 0}

@@ -5,50 +5,36 @@ import { ThemeProvider } from "@/components/context/theme-provider";
 import { NextIntlClientProvider } from 'next-intl';
 import requestConfig from '../../i18n/request';
 export const metadata = {
-  title: "Az-store",
-  description:
-    "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
-  icons: {
-    icon: "/favicon.ico",
-  },
-  robots: {
-    follow: true,
-    index: true,
-  },
+  title: "Ali-store",
+  description: "Ali-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+  icons: { icon: "/favicon.ico" },
+  robots: { follow: true, index: true },
   openGraph: {
-    title: "Az-store",
-    description:
-      "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
-    url: "https://az-store.vercel.app",
-    siteName: "Az-store",
+    title: "Ali-store",
+    description: "Ali-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    url: "https://ali-store-sh.vercel.app",
+    siteName: "Ali-store",
     locale: "en_US",
+    image: "https://res.cloudinary.com/do15wh7gm/image/upload/v1764809161/e4293e74-e1a7-4857-9c83-81ac3a27162d_wgjcjk.jpg", // استخدم رابط ثابت
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Az-store",
-    description:
-      "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    title: "Ali-store",
+    description: "Ali-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    image: "https://res.cloudinary.com/do15wh7gm/image/upload/v1764809161/e4293e74-e1a7-4857-9c83-81ac3a27162d_wgjcjk.jpg",
   },
   keywords: [
-    "az-store",
-    "az-store e-commerce",
-    "az-store e-commerce store",
-    "az-store e-commerce store for all your needs",
-    "az-store e-commerce store for all your needs Nike",
-    "az-store e-commerce store for all your needs Nike, Adidas",
-    "az-store e-commerce store for all your needs Nike, Adidas, Puma",
-    "az-store e-commerce store for all your needs Nike, Adidas, Puma and many more",
+    "ali-store",
+    "e-commerce store",
+    "Nike, Adidas, Puma",
+    "online shopping"
   ],
-  authors: [
-    {
-      name: "Az-store",
-      url: "https://az-store.vercel.app",
-    },
-  ],
-  creator: "ali nagy",
-  publisher: "az-store",
+  authors: [{ name: "Ali Store", url: "https://ali-store-sh.vercel.app" }],
+  creator: "Ali Nagy",
+  publisher: "Ali-store",
 };
+
 
 
 export default async function LocaleLayout({ children, params }) {

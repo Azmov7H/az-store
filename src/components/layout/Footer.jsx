@@ -6,11 +6,15 @@ import { useTranslations } from "next-intl";
 export default function Footer() {
   const t = useTranslations("Footer");
 
-  return (
-    <footer className="relative shadow shadow-accent  pt-16 pb-4 overflow-hidden">
-      {/* Wave Shape */}
+  const sochal = [
+   { id:1, icon:<Facebook/>,link:"https://www.facebook.com/profile.php?id=61584102225161" },
+   { id:2, icon:<Instagram/>,link:"" },
+   { id:3, icon:<Twitter/>,link:"" }
+  ]
 
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 relative z-10">
+  return (
+    <footer className="relative shadow shadow-accent pt-16 pb-4 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 relative z-10">
         {/* Brand */}
         <div>
           <h2 className="text-2xl font-bold text-yellow-400 mb-4">{t("brand")}</h2>
@@ -32,21 +36,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Categories */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">{t("categories")}</h3>
-          <ul className="space-y-2">
-            {["men","women","kids","accessories"].map((cat) => (
-              <li
-                key={cat}
-                className="hover:text-yellow-400 cursor-pointer transition-colors duration-300"
-              >
-                {t(cat)}
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Contact & Social */}
         <div>
           <h3 className="font-semibold text-lg mb-4">{t("contact")}</h3>
@@ -62,11 +51,12 @@ export default function Footer() {
             </li>
           </ul>
           <div className="flex gap-4 mt-6">
-            {[Facebook, Instagram, Twitter].map((Icon, idx) => (
-              <Icon
-                key={idx}
-                className="w-6 h-6 text-gray-300 hover:text-yellow-400 transition-transform transform hover:-translate-y-1 cursor-pointer"
-              />
+            {sochal.map((sh) => (
+              <a key={sh.id} href={sh.link}>
+                {sh.icon}
+                
+                
+              </a>
             ))}
           </div>
         </div>

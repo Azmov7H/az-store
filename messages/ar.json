@@ -7,15 +7,15 @@
     "home": "الرئيسية",
     "shop": "المتجر",
     "about": "حول",
+    "cart": "السلة",
     "contact": "اتصل بنا",
     "menu": "القائمة",
     "language": "عربي"
   },
   "Hero": {
-    "title": "ادخل عالم {brand} للأناقة",
-    "subtitle": "اكتشف أفضل الماركات، الراحة المميزة، وعروض حصرية تصل إلى {discount}.",
-    "shopNow": "تسوق الآن",
-    "exploreMore": "استكشف المزيد"
+"title": "أهلاً بك في <brand></brand>",
+    "subtitle": "خصومات تصل إلى <discount></discount>",
+    "shopNow": "تسوق الآن"
   },
   "Footer": {
     "brand": "AN Store",

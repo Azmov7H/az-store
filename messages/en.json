@@ -12,10 +12,9 @@
     "language": "EN"
   },
   "Hero": {
-    "title": "Step Into {brand} Style",
-    "subtitle": "Discover top brands, premium comfort, and exclusive deals up to {discount}.",
-    "shopNow": "Shop Now",
-    "exploreMore": "Explore More"
+"title": "Welcome to <brand></brand>",
+    "subtitle": "Enjoy up to <discount></discount>",
+    "shopNow": "Shop Now"
   },
   "Footer": {
     "brand": "AN Store",

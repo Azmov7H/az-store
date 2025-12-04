@@ -1,21 +1,26 @@
 "use client"
 
+import Image from "next/image"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export default function ProductCard({ product, onEdit, onDelete }) {
   return (
-    <Card className="rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <Card className="flex flex-col   border rounded-lg p-4  shadow-sm hover:shadow-md transition-all">
       <CardHeader className="p-2">
         <CardTitle className="text-lg font-bold">{product.title}</CardTitle>
       </CardHeader>
-      <CardContent className="p-2">
-        <img
+      <CardContent>
+        <Image
           src={product.image}
           alt={product.title}
           className="w-full h-40 object-cover rounded-md mb-2"
+          width={400}
+          height={160}
         />
-        <p className="text-sm text-muted-foreground">{product.description}</p>
+        <p className="text-sm text-muted-foreground">  {product.description.length > 40
+    ? product.description.slice(0, 40) + "..."
+    : product.description}</p>
         <p className="mt-2 font-semibold">Price: {product.price} EGP</p>
         {product.discount > 0 && (
           <p className="text-sm text-red-500">Discount: {product.discount}%</p>

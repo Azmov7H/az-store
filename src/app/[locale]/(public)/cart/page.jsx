@@ -175,7 +175,7 @@ export default function Cart() {
               <div className="flex justify-between text-md">
                 <span>{t("shipping")}</span>
                 <span>
-                  {shipping === 0 ? (
+                  {shipping === 3 ? (
                     <Badge className="bg-green-600">{t("free")}</Badge>
                   ) : (
                     `$${shipping.toFixed(2)}`

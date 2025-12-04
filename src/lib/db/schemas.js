@@ -16,7 +16,7 @@ const shoeSchema = new mongoose.Schema(
     stock: { type: Number, required: true, default: 0 },
     rating: { type: Number, default: 4.5 },
     reviews: { type: Number, default: 0 },
-    isNew: { type: Boolean, default: "New" },
+    isNew: { type: Boolean, default: false },
   },
   { timestamps: true },
 )

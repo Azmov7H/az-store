@@ -22,7 +22,7 @@ export default function ProductCard({ product }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const cart = useContext(CartContext)
 
-  // fallback لو الكونتكست مش شغال
+//fallback
   const addItem = cart?.addItem || (() => {})
 
   const discount = product.discount || 0
@@ -62,10 +62,10 @@ export default function ProductCard({ product }) {
 
         <CardContent>
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold">${finalPrice.toFixed(2)}</span>
+            <span className="text-2xl font-bold">{finalPrice.toFixed(2)} EG</span>
             {discount > 0 && (
               <span className="text-sm line-through opacity-50">
-                ${product.price.toFixed(2)}
+                {product.price.toFixed(2)} EG
               </span>
             )}
           </div>

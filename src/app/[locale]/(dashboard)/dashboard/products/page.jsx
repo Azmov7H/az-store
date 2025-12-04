@@ -66,10 +66,11 @@ export default function ProductsPage() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold">Products</h1>
-        <Button onClick={handleCreate}>+ Add Product</Button>
-      </div>
+      <div className="flex justify-between items-center mb-6  bg-background z-10 p-2">
+  <h1 className="text-xl font-bold">Products</h1>
+  <Button onClick={handleCreate}>+ Add Product</Button>
+</div>
+
 
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -82,19 +83,17 @@ export default function ProductsPage() {
           No products found.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {shoes.map((shoe) => (
-            <ProductCard
-              key={shoe._id}
-              product={shoe}
-              onEdit={() => {
-                setSelected(shoe)
-                setOpen(true)
-              }}
-              onDelete={() => handleDelete(shoe._id)}
-            />
-          ))}
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  {shoes.map((shoe) => (
+    <ProductCard
+      key={shoe._id}
+      product={shoe}
+      onEdit={() => { setSelected(shoe); setOpen(true) }}
+      onDelete={() => handleDelete(shoe._id)}
+    />
+  ))}
+</div>
+
       )}
 
       <ProductDialog

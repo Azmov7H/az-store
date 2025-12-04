@@ -6,17 +6,53 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 
 const CITIES = {
-  Cairo: ["Downtown", "Zamalek", "Nasr City"],
-  Giza: ["Mohandessin", "Dokki", "6th of October"],
-  Alexandria: ["Downtown", "Montaza", "Stanley"],
+  القاهرة: [
+    "مدينة نصر",
+    "المعادى",
+    "التجمع الخامس",
+    "المقطم",
+    "القاهرة الجديدة",
+    "وسط البلد",
+    "الزمالك",
+    "شبرا",
+    "السلام",
+    "حدائق القبة",
+    "عين شمس",
+    "العباسية",
+    "حلوان",
+    "منشية ناصر",
+    "روض الفرج",
+    "الوايلى",
+    "بولاق",
+    "المطرية",
+    "المعصرة",
+    "المرج"
+  ],
+  الجيزة: [
+    "المهندسين",
+    "الدقي",
+    "الهرم",
+    "الجيزة الجديدة",
+    "6 أكتوبر",
+    "العمرانية",
+    "الشيخ زايد",
+    "منشأة القناطر",
+    "الوراق",
+    "بولاق الدكرور",
+    "الصف",
+    "حدائق أهرامات",
+    "الجيزة الغربية"
+  ]
 }
 
 export default function ShippingForm({ formData, setFormData, onNext }) {
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prev) => {
+    setFormData(prev => {
       const updated = { ...prev, [name]: value }
-      if (name === "customerCity") updated.customerDistrict = CITIES[value][0]
+      if (name === "customerCity") {
+        updated.customerDistrict = (CITIES[value] && CITIES[value][0]) || ""
+      }
       return updated
     })
   }
@@ -52,8 +88,8 @@ export default function ShippingForm({ formData, setFormData, onNext }) {
               onChange={handleChange}
               className="w-full border rounded p-2"
             >
-              {Object.keys(CITIES).map((city) => (
-                <option key={city}>{city}</option>
+              {Object.keys(CITIES).map(city => (
+                <option key={city} value={city}>{city}</option>
               ))}
             </select>
           </div>
@@ -66,8 +102,8 @@ export default function ShippingForm({ formData, setFormData, onNext }) {
               onChange={handleChange}
               className="w-full border rounded p-2"
             >
-              {CITIES[formData.customerCity].map((d) => (
-                <option key={d}>{d}</option>
+              {(CITIES[formData.customerCity] || []).map(d => (
+                <option key={d} value={d}>{d}</option>
               ))}
             </select>
           </div>

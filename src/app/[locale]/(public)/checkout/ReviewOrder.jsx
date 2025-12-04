@@ -26,7 +26,7 @@ export default function ReviewOrder({ formData, items, onBack, onNext }) {
           <ScrollArea className="max-h-64 space-y-2">
             {items.map((item) => (
               <div key={item.id} className="flex justify-between text-sm">
-                <span>{item.title} × {item.quantity}</span>
+                <span>{item.title} × {item.quantity} ({item.color}, {item.size})</span>
                 <span>${(item.price * item.quantity * (1 - (item.discount || 0)/100)).toFixed(2)}</span>
               </div>
             ))}

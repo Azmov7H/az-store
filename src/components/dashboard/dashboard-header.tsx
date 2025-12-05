@@ -1,18 +1,22 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Bell } from "lucide-react";
+import { Bell, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ModeToggle } from "../layout/theme-toggle";
 
-
-
 interface DashboardHeaderProps {
     pageTitle: string;
+    toggleSidebar?: () => void;
+    sidebarOpen?: boolean;
 }
 
-export default function DashboardHeader({ pageTitle }: DashboardHeaderProps) {
+export default function DashboardHeader({
+    pageTitle,
+    toggleSidebar,
+    sidebarOpen = false
+}: DashboardHeaderProps) {
     const pathname = usePathname();
 
     // Get page title from pathname
@@ -24,13 +28,31 @@ export default function DashboardHeader({ pageTitle }: DashboardHeaderProps) {
     };
 
     return (
-        <div className="flex flex-1 items-center justify-between">
-            {/* Page Title */}
-            <div>
+        <header className="sticky top-0 z-10 flex items-center justify-between bg-background border-b px-4 md:px-6 h-16">
+            {/* Left Section */}
+            <div className="flex items-center gap-4">
+                {/* Mobile Menu Toggle */}
+                {toggleSidebar && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="lg:hidden"
+                        onClick={toggleSidebar}
+                        aria-label={sidebarOpen ? "Close menu" : "Open menu"}
+                    >
+                        {sidebarOpen ? (
+                            <X className="h-5 w-5" />
+                        ) : (
+                            <Menu className="h-5 w-5" />
+                        )}
+                    </Button>
+                )}
+
+                {/* Page Title */}
                 <h1 className="text-xl md:text-2xl font-bold">{getPageTitle()}</h1>
             </div>
 
-            {/* Actions */}
+            {/* Right Section */}
             <div className="flex items-center gap-2 md:gap-4">
                 {/* Notifications */}
                 <Button variant="ghost" size="icon" className="relative hidden sm:flex">
@@ -43,6 +65,6 @@ export default function DashboardHeader({ pageTitle }: DashboardHeaderProps) {
                 {/* Theme Toggle */}
                 <ModeToggle />
             </div>
-        </div>
+        </header>
     );
 }

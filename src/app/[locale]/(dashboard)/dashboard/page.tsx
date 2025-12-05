@@ -51,37 +51,37 @@ export default async function DashboardPage() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <Card>
-                    <CardHeader>
+                <Card className="">
+                    <CardHeader className="">
                         <CardTitle className="text-sm font-medium text-muted-foreground">
                             Total Orders
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="">
                         <p className="text-3xl font-bold">{orders.length}</p>
                     </CardContent>
                 </Card>
 
-                <Card>
-                    <CardHeader>
+                <Card className="">
+                    <CardHeader className="">
                         <CardTitle className="text-sm font-medium text-muted-foreground">
                             Pending Orders
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="">
                         <p className="text-3xl font-bold">
                             {orders.filter((o) => o.status === "pending").length}
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card>
-                    <CardHeader>
+                <Card className="">
+                    <CardHeader className="">
                         <CardTitle className="text-sm font-medium text-muted-foreground">
                             Completed Orders
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="">
                         <p className="text-3xl font-bold">
                             {orders.filter((o) => o.status === "delivered").length}
                         </p>
@@ -124,7 +124,7 @@ function OrderCard({ order, t }: OrderCardProps) {
 
     return (
         <Card className="border border-border rounded-xl flex flex-col justify-between h-full p-4 hover:shadow-lg transition-shadow">
-            <CardHeader>
+            <CardHeader className="">
                 <CardTitle className="text-lg font-semibold truncate">
                     {order.orderId}
                 </CardTitle>
@@ -182,6 +182,7 @@ function OrderCard({ order, t }: OrderCardProps) {
 
                 <div className="flex items-center justify-between mt-2">
                     <Badge
+                        variant="default"
                         className={cn(
                             "text-white px-2 py-1 rounded-full text-xs",
                             getStatusColor(order.status)
@@ -204,7 +205,7 @@ function Section({ title, children }: SectionProps) {
     return (
         <div className="space-y-2">
             <h3 className="font-semibold text-sm">{title}</h3>
-            <Separator />
+            <Separator className="" />
             {children}
         </div>
     );

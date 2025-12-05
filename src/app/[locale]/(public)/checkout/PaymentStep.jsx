@@ -15,7 +15,7 @@ export default function PaymentStep({ formData, items, clear, onBack }) {
     (sum, item) => sum + item.price * item.quantity * (1 - (item.discount || 0)/100),
     0
   )
-  const shipping = 40 // تم تغيير قيمة الشحن
+  const shipping = items.length >= 3 ? 0 : 40;
   const total = subtotal + shipping
 
   const handleSubmit = async () => {
@@ -24,13 +24,13 @@ export default function PaymentStep({ formData, items, clear, onBack }) {
     const orderData = {
       ...formData,
       products: items.map(item => ({
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        quantity: item.quantity,
-        color: item.color,
-        size: item.size,
-        discount: item.discount || 0,
+  id: item.id,
+  title: item.title,
+  price: item.price,
+  quantity: item.quantity,
+  selectedColor: item.selectedColor, 
+  selectedSize: item.selectedSize, 
+  discount: item.discount || 0
       })),
       subtotal,
       total,

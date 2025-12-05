@@ -45,9 +45,9 @@ export default function SettingsPage() {
             <Separator className="" />
 
             {/* Store Information */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Store Information</CardTitle>
+            <Card className="">
+                <CardHeader className="">
+                    <CardTitle className="">Store Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -90,9 +90,9 @@ export default function SettingsPage() {
             </Card>
 
             {/* Shipping Settings */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Shipping Settings</CardTitle>
+            <Card className="">
+                <CardHeader className="">
+                    <CardTitle className="">Shipping Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -131,9 +131,9 @@ export default function SettingsPage() {
             </Card>
 
             {/* Notification Settings */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Notifications</CardTitle>
+            <Card className="">
+                <CardHeader className="">
+                    <CardTitle className="">Notifications</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -182,7 +182,7 @@ export default function SettingsPage() {
 
             {/* Danger Zone */}
             <Card className="border-destructive">
-                <CardHeader>
+                <CardHeader className="">
                     <CardTitle className="text-destructive">Danger Zone</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">

@@ -203,7 +203,11 @@
 
   "carts": {
     "loading": "Loading...",
+    "add_to_cart":"Add to Cart",
+    "free_shipping":"Shipping is free when you buy 3 items or more.",
+    "money_back":"15-day return policy against manufacturing defects",
     "cart": "Shopping Cart",
+    "secure_checkout":"Payment upon receipt",
     "empty": "Your cart is empty",
     "continue": "Continue Shopping",
     "items": "Items",

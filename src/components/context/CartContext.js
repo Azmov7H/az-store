@@ -1,63 +1,88 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const CartContext = createContext();
+export const CartContext = createContext();
+
+export function useCart() {
+  const context = useContext(CartContext);
+  if (!context) throw new Error("useCart must be used within CartProvider");
+  return context;
+}
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [items, setItems] = useState([]);
 
-  // تحميل السلة من localStorage عند فتح الموقع
+  // Load cart from localStorage
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) setCart(JSON.parse(storedCart));
+    const saved = localStorage.getItem("cart");
+    if (saved) setItems(JSON.parse(saved));
   }, []);
 
-  // حفظ السلة تلقائياً
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const addItem = (product) => {
+    const { id, selectedColor, selectedSize, quantity } = product;
+    if (!selectedColor || !selectedSize) return; // يمنع إضافة منتجات بدون لون/مقاس
 
-  const addToCart = (product, selectedColor, selectedSize, quantity = 1) => {
-    const existing = cart.find(
-      (item) =>
-        item.product._id === product._id &&
-        item.selectedColor === selectedColor &&
-        item.selectedSize === selectedSize
-    );
-
-    if (existing) {
-      setCart(
-        cart.map((item) =>
-          item === existing
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
+    setItems((prev) => {
+      const existing = prev.find(
+        (item) =>
+          item.id === id &&
+          item.selectedColor === selectedColor &&
+          item.selectedSize === selectedSize
       );
-    } else {
-      setCart([...cart, { product, selectedColor, selectedSize, quantity }]);
-    }
+
+      const updated = existing
+        ? prev.map((item) =>
+            item === existing
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        : [...prev, { ...product }];
+
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const removeFromCart = (index) => {
-    setCart(cart.filter((_, i) => i !== index));
+  const removeItem = (id, selectedColor, selectedSize) => {
+    setItems((prev) => {
+      const updated = prev.filter(
+        (item) =>
+          !(item.id === id && item.selectedColor === selectedColor && item.selectedSize === selectedSize)
+      );
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const updateQuantity = (index, quantity) => {
-    setCart(
-      cart.map((item, i) => (i === index ? { ...item, quantity } : item))
-    );
+  const updateQuantity = (id, quantity, selectedColor, selectedSize) => {
+    setItems((prev) => {
+      const updated =
+        quantity <= 0
+          ? prev.filter(
+              (item) =>
+                !(item.id === id && item.selectedColor === selectedColor && item.selectedSize === selectedSize)
+            )
+          : prev.map((item) =>
+              item.id === id &&
+              item.selectedColor === selectedColor &&
+              item.selectedSize === selectedSize
+                ? { ...item, quantity }
+                : item
+            );
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const clearCart = () => setCart([]);
+  const clear = () => {
+    setItems([]);
+    localStorage.setItem("cart", JSON.stringify([]));
+  };
 
   return (
-    <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}
-    >
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clear }}>
       {children}
     </CartContext.Provider>
   );
 }
-
-export const useCart = () => useContext(CartContext);

@@ -16,7 +16,7 @@ export default function middleware(request) {
   // حماية Dashboard
   if (pathname.startsWith("/dashboard")) {
     const token = request.cookies.get("dashboard-auth")?.value || "";
-    if (token !== process.env.NEXT_PUBLIC_DASHBOARD_SECRET) {
+    if (token !== process.env.DASHBOARD_SECRET) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
   }

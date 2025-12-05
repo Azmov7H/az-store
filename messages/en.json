@@ -1,25 +1,30 @@
 {
   "HomePage": {
-    "title": "Hello world!",
+    "title": "Welcome to the World!",
     "featuredTitle": "Featured Shoes"
   },
-  "Navbar": {
-    "home": "Home",
-    "shop": "Shop",
-    "about": "About",
-    "contact": "Contact",
-    "menu": "Menu",
-    "cart":"Cart",
-    "language": "EN"
-  },
+"Navbar": {
+  "home": "Home",
+  "shop": "Shop",
+  "about": "About",
+  "cart": "Cart",
+  "contact": "Contact Us",
+  "menu": "Menu",
+  "language": "English",
+  "toggleTheme": "Toggle Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System"
+}
+,
   "Hero": {
-"title": "Welcome to <brand></brand>",
-    "subtitle": "Enjoy up to <discount></discount>",
+    "title": "Welcome to <brand></brand>",
+    "subtitle": "Discounts up to <discount></discount>",
     "shopNow": "Shop Now"
   },
   "Footer": {
     "brand": "AN Store",
-    "about": "Modern shoe store offering the latest Nike, Adidas, Puma, and more. We aim to provide the best quality at the best price.",
+    "about": "A modern shoe store offering the latest models from Nike, Adidas, Puma, and more. Our goal is to provide the best quality at the best price.",
     "quickLinks": "Quick Links",
     "home": "Home",
     "allProducts": "All Products",
@@ -40,135 +45,137 @@
     "label": "Language"
   },
   "Testimonials": {
-    "heading": "What Our Customers Say",
+    "heading": "What Our Clients Say",
     "description": "Real feedback from our customers who tried our products.",
-    "client1_name": "Mohamed Ali",
+    "client1_name": "Sara Ahmed",
     "client1_role": "Valued Customer",
-    "client1_text": "The best store I have ever tried, excellent quality and fast delivery. I highly recommend everyone to buy without hesitation.",
-    "client2_name": "Sara Ahmed",
-    "client2_role": "Trusted Customer",
-    "client2_text": "Professional designs and top-notch customer service. It was a great experience and I will definitely repeat it.",
+    "client1_text": "The best store I've tried, excellent quality and fast delivery. I recommend everyone to buy without hesitation.",
+    "client2_name": " Mohamed Ali",
+    "client2_role": "Trusted Client",
+    "client2_text": "Professional designs and premium customer service. It was a great experience and I will definitely repeat it.",
     "client3_name": "Hassan Youssef",
     "client3_role": "Loyal Customer",
-    "client3_text": "The price for the value is excellent. I received the product the same day with quality above expectations."
+    "client3_text": "Excellent value for the price. I received the product the same day with above-expected quality."
   },
   "carts": {
     "cart": "Shopping Cart",
     "add_to_cart": "Add to Cart",
-    "loading": "Loading cart...",
     "out_of_stock": "Out of Stock",
     "quantity": "Quantity",
-    "free": "FREE",
+    "free_shipping": "Free shipping for orders over 1000 EGP",
+    "money_back": "30-day money back guarantee",
+    "secure_checkout": "Cash on delivery",
     "remove": "Remove",
     "orderSummary": "Order Summary",
-    "items": "Items",
-    "free_shipping": "Free shipping on orders over 1000 EG",
-    "money_back": "30-day money-back guarantee",
-    "secure_checkout": "Secure checkout",
-    "empty": "Your cart is empty",
+    "free": "Free",
+    "loading": "Loading cart...",
+    "empty": "Cart is empty",
     "color": "Color",
     "size": "Size",
     "subtotal": "Subtotal",
     "tax": "Tax",
     "shipping": "Shipping",
     "total": "Total",
-    "checkout": "Proceed to Checkout",
+    "checkout": "Checkout",
     "continue": "Continue Shopping"
   },
-    "product": {
+  "product": {
     "color": "Color",
     "size": "Size",
     "addToCart": "Add to Cart"
   },
-  "dashboard":{
-  "orders": "Orders",
-  "noOrders": "No orders found",
-  "orderNumber": "Order #",
-  "status": "Status",
-  "pending": "Pending",
-  "processing": "Processing",
-  "shipped": "Shipped",
-  "delivered": "Delivered",
-  "canceled": "Canceled",
-
-  "items": "Items",
-  "color": "Color",
-  "size": "Size",
-  "quantity": "Qty",
-
-  "subtotal": "Subtotal",
-  "tax": "Tax",
-  "shipping": "Shipping",
-  "total": "Total",
-
-  "downloadInvoice": "Download Invoice",
-  "loading": "Loading...",
-  "invoiceError": "Failed to load invoice",
-
-  "addedToCart": "Product added to cart",
-  "cart": "Cart",
-
-  "title": "Orders",
-  "orderId": "Order ID",
-
-  "customerInfo": "Customer Information",
-  "customerName": "Customer Name",
-  "customerEmail": "Email",
-  "customerPhone": "Phone Number",
-
-  "address": "Address",
-  "city": "City",
-  "district": "District",
-  "street": "Street",
-
-  "products": "Products",
-  "productName": "Product",
-  "price": "Price",
-  "noValue": "—",
-
-  "pricing": "Pricing",
-
-  "discount": "Discount",
-
-  "currency": "EGP",
-  
-  "status_pending": "Pending",
-  "status_delivered": "Delivered",
-  "status_cancelled": "Cancelled",
-
-  "createdAt": "Created At"
-
-
-  
-
-
-
-},
-"products":{
-  "addProduct": "Add Product",
-  "editProduct": "Edit Product",
-  "productName": "Product Name",
-  "enterProductName": "Enter product name",
-  "price": "Price",
-  "enterPrice": "Enter price",
-  "discount": "Discount",
-  "enterDiscount": "Enter discount",
-  "stock": "Stock",
-  "enterStock": "Enter stock quantity",
-  "category": "Category",
-  "enterCategory": "Enter category",
-  "sizes": "Sizes",
-  "enterSizesCommaSeparated": "Enter sizes (comma separated)",
-  "colors": "Colors",
-  "enterColorsCommaSeparated": "Enter colors (comma separated)",
-  "description": "Description",
-  "enterDescription": "Enter description",
-  "imageUrl": "Image URL",
-  "enterImageUrl": "Enter image URL",
-  "cancel": "Cancel",
-  "create": "Create",
-  "update": "Update"
-}
-
-
+  "dashboard": {
+    "orders": "Orders",
+    "noOrders": "No orders available",
+    "orderNumber": "Order Number",
+    "status": "Status",
+    "pending": "Pending",
+    "processing": "Processing",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "canceled": "Canceled",
+    "items": "Items",
+    "color": "Color",
+    "size": "Size",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "total": "Total",
+    "downloadInvoice": "Download Invoice",
+    "loading": "Loading...",
+    "invoiceError": "Failed to load invoice",
+    "addedToCart": "Product added to cart",
+    "cart": "Cart",
+    "title": "Orders",
+    "orderId": "Order ID",
+    "customerInfo": "Customer Information",
+    "customerName": "Customer Name",
+    "customerEmail": "Customer Email",
+    "customerPhone": "Customer Phone",
+    "address": "Address",
+    "city": "City",
+    "district": "District",
+    "street": "Street",
+    "products": "Products",
+    "productName": "Product",
+    "price": "Price",
+    "noValue": "—",
+    "pricing": "Pricing",
+    "discount": "Discount",
+    "currency": "EGP",
+    "status_pending": "Pending Review",
+    "status_delivered": "Delivered",
+    "status_cancelled": "Cancelled",
+    "createdAt": "Created At",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "products": {
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "productName": "Product Name",
+    "enterProductName": "Enter product name",
+    "price": "Price",
+    "enterPrice": "Enter price",
+    "discount": "Discount",
+    "enterDiscount": "Enter discount percentage",
+    "stock": "Stock",
+    "enterStock": "Enter stock quantity",
+    "category": "Category",
+    "enterCategory": "Enter category",
+    "sizes": "Sizes",
+    "enterSizesCommaSeparated": "Enter sizes separated by commas",
+    "colors": "Colors",
+    "enterColorsCommaSeparated": "Enter colors separated by commas",
+    "description": "Description",
+    "enterDescription": "Enter product description",
+    "imageUrl": "Image URL",
+    "enterImageUrl": "Enter image URL",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "noNotifications": "No new notifications",
+    "newOrder": "A new order has been created",
+    "orderShipped": "Your order has been shipped",
+    "orderDelivered": "Your order has been delivered",
+    "orderCancelled": "Your order has been cancelled"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "logout": "Logout",
+    "invalidCredentials": "Invalid credentials",
+    "successLogin": "Logged in successfully",
+    "successRegister": "Account created successfully"
+  }
 }

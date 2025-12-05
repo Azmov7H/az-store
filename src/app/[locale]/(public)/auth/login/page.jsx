@@ -13,11 +13,11 @@ export default function LoginPage() {
 
     // تحقق بسيط من env
     if (
-      user === process.env.NEXT_PUBLIC_DASHBOARD_USER &&
-      pass === process.env.NEXT_PUBLIC_DASHBOARD_PASS
+      user === process.env.DASHBOARD_USER &&
+      pass === process.env.DASHBOARD_PASS
     ) {
       // إنشاء كوكيز بسيط للوصول للـ Dashboard
-      document.cookie = `dashboard-auth=${process.env.NEXT_PUBLIC_DASHBOARD_SECRET}; path=/dashboard; max-age=3600; Secure; SameSite=Lax`;
+      document.cookie = `dashboard-auth=${process.env.DASHBOARD_SECRET}; path=/dashboard; max-age=3600; Secure; SameSite=Lax`;
 
       router.push("/dashboard");
     } else {

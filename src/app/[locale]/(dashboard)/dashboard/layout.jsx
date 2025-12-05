@@ -10,7 +10,7 @@ export default async function DashboardLayout({ children }) {
   const dashboardCookie = allCookies.get("dashboard-auth");
   const token = dashboardCookie?.value || "";
 
-  if (token !== process.env.NEXT_PUBLIC_DASHBOARD_SECRET) {
+  if (token !== process.env.DASHBOARD_SECRET) {
     redirect("/auth/login");
   }
 

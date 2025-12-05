@@ -124,3 +124,22 @@ export async function deleteCommit(id) {
   if (!res.ok) throw new Error("Failed to delete commit");
   return res.json();
 }
+
+
+//////
+export default function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { user, pass } = req.body;
+
+  if (
+    user === process.env.DASHBOARD_USER &&
+    pass === process.env.DASHBOARD_PASS
+  ) {
+    // كوكيز HttpOnly
+    res.setHeader("Set-Cookie", `dashboard-auth=${process.env.DASHBOARD_SECRET}; HttpOnly; Path=/; Max-Age=3600; SameSite=Lax`);
+    return res.status(200).json({ success: true });
+  }
+
+  return res.status(401).json({ success: false });
+}

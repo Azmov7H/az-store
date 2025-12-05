@@ -15,7 +15,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Cart() {
   const t = useTranslations("carts");
-  
   const cart = useContext(CartContext);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -34,7 +33,9 @@ export default function Cart() {
     (s, i) => s + i.price * (1 - (i.discount || 0) / 100) * i.quantity,
     0
   );
-  const shipping = subtotal > 50 ? 0 : 10;
+
+  // قاعدة الشحن الجديدة: 3 عناصر فأكثر مجاني، أقل → 40
+  const shipping = items.length >= 3 ? 0 : 40;
   const total = subtotal + shipping;
 
   return (
@@ -55,7 +56,7 @@ export default function Cart() {
           {/* Cart Items */}
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle className="text-2xl">Items</CardTitle>
+              <CardTitle className="text-2xl">{t("items")}</CardTitle>
             </CardHeader>
 
             <CardContent>
@@ -74,7 +75,7 @@ export default function Cart() {
                         <div className="relative w-28 h-28 rounded-md overflow-hidden">
                           <Image
                             src={item.image}
-                            alt="product"
+                            alt={item.title}
                             fill
                             className="object-cover"
                           />
@@ -94,7 +95,7 @@ export default function Cart() {
                           </div>
 
                           <p className="mt-3 font-bold text-lg">
-                            ${ (finalPrice * item.quantity).toFixed(2) }
+                            ${(finalPrice * item.quantity).toFixed(2)}
                           </p>
 
                           {/* Quantity Buttons */}
@@ -175,7 +176,7 @@ export default function Cart() {
               <div className="flex justify-between text-md">
                 <span>{t("shipping")}</span>
                 <span>
-                  {shipping === 3 ? (
+                  {shipping === 0 ? (
                     <Badge className="bg-green-600">{t("free")}</Badge>
                   ) : (
                     `$${shipping.toFixed(2)}`

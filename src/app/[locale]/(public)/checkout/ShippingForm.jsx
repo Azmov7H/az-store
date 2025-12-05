@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { useTranslations } from "next-intl"
 
 const CITIES = {
   القاهرة: [
@@ -46,6 +47,8 @@ const CITIES = {
 }
 
 export default function ShippingForm({ formData, setFormData, onNext }) {
+  const t = useTranslations("ShippingForm")
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => {
@@ -60,28 +63,28 @@ export default function ShippingForm({ formData, setFormData, onNext }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Shipping Information</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <Label>Full Name</Label>
+            <Label>{t("fullName")}</Label>
             <Input name="customerName" value={formData.customerName} onChange={handleChange} />
           </div>
 
           <div>
-            <Label>Email</Label>
+            <Label>{t("email")}</Label>
             <Input name="customerEmail" value={formData.customerEmail} onChange={handleChange} />
           </div>
 
           <div>
-            <Label>Phone</Label>
+            <Label>{t("phone")}</Label>
             <Input name="customerPhone" value={formData.customerPhone} onChange={handleChange} />
           </div>
 
           <div>
-            <Label>City</Label>
+            <Label>{t("city")}</Label>
             <select
               name="customerCity"
               value={formData.customerCity}
@@ -95,7 +98,7 @@ export default function ShippingForm({ formData, setFormData, onNext }) {
           </div>
 
           <div>
-            <Label>District</Label>
+            <Label>{t("district")}</Label>
             <select
               name="customerDistrict"
               value={formData.customerDistrict}
@@ -109,12 +112,12 @@ export default function ShippingForm({ formData, setFormData, onNext }) {
           </div>
 
           <div>
-            <Label>Street</Label>
+            <Label>{t("street")}</Label>
             <Input name="customerStreet" value={formData.customerStreet} onChange={handleChange} />
           </div>
         </div>
 
-        <Button onClick={onNext}>Continue to Review</Button>
+        <Button onClick={onNext}>{t("continue")}</Button>
       </CardContent>
     </Card>
   )

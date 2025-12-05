@@ -9,6 +9,10 @@ export async function generateMetadata({ params }) {
   return {
     title: product.title,
     description: product.description,
+    robots: "index, follow",
+    alternates: {
+      canonical: `https://ali-store-sh.vercel.app/en/shop/${id}`,
+    },
     openGraph: {
       title: product.title,
       description: product.description,
@@ -18,8 +22,8 @@ export async function generateMetadata({ params }) {
           url: product.image,
           width: 1200,
           height: 630,
-          alt: product.title
-        }
+          alt: product.title,
+        },
       ],
       type: "article",
     },
@@ -27,10 +31,11 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: product.title,
       description: product.description,
-      images: [product.image]
-    }
+      images: [product.image],
+    },
   };
 }
+
 
 
 export default async function ProductSSRPage({ params }) {

@@ -17,6 +17,8 @@ export default function ContactPage() {
     setForm(prev => ({ ...prev, [name]: value }))
   }
 
+  const resetForm = () => setForm({ name: "", email: "", phone: "", message: "" })
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -29,14 +31,13 @@ export default function ContactPage() {
       })
 
       const data = await res.json()
-
       if (!res.ok) throw new Error(data.error || "Something went wrong")
 
-      setForm({ name: "", email: "", phone: "", message: "" })
-      toast({ title: "Success", description: data.message || "Message sent successfully" })
+      resetForm()
+      toast.success("Message sent successfully")
     } catch (err) {
       console.error(err)
-      toast({ title: "Error", description: err.message || "Failed to send message" })
+      toast.error("Failed to send message")
     } finally {
       setLoading(false)
     }
@@ -49,48 +50,25 @@ export default function ContactPage() {
           <CardTitle>Contact Us</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" aria-busy={loading}>
             <div>
               <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-              />
+              <Input id="name" name="name" value={form.name} onChange={handleChange} required />
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
+              <Input id="email" type="email" name="email" value={form.email} onChange={handleChange} required />
             </div>
             <div>
               <Label htmlFor="phone">Phone (optional)</Label>
-              <Input
-                id="phone"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-              />
+              <Input id="phone" name="phone" value={form.phone} onChange={handleChange} />
             </div>
             <div>
               <Label htmlFor="message">Message</Label>
-              <Textarea
-                id="message"
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                required
-              />
+              <Textarea id="message" name="message" value={form.message} onChange={handleChange} required />
             </div>
             <Button type="submit" disabled={loading}>
+              {loading ? <span className="animate-spin h-5 w-5 border-2 border-white rounded-full inline-block mr-2"></span> : null}
               {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>

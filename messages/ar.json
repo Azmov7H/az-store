@@ -57,28 +57,7 @@
     "client3_role": "عميل دائم",
     "client3_text": "السعر مقابل القيمة ممتاز جدًا. استلمت المنتج في نفس اليوم وبجودة فوق المتوقعة."
   },
-  "carts": {
-    "cart": "سلة المشتريات",
-    "add_to_cart": "اضف الي السلة",
-    "out_of_stock": "غير متوفر",
-    "quantity": "الكمية",
-    "free_shipping": "شحن مجاني للطلبات فوق 1000 جنية",
-    "money_back": "ضمان استرجاع لمدة 30 يوم",
-    "secure_checkout": "دفع عند الاستلام",
-    "remove": "إزالة",
-    "orderSummary": "ملخص الطلب",
-    "free": "مجاني",
-    "loading": "جاري تحميل السلة...",
-    "empty": "السلة فارغة",
-    "color": "اللون",
-    "size": "المقاس",
-    "subtotal": "الإجمالي قبل الضريبة",
-    "tax": "الضريبة",
-    "shipping": "الشحن",
-    "total": "الإجمالي",
-    "checkout": "الدفع",
-    "continue": "متابعة التسوق"
-  },
+ 
   "product": {
     "color": "اللون",
     "size": "المقاس",
@@ -177,5 +156,78 @@
     "invalidCredentials": "بيانات غير صحيحة",
     "successLogin": "تم تسجيل الدخول بنجاح",
     "successRegister": "تم إنشاء الحساب بنجاح"
+  },
+
+  "OrderSummary": {
+    "title": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "free": "مجاني",
+    "total": "الإجمالي"
+  },
+
+  "PaymentStep": {
+    "title": "تأكيد الطلب ",
+    "processing": "جارٍ المعالجة...",
+    "completePurchase": "إتمام الشراء",
+    "back": "عودة",
+    "success": "تم طلب المنتج بنجاح!",
+    "error": "فشل في إنشاء الطلب",
+    "orderId": "تم الطلب بنجاح! الرقم: {id}"
+  },
+
+  "ReviewOrder": {
+    "title": "مراجعة الطلب",
+    "shippingTo": "الشحن إلى",
+    "orderItems": "عناصر الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "total": "الإجمالي",
+    "back": "عودة",
+    "proceedPayment": "الانتقال للدفع"
+  },
+
+  "ShippingForm": {
+    "title": "معلومات الشحن",
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "city": "المدينة",
+    "district": "الحي",
+    "street": "الشارع",
+    "continue": "الاستمرار للمراجعة"
+  },
+
+  "Checkout": {
+    "emptyCart": "سلة المشتريات فارغة"
+  },
+ 
+  "carts": {
+    "loading": "جاري التحميل...",
+    "cart": "سلة المشتريات",
+    "empty": "سلة المشتريات فارغة",
+    "continue": "استمرار بالتسوق",
+    "items": "العناصر",
+    "color": "اللون",
+    "size": "المقاس",
+    "remove": "إزالة",
+    "orderSummary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "free": "مجاني",
+    "total": "الإجمالي",
+    "checkout": "الدفع"
   }
+
+
+
+
+
+
+
+
+
+
+
+
 }

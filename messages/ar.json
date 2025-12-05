@@ -122,7 +122,10 @@
     "status_pending": "قيد المراجعة",
     "status_delivered": "تم التوصيل",
     "status_cancelled": "تم الإلغاء",
-    "createdAt": "تاريخ الإنشاء"
+    "createdAt": "تاريخ الإنشاء",
+    "name":"ألاسم",
+    "phone":"رقم الهاتف",
+    "email":"البريد الالكتروني"
   },
  "products": {
   "addProduct": "إضافة منتج",

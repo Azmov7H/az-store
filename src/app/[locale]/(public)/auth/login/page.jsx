@@ -2,34 +2,36 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    // تحقق بسيط من env
-    if (
-      user === process.env.DASHBOARD_USER &&
-      pass === process.env.DASHBOARD_PASS
-    ) {
-      // إنشاء كوكيز بسيط للوصول للـ Dashboard
-      document.cookie = `dashboard-auth=${process.env.DASHBOARD_SECRET}; path=/dashboard; max-age=3600; Secure; SameSite=Lax`;
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user, pass }),
+  });
 
-      router.push("/dashboard");
-    } else {
-      alert("اسم المستخدم أو الباسورد غلط 😅");
-    }
-  };
+  const data = await res.json();
+  if (data.success) {
+    router.push("/dashboard");
+  } else {
+    toast.error("اسم المستخدم أو الباسورد غلط 😅");
+  }
+};
+
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen ">
       <form
         onSubmit={handleLogin}
-        className="p-6 bg-white shadow rounded w-full max-w-sm"
+        className="p-6  shadow rounded w-full max-w-sm"
       >
         <h1 className="text-xl font-bold mb-4 text-center">Login</h1>
         <input

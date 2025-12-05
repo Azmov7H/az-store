@@ -5,10 +5,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({ children }) {
-  // استخدم await لأن cookies() الآن Async
-  const allCookies = await cookies();
-  const dashboardCookie = allCookies.get("dashboard-auth");
-  const token = dashboardCookie?.value || "";
+ const cookieStore = await cookies();
+  const token = cookieStore.get("dashboard-auth")?.value;
 
   if (token !== process.env.DASHBOARD_SECRET) {
     redirect("/auth/login");

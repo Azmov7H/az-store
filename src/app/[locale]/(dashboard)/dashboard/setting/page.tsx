@@ -42,7 +42,7 @@ export default function SettingsPage() {
                 </p>
             </div>
 
-            <Separator />
+            <Separator className="" />
 
             {/* Store Information */}
             <Card>
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                             onCheckedChange={setEmailNotifications}
                         />
                     </div>
-                    <Separator />
+                    <Separator className="" />
                     <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                             <Label htmlFor="orderNotifications">Order Notifications</Label>
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                             onCheckedChange={setOrderNotifications}
                         />
                     </div>
-                    <Separator />
+                    <Separator className="" />
                     <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                             <Label htmlFor="lowStockAlerts">Low Stock Alerts</Label>
@@ -204,7 +204,7 @@ export default function SettingsPage() {
                             Clear Orders
                         </Button>
                     </div>
-                    <Separator />
+                    <Separator className="" />
                     <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                             <Label>Reset Store Settings</Label>

@@ -33,11 +33,11 @@ export default function Testimonials() {
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6 w-11/12 mx-auto">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 w-11/12 mx-auto">
         {clients.map((item, i) => (
           <Card
             key={i}
-            className="p-6 shadow-lg border border-transparent rounded-2xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+            className="p-6 shadow-lg border border-transparent rounded-2xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
           >
             <CardContent className="flex flex-col gap-4">
               <Quote className="w-10 h-10 text-yellow-300 opacity-80" />
@@ -45,7 +45,11 @@ export default function Testimonials() {
 
               <div className="flex items-center gap-3 mt-4">
                 <Avatar className="w-12 h-12 ring-2 ring-yellow-300">
-                  <AvatarImage src={`https://i.pravatar.cc/150?img=${i+10}`} />
+                  <AvatarImage 
+                    src={`https://i.pravatar.cc/150?img=${i+10}`} 
+                    alt={item.name} 
+                    loading="lazy"
+                  />
                   <AvatarFallback>{item.name[0]}</AvatarFallback>
                 </Avatar>
 

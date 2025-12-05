@@ -4,16 +4,21 @@
     "featuredTitle": "أحذية مميزة"
   },
   "Navbar": {
-    "home": "الرئيسية",
-    "shop": "المتجر",
-    "about": "حول",
-    "cart": "السلة",
-    "contact": "اتصل بنا",
-    "menu": "القائمة",
-    "language": "عربي"
-  },
+  "home": "الرئيسية",
+  "shop": "المتجر",
+  "about": "حول",
+  "cart": "السلة",
+  "contact": "اتصل بنا",
+  "menu": "القائمة",
+  "language": "عربي",
+  "toggleTheme": "تبديل الوضع",
+  "light": "فاتح",
+  "dark": "داكن",
+  "system": "النظام"
+}
+,
   "Hero": {
-"title": "أهلاً بك في <brand></brand>",
+    "title": "أهلاً بك في <brand></brand>",
     "subtitle": "خصومات تصل إلى <discount></discount>",
     "shopNow": "تسوق الآن"
   },
@@ -42,10 +47,10 @@
   "Testimonials": {
     "heading": "ماذا قال العملاء",
     "description": "آراء حقيقية من عملائنا الذين جربوا منتجاتنا.",
-    "client1_name": "محمد علي",
+    "client1_name": "سارة أحمد",
     "client1_role": "عميل مميز",
     "client1_text": "أفضل متجر جربته، جودة ممتازة وسرعة في التوصيل. أنصح الجميع بالشراء بدون تردد.",
-    "client2_name": "سارة أحمد",
+    "client2_name": "محمد علي",
     "client2_role": "عميلة موثوقة",
     "client2_text": "تصاميم احترافية وخدمة عملاء راقية. كانت تجربة رائعة وسأكررها بالتأكيد.",
     "client3_name": "حسن يوسف",
@@ -57,7 +62,7 @@
     "add_to_cart": "اضف الي السلة",
     "out_of_stock": "غير متوفر",
     "quantity": "الكمية",
-    "free_shipping": "شحن مجاني للطلبات فوق 1000 جنية  ",
+    "free_shipping": "شحن مجاني للطلبات فوق 1000 جنية",
     "money_back": "ضمان استرجاع لمدة 30 يوم",
     "secure_checkout": "دفع عند الاستلام",
     "remove": "إزالة",
@@ -123,35 +128,54 @@
     "status_delivered": "تم التوصيل",
     "status_cancelled": "تم الإلغاء",
     "createdAt": "تاريخ الإنشاء",
-    "name":"ألاسم",
-    "phone":"رقم الهاتف",
-    "email":"البريد الالكتروني"
+    "name": "الاسم",
+    "phone": "رقم الهاتف",
+    "email": "البريد الالكتروني"
   },
- "products": {
-  "addProduct": "إضافة منتج",
-  "editProduct": "تعديل المنتج",
-  "productName": "اسم المنتج",
-  "enterProductName": "اكتب اسم المنتج",
-  "price": "السعر",
-  "enterPrice": "اكتب السعر",
-  "discount": "الخصم",
-  "enterDiscount": "اكتب نسبة الخصم",
-  "stock": "المخزون",
-  "enterStock": "اكتب كمية المخزون",
-  "category": "التصنيف",
-  "enterCategory": "اكتب التصنيف",
-  "sizes": "المقاسات",
-  "enterSizesCommaSeparated": "اكتب المقاسات مفصولة بفاصلة",
-  "colors": "الألوان",
-  "enterColorsCommaSeparated": "اكتب الألوان مفصولة بفاصلة",
-  "description": "الوصف",
-  "enterDescription": "اكتب وصف المنتج",
-  "imageUrl": "رابط الصورة",
-  "enterImageUrl": "أدخل رابط الصورة",
-  "cancel": "إلغاء",
-  "create": "إنشاء",
-  "update": "تحديث"
-}
-
-
+  "products": {
+    "addProduct": "إضافة منتج",
+    "editProduct": "تعديل المنتج",
+    "productName": "اسم المنتج",
+    "enterProductName": "اكتب اسم المنتج",
+    "price": "السعر",
+    "enterPrice": "اكتب السعر",
+    "discount": "الخصم",
+    "enterDiscount": "اكتب نسبة الخصم",
+    "stock": "المخزون",
+    "enterStock": "اكتب كمية المخزون",
+    "category": "التصنيف",
+    "enterCategory": "اكتب التصنيف",
+    "sizes": "المقاسات",
+    "enterSizesCommaSeparated": "اكتب المقاسات مفصولة بفاصلة",
+    "colors": "الألوان",
+    "enterColorsCommaSeparated": "اكتب الألوان مفصولة بفاصلة",
+    "description": "الوصف",
+    "enterDescription": "اكتب وصف المنتج",
+    "imageUrl": "رابط الصورة",
+    "enterImageUrl": "أدخل رابط الصورة",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "update": "تحديث"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "noNotifications": "لا توجد إشعارات جديدة",
+    "newOrder": "تم إنشاء طلب جديد",
+    "orderShipped": "تم شحن طلبك",
+    "orderDelivered": "تم توصيل طلبك",
+    "orderCancelled": "تم إلغاء طلبك"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "logout": "تسجيل الخروج",
+    "invalidCredentials": "بيانات غير صحيحة",
+    "successLogin": "تم تسجيل الدخول بنجاح",
+    "successRegister": "تم إنشاء الحساب بنجاح"
+  }
 }

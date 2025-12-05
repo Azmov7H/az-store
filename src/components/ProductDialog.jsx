@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter
+  DialogFooter,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -15,9 +15,18 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "./ui/scroll-area"
 
+/**
+ * ProductDialog component
+ * Handles creating and editing a product
+ * @param {boolean} open - Whether the dialog is open
+ * @param {function} setOpen - Function to toggle dialog
+ * @param {function} onSubmit - Function to handle form submission
+ * @param {object} defaultData - Existing product data for editing
+ */
 export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) {
   const t = useTranslations("products")
 
+  // Form state
   const [form, setForm] = useState({
     title: "",
     price: "",
@@ -30,6 +39,7 @@ export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) 
     image: "",
   })
 
+  // Populate form if editing an existing product
   useEffect(() => {
     if (defaultData) {
       setForm({
@@ -46,17 +56,20 @@ export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) 
     }
   }, [defaultData])
 
+  // Generic change handler for form fields
   const handleChange = (key, value) => {
-    setForm({ ...form, [key]: value })
+    setForm((prev) => ({ ...prev, [key]: value }))
   }
 
+  // Handle form submission
   const handleSubmit = () => {
     if (!form.title || !form.price) return
 
+    // Prepare payload with arrays for sizes/colors
     const payload = {
       ...form,
-      availableSizes: form.sizes.split(",").map(s => s.trim()).filter(Boolean),
-      availableColors: form.colors.split(",").map(c => c.trim()).filter(Boolean),
+      availableSizes: form.sizes.split(",").map((s) => s.trim()).filter(Boolean),
+      availableColors: form.colors.split(",").map((c) => c.trim()).filter(Boolean),
     }
 
     onSubmit(payload)
@@ -64,26 +77,18 @@ export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent
-        className="
-          w-full 
-          max-w-lg 
-          md:max-w-2xl 
-          lg:max-w-3xl 
-          max-h-[90vh] 
-          p-4
-        "
-      >
+      <DialogContent className="w-full max-w-lg md:max-w-2xl lg:max-w-3xl max-h-[90vh] p-4">
+        {/* Dialog Header */}
         <DialogHeader>
           <DialogTitle>
             {defaultData?._id ? t("editProduct") : t("addProduct")}
           </DialogTitle>
         </DialogHeader>
 
+        {/* Scrollable Form Area */}
         <ScrollArea className="max-h-[65vh] px-1">
           <div className="grid gap-4 py-2">
-
-            {/* Title */}
+            {/* Product Title */}
             <div className="flex flex-col gap-2">
               <Label>{t("productName")}</Label>
               <Input
@@ -178,6 +183,7 @@ export default function ProductDialog({ open, setOpen, onSubmit, defaultData }) 
           </div>
         </ScrollArea>
 
+        {/* Dialog Footer with Actions */}
         <DialogFooter className="flex justify-end gap-2 pt-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             {t("cancel")}

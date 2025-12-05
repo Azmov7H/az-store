@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,23 +10,41 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+/**
+ * LanguageSwitcher component
+ * Allows users to switch between available locales (languages)
+ * Updates the URL and HTML `dir` attribute accordingly
+ */
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Define available locales with code, label, and text direction
   const locales = [
     { code: "en", label: "English", dir: "ltr" },
-    { code: "ar", label: "العربية", dir: "rtl" }
+    { code: "ar", label: "العربية", dir: "rtl" },
   ];
 
+  // Get current locale from URL path
   const currentLocaleCode = pathname.split("/")[1] || "en";
-  const currentLocale = locales.find(l => l.code === currentLocaleCode);
+  const currentLocale = locales.find((l) => l.code === currentLocaleCode);
 
+  /**
+   * Handle language change
+   * @param {string} locale - Selected locale code
+   */
   const changeLanguage = (locale) => {
     const query = searchParams.toString();
-    const newPath = `/${locale}${pathname.replace(/^\/[^\/]+/, "")}${query ? `?${query}` : ""}`;
-    document.documentElement.dir = locales.find(l => l.code === locale)?.dir || "ltr";
+    const newPath = `/${locale}${pathname.replace(/^\/[^\/]+/, "")}${
+      query ? `?${query}` : ""
+    }`;
+
+    // Update document direction
+    const selectedLocale = locales.find((l) => l.code === locale);
+    document.documentElement.dir = selectedLocale?.dir || "ltr";
+
+    // Navigate to new locale path
     router.push(newPath);
   };
 
@@ -39,6 +56,7 @@ export default function LanguageSwitcher() {
           {currentLocale?.label}
         </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="end">
         {locales.map((loc) => (
           <DropdownMenuItem key={loc.code} onClick={() => changeLanguage(loc.code)}>

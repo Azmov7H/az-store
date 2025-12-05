@@ -57,28 +57,7 @@
     "client3_role": "Loyal Customer",
     "client3_text": "Excellent value for the price. I received the product the same day with above-expected quality."
   },
-  "carts": {
-    "cart": "Shopping Cart",
-    "add_to_cart": "Add to Cart",
-    "out_of_stock": "Out of Stock",
-    "quantity": "Quantity",
-    "free_shipping": "Free shipping for orders over 1000 EGP",
-    "money_back": "30-day money back guarantee",
-    "secure_checkout": "Cash on delivery",
-    "remove": "Remove",
-    "orderSummary": "Order Summary",
-    "free": "Free",
-    "loading": "Loading cart...",
-    "empty": "Cart is empty",
-    "color": "Color",
-    "size": "Size",
-    "subtotal": "Subtotal",
-    "tax": "Tax",
-    "shipping": "Shipping",
-    "total": "Total",
-    "checkout": "Checkout",
-    "continue": "Continue Shopping"
-  },
+
   "product": {
     "color": "Color",
     "size": "Size",
@@ -177,5 +156,76 @@
     "invalidCredentials": "Invalid credentials",
     "successLogin": "Logged in successfully",
     "successRegister": "Account created successfully"
+  },
+  "OrderSummary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "FREE",
+    "total": "Total"
+  },
+  "PaymentStep": {
+    "title": "Confirm & Pay",
+    "processing": "Processing...",
+    "completePurchase": "Complete Purchase",
+    "back": "Back",
+    "success": "Order placed successfully!",
+    "error": "Failed to create order",
+    "orderId": "Order Success! ID: {id}"
+  },
+
+  "ReviewOrder": {
+    "title": "Review Your Order",
+    "shippingTo": "Shipping To",
+    "orderItems": "Order Items",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "back": "Back",
+    "proceedPayment": "Proceed to Payment"
+  },
+
+  "ShippingForm": {
+    "title": "Shipping Information",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "city": "City",
+    "district": "District",
+    "street": "Street",
+    "continue": "Continue to Review"
+  },
+
+  "Checkout": {
+    "emptyCart": "Your cart is empty"
+  
+},
+
+  "carts": {
+    "loading": "Loading...",
+    "cart": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continue": "Continue Shopping",
+    "items": "Items",
+    "color": "Color",
+    "size": "Size",
+    "remove": "Remove",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "FREE",
+    "total": "Total",
+    "checkout": "Checkout"
   }
+
+
+
+
+
+
+
+
+
+
+
 }

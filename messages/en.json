@@ -191,5 +191,26 @@
     "street": "Street",
     "continue": "Continue to Review",
     "checkout": "Checkout"
-  }
+  },
+  "carts": {
+  "loading": "Loading...",
+  "add_to_cart": "Add to Cart",
+  "cart": "Shopping Cart",
+  "free_shipping": "Free shipping when you buy 3 items or more",
+  "money_back": "15-day return policy for manufacturing defects",
+  "secure_checkout": "Cash on delivery",
+  "empty": "Your cart is empty",
+  "continue": "Continue Shopping",
+  "items": "Items",
+  "color": "Color",
+  "size": "Size",
+  "remove": "Remove",
+  "orderSummary": "Order Summary",
+  "subtotal": "Subtotal",
+  "shipping": "Shipping",
+  "free": "Free",
+  "total": "Total",
+  "checkout": "Proceed to Checkout"
+}
+
 }

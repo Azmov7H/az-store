@@ -48,28 +48,28 @@ export default function AboutPage() {
 
                 {/* Stats */}
                 <div className="grid md:grid-cols-4 gap-6 mb-12">
-                    <Card>
+                    <Card className="">
                         <CardContent className="p-6 text-center">
                             <ShoppingBag className="h-12 w-12 mx-auto mb-4 text-primary" />
                             <h3 className="text-3xl font-bold mb-2">10,000+</h3>
                             <p className="text-muted-foreground">Products Sold</p>
                         </CardContent>
                     </Card>
-                    <Card>
+                    <Card className="">
                         <CardContent className="p-6 text-center">
                             <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
                             <h3 className="text-3xl font-bold mb-2">5,000+</h3>
                             <p className="text-muted-foreground">Happy Customers</p>
                         </CardContent>
                     </Card>
-                    <Card>
+                    <Card className="">
                         <CardContent className="p-6 text-center">
                             <Award className="h-12 w-12 mx-auto mb-4 text-primary" />
                             <h3 className="text-3xl font-bold mb-2">4.8/5</h3>
                             <p className="text-muted-foreground">Average Rating</p>
                         </CardContent>
                     </Card>
-                    <Card>
+                    <Card className="">
                         <CardContent className="p-6 text-center">
                             <TrendingUp className="h-12 w-12 mx-auto mb-4 text-primary" />
                             <h3 className="text-3xl font-bold mb-2">4 Years</h3>
@@ -84,7 +84,7 @@ export default function AboutPage() {
                         <h2 className="text-3xl font-bold mb-6">Our Values</h2>
                         <div className="grid md:grid-cols-3 gap-8">
                             <div>
-                                <Badge className="mb-3">Quality First</Badge>
+                                <Badge variant="default" className="mb-3">Quality First</Badge>
                                 <h3 className="text-xl font-semibold mb-2">Authentic Products</h3>
                                 <p className="text-muted-foreground">
                                     We only sell 100% authentic products from authorized distributors.
@@ -92,7 +92,7 @@ export default function AboutPage() {
                                 </p>
                             </div>
                             <div>
-                                <Badge className="mb-3">Customer Focus</Badge>
+                                <Badge variant="default" className="mb-3">Customer Focus</Badge>
                                 <h3 className="text-xl font-semibold mb-2">Your Satisfaction</h3>
                                 <p className="text-muted-foreground">
                                     Our dedicated support team is always ready to help. We offer
@@ -100,7 +100,7 @@ export default function AboutPage() {
                                 </p>
                             </div>
                             <div>
-                                <Badge className="mb-3">Fair Pricing</Badge>
+                                <Badge variant="default" className="mb-3">Fair Pricing</Badge>
                                 <h3 className="text-xl font-semibold mb-2">Best Value</h3>
                                 <p className="text-muted-foreground">
                                     We work directly with brands to offer competitive prices without
@@ -117,7 +117,7 @@ export default function AboutPage() {
                 <div className="text-center">
                     <h2 className="text-3xl font-bold mb-6">Why Choose Ali Store?</h2>
                     <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <Card>
+                        <Card className="">
                             <CardContent className="p-6">
                                 <h3 className="text-lg font-semibold mb-2">✓ Free Shipping</h3>
                                 <p className="text-muted-foreground">
@@ -125,7 +125,7 @@ export default function AboutPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card>
+                        <Card className="">
                             <CardContent className="p-6">
                                 <h3 className="text-lg font-semibold mb-2">✓ Cash on Delivery</h3>
                                 <p className="text-muted-foreground">
@@ -133,7 +133,7 @@ export default function AboutPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card>
+                        <Card className="">
                             <CardContent className="p-6">
                                 <h3 className="text-lg font-semibold mb-2">✓ 15-Day Returns</h3>
                                 <p className="text-muted-foreground">
@@ -141,7 +141,7 @@ export default function AboutPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card>
+                        <Card className="">
                             <CardContent className="p-6">
                                 <h3 className="text-lg font-semibold mb-2">✓ Secure Shopping</h3>
                                 <p className="text-muted-foreground">

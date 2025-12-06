@@ -1,12 +1,12 @@
 // src/proxy.ts
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
 // Middleware i18next
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request) {
+export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // تنفيذ الـ i18next أولًا

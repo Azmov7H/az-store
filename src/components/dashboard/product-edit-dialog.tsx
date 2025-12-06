@@ -97,8 +97,8 @@ export default function ProductEditDialog({
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                    <DialogTitle>
+                <DialogHeader className="">
+                    <DialogTitle className="">
                         {defaultData && Object.keys(defaultData).length > 0
                             ? "Edit Product"
                             : "Add New Product"}
@@ -108,8 +108,9 @@ export default function ProductEditDialog({
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                            <Label htmlFor="title">Product Name *</Label>
+                            <Label className="" htmlFor="title">Product Name *</Label>
                             <Input
+                                className=""
                                 id="title"
                                 name="title"
                                 value={formData.title}
@@ -119,8 +120,9 @@ export default function ProductEditDialog({
                             />
                         </div>
                         <div>
-                            <Label htmlFor="category">Category *</Label>
+                            <Label className="" htmlFor="category">Category *</Label>
                             <Input
+                                className=""
                                 id="category"
                                 name="category"
                                 value={formData.category}
@@ -133,8 +135,9 @@ export default function ProductEditDialog({
 
                     <div className="grid md:grid-cols-3 gap-4">
                         <div>
-                            <Label htmlFor="price">Price (EGP) *</Label>
+                            <Label className="" htmlFor="price">Price (EGP) *</Label>
                             <Input
+                                className=""
                                 id="price"
                                 name="price"
                                 type="number"
@@ -146,8 +149,9 @@ export default function ProductEditDialog({
                             />
                         </div>
                         <div>
-                            <Label htmlFor="discount">Discount (%)</Label>
+                            <Label className="" htmlFor="discount">Discount (%)</Label>
                             <Input
+                                className=""
                                 id="discount"
                                 name="discount"
                                 type="number"
@@ -159,8 +163,9 @@ export default function ProductEditDialog({
                             />
                         </div>
                         <div>
-                            <Label htmlFor="stock">Stock *</Label>
+                            <Label className="" htmlFor="stock">Stock *</Label>
                             <Input
+                                className=""
                                 id="stock"
                                 name="stock"
                                 type="number"
@@ -175,8 +180,9 @@ export default function ProductEditDialog({
 
                     <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                            <Label htmlFor="sizes">Sizes (comma-separated) *</Label>
+                            <Label className="" htmlFor="sizes">Sizes (comma-separated) *</Label>
                             <Input
+                                className=""
                                 id="sizes"
                                 name="sizes"
                                 value={formData.sizes}
@@ -186,8 +192,9 @@ export default function ProductEditDialog({
                             />
                         </div>
                         <div>
-                            <Label htmlFor="colors">Colors (comma-separated) *</Label>
+                            <Label className="" htmlFor="colors">Colors (comma-separated) *</Label>
                             <Input
+                                className=""
                                 id="colors"
                                 name="colors"
                                 value={formData.colors}
@@ -199,8 +206,9 @@ export default function ProductEditDialog({
                     </div>
 
                     <div>
-                        <Label htmlFor="description">Description *</Label>
+                        <Label className="" htmlFor="description">Description *</Label>
                         <Textarea
+                            className=""
                             id="description"
                             name="description"
                             value={formData.description}
@@ -212,8 +220,9 @@ export default function ProductEditDialog({
                     </div>
 
                     <div>
-                        <Label htmlFor="image">Image URL *</Label>
+                        <Label className="" htmlFor="image">Image URL *</Label>
                         <Input
+                            className=""
                             id="image"
                             name="image"
                             type="url"
@@ -224,11 +233,11 @@ export default function ProductEditDialog({
                         />
                     </div>
 
-                    <DialogFooter>
-                        <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                    <DialogFooter className="">
+                        <Button className="" type="button" variant="outline" size="default" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button className="" type="submit" variant="default" size="default">
                             {defaultData && Object.keys(defaultData).length > 0 ? "Update" : "Create"}
                         </Button>
                     </DialogFooter>

@@ -31,7 +31,7 @@ export default function DashboardProductCard({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {product.discount > 0 && (
-                    <Badge className="absolute top-2 right-2 bg-red-600 text-white">
+                    <Badge variant="destructive" className="absolute top-2 right-2 bg-red-600 text-white">
                         -{product.discount}%
                     </Badge>
                 )}
@@ -55,11 +55,11 @@ export default function DashboardProductCard({
                 </div>
 
                 <div className="flex items-center gap-2 text-sm">
-                    <Badge variant={product.stock > 0 ? "secondary" : "destructive"}>
+                    <Badge className="" variant={product.stock > 0 ? "secondary" : "destructive"}>
                         {product.stock > 0 ? `Stock: ${product.stock}` : "Out of Stock"}
                     </Badge>
                     {product.category && (
-                        <Badge variant="outline">{product.category}</Badge>
+                        <Badge className="" variant="outline">{product.category}</Badge>
                     )}
                 </div>
 

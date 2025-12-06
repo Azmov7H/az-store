@@ -3,20 +3,19 @@
     "title": "Welcome to the World!",
     "featuredTitle": "Featured Shoes"
   },
-"Navbar": {
-  "home": "Home",
-  "shop": "Shop",
-  "about": "About",
-  "cart": "Cart",
-  "contact": "Contact Us",
-  "menu": "Menu",
-  "language": "English",
-  "toggleTheme": "Toggle Theme",
-  "light": "Light",
-  "dark": "Dark",
-  "system": "System"
-}
-,
+  "Navbar": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "cart": "Cart",
+    "contact": "Contact Us",
+    "menu": "Menu",
+    "language": "English",
+    "toggleTheme": "Toggle Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "Hero": {
     "title": "Welcome to <brand></brand>",
     "subtitle": "Discounts up to <discount></discount>",
@@ -57,14 +56,14 @@
     "client3_role": "Loyal Customer",
     "client3_text": "Excellent value for the price. I received the product the same day with above-expected quality."
   },
-
   "product": {
     "color": "Color",
     "size": "Size",
     "addToCart": "Add to Cart"
   },
   "dashboard": {
-    "orders": "Orders",
+    "title": "Orders",
+    "subtitle": "Manage all customer orders",
     "noOrders": "No orders available",
     "orderNumber": "Order Number",
     "status": "Status",
@@ -86,7 +85,6 @@
     "invoiceError": "Failed to load invoice",
     "addedToCart": "Product added to cart",
     "cart": "Cart",
-    "title": "Orders",
     "orderId": "Order ID",
     "customerInfo": "Customer Information",
     "customerName": "Customer Name",
@@ -173,7 +171,6 @@
     "error": "Failed to create order",
     "orderId": "Order Success! ID: {id}"
   },
-
   "ReviewOrder": {
     "title": "Review Your Order",
     "shippingTo": "Shipping To",
@@ -184,7 +181,6 @@
     "back": "Back",
     "proceedPayment": "Proceed to Payment"
   },
-
   "ShippingForm": {
     "title": "Shipping Information",
     "fullName": "Full Name",
@@ -193,43 +189,7 @@
     "city": "City",
     "district": "District",
     "street": "Street",
-    "continue": "Continue to Review"
-  },
-
-  "Checkout": {
-    "emptyCart": "Your cart is empty"
-  
-},
-
-  "carts": {
-    "loading": "Loading...",
-    "add_to_cart":"Add to Cart",
-    "free_shipping":"Shipping is free when you buy 3 items or more.",
-    "money_back":"15-day return policy against manufacturing defects",
-    "cart": "Shopping Cart",
-    "secure_checkout":"Payment upon receipt",
-    "empty": "Your cart is empty",
-    "continue": "Continue Shopping",
-    "items": "Items",
-    "color": "Color",
-    "size": "Size",
-    "remove": "Remove",
-    "orderSummary": "Order Summary",
-    "subtotal": "Subtotal",
-    "shipping": "Shipping",
-    "free": "FREE",
-    "total": "Total",
+    "continue": "Continue to Review",
     "checkout": "Checkout"
   }
-
-
-
-
-
-
-
-
-
-
-
 }

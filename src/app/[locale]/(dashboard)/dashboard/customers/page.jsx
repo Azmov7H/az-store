@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 async function fetchComments() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/commit`, { cache: "no-store" })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/content`, { cache: "no-store" })
   if (!res.ok) throw new Error("Failed to fetch comments")
   return await res.json()
 }

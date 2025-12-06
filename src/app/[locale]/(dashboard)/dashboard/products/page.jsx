@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import ProductCard from "@/components/ShoeCard"
-import ProductDialog from "@/components/ProductDialog"
+import DashboardProductCard from "@/components/dashboard/dashboard-product-card"
+import ProductEditDialog from "@/components/dashboard/product-edit-dialog"
 import { getShoes, createShoe, updateShoe, deleteShoe } from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
@@ -30,11 +30,6 @@ export default function ProductsPage() {
   useEffect(() => {
     fetchShoes()
   }, [])
-
-  const handleCreate = () => {
-    setSelected(null)
-    setOpen(true)
-  }
 
   const handleSubmit = async (form) => {
     try {
@@ -65,38 +60,49 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6  bg-background z-10 p-2">
-  <h1 className="text-xl font-bold">Products</h1>
-  <Button onClick={handleCreate}>+ Add Product</Button>
-</div>
+    <div className="w-full space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold">Products</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Manage your product inventory
+          </p>
+        </div>
+        <Button onClick={() => { setSelected(null); setOpen(true) }} className="w-full sm:w-auto">
+          Add Product
+        </Button>
+      </div>
 
-
+      {/* Products Grid */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          {[...Array(8)].map((_, i) => (
             <Skeleton key={i} className="h-60 w-full rounded-lg" />
           ))}
         </div>
       ) : shoes.length === 0 ? (
-        <p className="text-center text-muted-foreground py-10">
-          No products found.
-        </p>
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">No products found.</p>
+          <Button onClick={() => { setSelected(null); setOpen(true) }} className="mt-4">
+            Add Your First Product
+          </Button>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-  {shoes.map((shoe) => (
-    <ProductCard
-      key={shoe._id}
-      product={shoe}
-      onEdit={() => { setSelected(shoe); setOpen(true) }}
-      onDelete={() => handleDelete(shoe._id)}
-    />
-  ))}
-</div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          {shoes.map((shoe) => (
+            <DashboardProductCard
+              key={shoe._id}
+              product={shoe}
+              onEdit={() => { setSelected(shoe); setOpen(true) }}
+              onDelete={() => handleDelete(shoe._id)}
+            />
+          ))}
+        </div>
       )}
 
-      <ProductDialog
+      {/* Edit/Create Dialog */}
+      <ProductEditDialog
         open={open}
         setOpen={setOpen}
         onSubmit={handleSubmit}

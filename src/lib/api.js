@@ -5,15 +5,15 @@ const BASE_SHOE = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes`
 
 export async function getShoes() {
   const res = await fetch(BASE_SHOE, { cache: "no-store" });
-  const data =await res.json()
-  
+  const data = await res.json()
+
   if (!res.ok) throw new Error("Failed to fetch shoes");
   return data.data || []
 }
 
 export async function getShoeById(id) {
   const res = await fetch(`${BASE_SHOE}/${id}`);
-  const data =await res.json()
+  const data = await res.json()
   return data.data
 }
 
@@ -44,7 +44,7 @@ export async function deleteShoe(id) {
 }
 
 // ================== ORDER ==================
-const BASE_ORDER =  `${process.env.NEXT_PUBLIC_API_URL}/api/orders`;
+const BASE_ORDER = `${process.env.NEXT_PUBLIC_API_URL}/api/orders`;
 
 export async function getOrders() {
   const res = await fetch(BASE_ORDER, { cache: "no-store" });
@@ -85,7 +85,7 @@ export async function deleteOrder(id) {
 }
 
 // ================== COMMIT ==================
-const BASE_COMMIT = `${process.env.NEXT_PUBLIC_API_UR}/api/commit`;
+const BASE_COMMIT = `${process.env.NEXT_PUBLIC_API_URL}/api/commit`;
 
 export async function getCommits() {
   const res = await fetch(BASE_COMMIT, { cache: "no-store" });

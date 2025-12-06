@@ -25,8 +25,8 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
 
     return (
         <Card className="lg:col-span-1 sticky top-20 h-fit">
-            <CardHeader>
-                <CardTitle>{t("title")}</CardTitle>
+            <CardHeader className="">
+                <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-4">
@@ -55,7 +55,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                     </div>
                 </ScrollArea>
 
-                <Separator />
+                <Separator className="" />
 
                 <div className="space-y-2">
                     <div className="flex justify-between text-sm">
@@ -66,13 +66,13 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                     <div className="flex justify-between text-sm">
                         <span>{t("shipping")}</span>
                         {shipping === 0 ? (
-                            <Badge className="bg-green-600">{t("free")}</Badge>
+                            <Badge variant="default" className="bg-green-600">{t("free")}</Badge>
                         ) : (
                             <span>{shipping.toFixed(2)} EGP</span>
                         )}
                     </div>
 
-                    <Separator />
+                    <Separator className="" />
 
                     <div className="flex justify-between font-bold text-lg">
                         <span>{t("total")}</span>

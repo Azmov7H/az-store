@@ -52,13 +52,12 @@ export default function PaymentStep({
         const orderData: CreateOrderData = {
             ...formData,
             products: items.map((item) => ({
-                id: item.id,
+                shoeId: item.id,
                 title: item.title,
                 price: item.price,
                 quantity: item.quantity,
                 selectedColor: item.selectedColor,
                 selectedSize: item.selectedSize,
-                discount: item.discount || 0,
             })),
             subtotal,
             discount: 0,
@@ -84,9 +83,9 @@ export default function PaymentStep({
     };
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{t("title")}</CardTitle>
+        <Card className="">
+            <CardHeader className="">
+                <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-4">
@@ -127,10 +126,10 @@ export default function PaymentStep({
                         </div>
 
                         <div className="flex gap-4">
-                            <Button variant="outline" onClick={onBack} disabled={loading}>
+                            <Button variant="outline" size="default" onClick={onBack} disabled={loading} className="min-w-24">
                                 {t("back")}
                             </Button>
-                            <Button onClick={handleSubmit} disabled={loading} className="flex-1">
+                            <Button onClick={handleSubmit} variant="default" size="default" disabled={loading} className="flex-1">
                                 {loading ? t("processing") : t("completePurchase")}
                             </Button>
                         </div>

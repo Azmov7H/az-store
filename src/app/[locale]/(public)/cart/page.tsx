@@ -43,7 +43,7 @@ export default function CartPage() {
             {items.length === 0 ? (
                 <Card className="p-12 text-center">
                     <CardTitle className="text-xl mb-6">{t("empty")}</CardTitle>
-                    <Button asChild>
+                    <Button className="" variant="default" size="default" asChild>
                         <Link href="/shop">{t("continue")}</Link>
                     </Button>
                 </Card>
@@ -51,11 +51,11 @@ export default function CartPage() {
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* Cart Items */}
                     <Card className="lg:col-span-2">
-                        <CardHeader>
+                        <CardHeader className="">
                             <CardTitle className="text-2xl">{t("items")}</CardTitle>
                         </CardHeader>
 
-                        <CardContent>
+                        <CardContent className="">
                             <ScrollArea className="h-max pr-3">
                                 <div className="space-y-6">
                                     {items.map((item) => {
@@ -83,10 +83,10 @@ export default function CartPage() {
                                                         {item.title}
                                                     </h3>
                                                     <div className="flex items-center gap-2 mt-1 flex-wrap">
-                                                        <Badge variant="secondary">
+                                                        <Badge className="" variant="secondary">
                                                             {t("color")}: {item.selectedColor}
                                                         </Badge>
-                                                        <Badge variant="outline">
+                                                        <Badge className="" variant="outline">
                                                             {t("size")}: {item.selectedSize}
                                                         </Badge>
                                                     </div>
@@ -97,6 +97,7 @@ export default function CartPage() {
 
                                                     <div className="flex items-center gap-3 mt-4">
                                                         <Button
+                                                            className=""
                                                             size="icon"
                                                             variant="outline"
                                                             onClick={() =>
@@ -118,6 +119,7 @@ export default function CartPage() {
                                                         </span>
 
                                                         <Button
+                                                            className=""
                                                             size="icon"
                                                             variant="outline"
                                                             onClick={() =>
@@ -135,6 +137,7 @@ export default function CartPage() {
 
                                                         <Button
                                                             variant="destructive"
+                                                            size="default"
                                                             className="ml-auto"
                                                             onClick={() =>
                                                                 removeItem(
@@ -158,7 +161,7 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <Card className="h-fit sticky top-20">
-                        <CardHeader>
+                        <CardHeader className="">
                             <CardTitle className="text-2xl">{t("orderSummary")}</CardTitle>
                         </CardHeader>
 
@@ -172,21 +175,21 @@ export default function CartPage() {
                                 <span>{t("shipping")}</span>
                                 <span>
                                     {shipping === 0 ? (
-                                        <Badge className="bg-green-600">{t("free")}</Badge>
+                                        <Badge variant="default" className="bg-green-600">{t("free")}</Badge>
                                     ) : (
                                         `${shipping.toFixed(2)} EGP`
                                     )}
                                 </span>
                             </div>
 
-                            <Separator />
+                            <Separator className="" />
 
                             <div className="flex justify-between font-bold text-xl">
                                 <span>{t("total")}</span>
                                 <span>{total.toFixed(2)} EGP</span>
                             </div>
 
-                            <Button className="w-full" asChild>
+                            <Button variant="default" size="default" className="w-full" asChild>
                                 <Link href="/checkout">{t("checkout")}</Link>
                             </Button>
                         </CardContent>

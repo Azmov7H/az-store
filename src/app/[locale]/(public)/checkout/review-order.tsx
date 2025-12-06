@@ -41,9 +41,9 @@ export default function ReviewOrder({
     const total = subtotal + shipping;
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{t("title")}</CardTitle>
+        <Card className="">
+            <CardHeader className="">
+                <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-6">
@@ -88,7 +88,7 @@ export default function ReviewOrder({
                     </ScrollArea>
                 </div>
 
-                <Separator />
+                <Separator className="" />
 
                 {/* Price Summary */}
                 <div className="space-y-2">
@@ -100,7 +100,7 @@ export default function ReviewOrder({
                         <span>{t("shipping")}</span>
                         <span>{shipping === 0 ? "FREE" : `${shipping.toFixed(2)} EGP`}</span>
                     </div>
-                    <Separator />
+                    <Separator className="" />
                     <div className="flex justify-between font-bold text-lg">
                         <span>{t("total")}</span>
                         <span>{total.toFixed(2)} EGP</span>
@@ -109,10 +109,10 @@ export default function ReviewOrder({
 
                 {/* Actions */}
                 <div className="flex gap-4 pt-4">
-                    <Button variant="outline" onClick={onBack} className="flex-1">
+                    <Button variant="outline" size="default" onClick={onBack} className="flex-1">
                         {t("back")}
                     </Button>
-                    <Button onClick={onNext} className="flex-1">
+                    <Button onClick={onNext} variant="default" size="default" className="flex-1">
                         {t("proceedPayment")}
                     </Button>
                 </div>

@@ -105,16 +105,18 @@ export default function ShippingForm({
         formData.customerStreet;
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{t("title")}</CardTitle>
+        <Card className="">
+            <CardHeader className="">
+                <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                        <Label htmlFor="customerName">{t("fullName")}</Label>
+                        <Label className="" htmlFor="customerName">{t("fullName")}</Label>
                         <Input
+                            className=""
+                            type="text"
                             id="customerName"
                             name="customerName"
                             value={formData.customerName}
@@ -124,8 +126,9 @@ export default function ShippingForm({
                     </div>
 
                     <div>
-                        <Label htmlFor="customerEmail">{t("email")}</Label>
+                        <Label className="" htmlFor="customerEmail">{t("email")}</Label>
                         <Input
+                            className=""
                             id="customerEmail"
                             name="customerEmail"
                             type="email"
@@ -136,8 +139,9 @@ export default function ShippingForm({
                     </div>
 
                     <div>
-                        <Label htmlFor="customerPhone">{t("phone")}</Label>
+                        <Label className="" htmlFor="customerPhone">{t("phone")}</Label>
                         <Input
+                            className=""
                             id="customerPhone"
                             name="customerPhone"
                             type="tel"
@@ -148,14 +152,14 @@ export default function ShippingForm({
                     </div>
 
                     <div>
-                        <Label htmlFor="customerCity">{t("city")}</Label>
+                        <Label className="" htmlFor="customerCity">{t("city")}</Label>
                         <Select value={formData.customerCity} onValueChange={handleCityChange}>
-                            <SelectTrigger id="customerCity">
+                            <SelectTrigger className="" id="customerCity">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="">
                                 {Object.keys(CITIES).map((city) => (
-                                    <SelectItem key={city} value={city}>
+                                    <SelectItem className="" key={city} value={city}>
                                         {city}
                                     </SelectItem>
                                 ))}
@@ -164,17 +168,17 @@ export default function ShippingForm({
                     </div>
 
                     <div>
-                        <Label htmlFor="customerDistrict">{t("district")}</Label>
+                        <Label className="" htmlFor="customerDistrict">{t("district")}</Label>
                         <Select
                             value={formData.customerDistrict}
                             onValueChange={handleDistrictChange}
                         >
-                            <SelectTrigger id="customerDistrict">
+                            <SelectTrigger className="" id="customerDistrict">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="">
                                 {(CITIES[formData.customerCity] || []).map((district) => (
-                                    <SelectItem key={district} value={district}>
+                                    <SelectItem className="" key={district} value={district}>
                                         {district}
                                     </SelectItem>
                                 ))}
@@ -183,8 +187,10 @@ export default function ShippingForm({
                     </div>
 
                     <div>
-                        <Label htmlFor="customerStreet">{t("street")}</Label>
+                        <Label className="" htmlFor="customerStreet">{t("street")}</Label>
                         <Input
+                            className=""
+                            type="text"
                             id="customerStreet"
                             name="customerStreet"
                             value={formData.customerStreet}
@@ -194,7 +200,7 @@ export default function ShippingForm({
                     </div>
                 </div>
 
-                <Button onClick={onNext} disabled={!isValid} className="w-full md:w-auto">
+                <Button className="" onClick={onNext} disabled={!isValid} className="w-full md:w-auto">
                     {t("continue")}
                 </Button>
             </CardContent>

@@ -115,7 +115,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         priority
                     />
                     {product.discount > 0 && (
-                        <Badge className="absolute top-4 right-4 bg-red-600 text-white text-lg px-4 py-2">
+                        <Badge variant="destructive" className="absolute top-4 right-4 bg-red-600 text-white text-lg px-4 py-2">
                             -{product.discount}%
                         </Badge>
                     )}
@@ -148,8 +148,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                     <span
                                         key={i}
                                         className={`text-2xl ${i < Math.floor(product.rating)
-                                                ? "text-yellow-500"
-                                                : "text-gray-300"
+                                            ? "text-yellow-500"
+                                            : "text-gray-300"
                                             }`}
                                     >
                                         ★
@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                 <h3 className="font-semibold mb-2">Available Colors</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {product.availableColors.map((color) => (
-                                        <Badge key={color} variant="outline">
+                                        <Badge key={color} variant="outline" className="">
                                             {color}
                                         </Badge>
                                     ))}
@@ -205,7 +205,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                 <h3 className="font-semibold mb-2">Available Sizes</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {product.availableSizes.map((size) => (
-                                        <Badge key={size} variant="outline">
+                                        <Badge key={size} variant="outline" className="">
                                             {size}
                                         </Badge>
                                     ))}
@@ -215,7 +215,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     </div>
 
                     {/* CTA */}
-                    <Button size="lg" className="w-full md:w-auto" asChild>
+                    <Button variant="default" size="lg" className="w-full md:w-auto" asChild>
                         <Link href="/shop">Back to Shop</Link>
                     </Button>
                 </div>

@@ -200,7 +200,7 @@ export default function ShippingForm({
                     </div>
                 </div>
 
-                <Button className="" onClick={onNext} disabled={!isValid} className="w-full md:w-auto">
+                <Button onClick={onNext} disabled={!isValid} variant="default" size="default" className="w-full md:w-auto">
                     {t("continue")}
                 </Button>
             </CardContent>

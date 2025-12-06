@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/context/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import requestConfig from "../../i18n/request";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -85,7 +85,7 @@ export default async function LocaleLayout({
     params,
 }: LocaleLayoutProps) {
     const { locale } = await params;
-    const config = await requestConfig({ requestLocale: locale });
+    const messages = await getMessages();
 
     return (
         <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
@@ -112,7 +112,7 @@ export default async function LocaleLayout({
                         }),
                     }}
                 />
-                <NextIntlClientProvider messages={config.messages}>
+                <NextIntlClientProvider messages={messages}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"

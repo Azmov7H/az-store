@@ -23,6 +23,10 @@ export const metadata: Metadata = {
         "sports shoes",
         "running shoes",
         "best online store",
+       "احذية رجالي",
+       "اسعار احذية",
+       "سنيكرز رجالي"
+
     ],
     robots: {
         index: true,

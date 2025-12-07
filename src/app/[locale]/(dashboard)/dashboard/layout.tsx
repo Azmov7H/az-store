@@ -16,14 +16,18 @@ interface DashboardLayoutProps {
     children: React.ReactNode;
 }
 
+import { authUtils } from "@/lib/auth";
+
 export default async function DashboardLayout({
     children,
-}: DashboardLayoutProps) {
+    params,
+}: DashboardLayoutProps & { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
     const cookieStore = await cookies();
-    const token = cookieStore.get("dashboard-auth")?.value;
+    const token = cookieStore.get("admin_token")?.value;
 
-    if (token !== process.env.DASHBOARD_SECRET) {
-        redirect("/auth/login");
+    if (!token || !authUtils.verifyJWT(token)) {
+        redirect(`/${locale}/auth/login`);
     }
 
     return <DashboardLayoutClient>{children}</DashboardLayoutClient>;

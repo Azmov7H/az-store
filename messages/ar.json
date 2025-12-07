@@ -1,26 +1,55 @@
 {
-  "HomePage": {
-    "title": "مرحبا بالعالم!",
-    "featuredTitle": "أحذية مميزة"
+  "Sidebar": {
+    "overview": "نظرة عامة",
+    "products": "المنتجات",
+    "customers": "العملاء",
+    "orders":"الطلبات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "customers": {
+    "title": "العملاء",
+    "searchPlaceholder": "بحث عن عملاء...",
+      "desc": "عرض وإدارة قاعدة عملائك وملاحظاتهم.",
+  "noCustomers": "لا يوجد عملاء",
+  "adjustSearch": "جرّب تعديل عبارة البحث.",
+  "actions": "الإجراءات",
+  "viewProfile": "عرض الملف",
+  "sendEmail": "إرسال بريد",
+  "feedback": "ملاحظات",
+  "verified": "موثّق",
+  "active": "نشط"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "account": "الحساب",
+    "notifications": "الإشعارات",
+    "appearance": "المظهر"
   },
   "Navbar": {
-  "home": "الرئيسية",
-  "shop": "المتجر",
-  "about": "حول",
-  "cart": "السلة",
-  "contact": "اتصل بنا",
-  "menu": "القائمة",
-  "language": "عربي",
-  "toggleTheme": "تبديل الوضع",
-  "light": "فاتح",
-  "dark": "داكن",
-  "system": "النظام"
-}
-,
+    "home": "الرئيسية",
+    "shop": "المتجر",
+    "about": "حول",
+    "cart": "السلة",
+    "contact": "اتصل بنا",
+    "menu": "القائمة",
+    "language": "عربي",
+    "toggleTheme": "تبديل الوضع",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
+  },
   "Hero": {
     "title": "أهلاً بك في <brand></brand>",
     "subtitle": "خصومات تصل إلى <discount></discount>",
-    "shopNow": "تسوق الآن"
+    "shopNow": "تسوق الآن",
+    "newCollection": "تشكيلة جديدة",
+    "learnMore": "المزيد",
+    "trust_shipping": "شحن مجاني",
+    "trust_support": "دعم 24/7",
+    "trust_returns": "استرجاع سهل",
+    "trust_payment": "دفع آمن"
   },
   "Footer": {
     "brand": "AN Store",
@@ -46,6 +75,7 @@
   },
   "Testimonials": {
     "heading": "ماذا قال العملاء",
+    "badge": "شهادات العملاء",
     "description": "آراء حقيقية من عملائنا الذين جربوا منتجاتنا.",
     "client1_name": "سارة أحمد",
     "client1_role": "عميل مميز",
@@ -57,7 +87,6 @@
     "client3_role": "عميل دائم",
     "client3_text": "السعر مقابل القيمة ممتاز جدًا. استلمت المنتج في نفس اليوم وبجودة فوق المتوقعة."
   },
- 
   "product": {
     "color": "اللون",
     "size": "المقاس",
@@ -103,7 +132,15 @@
     "pricing": "الأسعار",
     "discount": "الخصم",
     "currency": "ج.م",
-    "status_pending": "قيد المراجعة",
+    "totalRevenue": "إجمالي الإيرادات",
+    "totalOrders": "إجمالي الطلبات",
+    "pendingOrders": "طلبات قيد الانتظار",
+    "completedOrders": "طلبات مكتملة",
+    "recentOrders": "أحدث الطلبات",
+    "status_pending": "قيد الانتظار",
+    "status_confirmed": "تم التأكيد",
+    "status_processing": "جاري التجهيز",
+    "status_shipped": "تم الشحن",
     "status_delivered": "تم التوصيل",
     "status_cancelled": "تم الإلغاء",
     "createdAt": "تاريخ الإنشاء",
@@ -133,6 +170,10 @@
     "imageUrl": "رابط الصورة",
     "enterImageUrl": "أدخل رابط الصورة",
     "cancel": "إلغاء",
+      "desc": "إدارة المخزون، الأسعار، ومستويات الكمية.",
+  "filters": "عوامل التصفية",
+  "priceRange": "نطاق السعر",
+  "resetFilters": "إعادة تعيين الفلاتر",
     "create": "إنشاء",
     "update": "تحديث"
   },
@@ -157,7 +198,6 @@
     "successLogin": "تم تسجيل الدخول بنجاح",
     "successRegister": "تم إنشاء الحساب بنجاح"
   },
-
   "OrderSummary": {
     "title": "ملخص الطلب",
     "subtotal": "المجموع الفرعي",
@@ -165,7 +205,6 @@
     "free": "مجاني",
     "total": "الإجمالي"
   },
-
   "PaymentStep": {
     "title": "تأكيد الطلب ",
     "processing": "جارٍ المعالجة...",
@@ -175,7 +214,6 @@
     "error": "فشل في إنشاء الطلب",
     "orderId": "تم الطلب بنجاح! الرقم: {id}"
   },
-
   "ReviewOrder": {
     "title": "مراجعة الطلب",
     "shippingTo": "الشحن إلى",
@@ -186,7 +224,6 @@
     "back": "عودة",
     "proceedPayment": "الانتقال للدفع"
   },
-
   "ShippingForm": {
     "title": "معلومات الشحن",
     "fullName": "الاسم الكامل",
@@ -197,18 +234,17 @@
     "street": "الشارع",
     "continue": "الاستمرار للمراجعة"
   },
-
   "Checkout": {
     "emptyCart": "سلة المشتريات فارغة"
   },
- 
   "carts": {
     "loading": "جاري التحميل...",
-    "add_to_cart":"اضف الي السلة  ",
+    "quantity":"الكمية",
+    "add_to_cart": "اضف الي السلة  ",
     "cart": "سلة المشتريات",
-    "free_shipping":"الشحن مجاني عند شراء 3 منتجات أو أكثر.",
-    "money_back":"سياسة الإرجاع لمدة 15 يومًا ضد عيوب التصنيع",
-    "secure_checkout":"الدفع عند الاستلام",
+    "free_shipping": "الشحن مجاني عند شراء 3 منتجات أو أكثر.",
+    "money_back": "سياسة الإرجاع لمدة 15 يومًا ضد عيوب التصنيع",
+    "secure_checkout": "الدفع عند الاستلام",
     "empty": "سلة المشتريات فارغة",
     "continue": "استمرار بالتسوق",
     "items": "العناصر",
@@ -221,17 +257,116 @@
     "free": "مجاني",
     "total": "الإجمالي",
     "checkout": "الدفع"
+  },
+  "Features": {
+    "shipping_title": "شحن مجاني",
+    "shipping_desc": "لجميع  الطلبات فوق  3 عناصر ",
+    "returns_title": "استرجاع سهل",
+    "returns_desc": "ضمان استرجاع الأموال لمدة 30 يوم",
+    "secure_title": "دفع آمن",
+    "secure_desc": "معاملات محمية 100٪",
+    "support_title": "دعم 24/7",
+    "heading": "المميزات",
+    "description": "استمتع بتسوق آمن وسريع",
+    "support_desc": "فريق دعم مخصص لخدمتك"
+  },
+  "Brands": {
+    "heading": "شركاؤنا",
+    "title": "علامات تجارية مميزة",
+    "description": "اكتشف أحدث تشكيلات الماركات العالمية"
+  },
+  "Stats": {
+    "customers": "عميل سعيد",
+    "products": "منتج متاح",
+    "brands": "علامة تجارية",
+    "satisfaction": "رضا العملاء"
+  },
+  "ProductPage": {
+    "home": "الرئيسية",
+    "shop": "المتجر",
+    "you_might_like": "قد يعجبك أيضاً",
+    "save_percent": "وفر {percent}٪",
+    "new_arrival": "وصل حديثاً",
+    "out_of_stock": "نفذت الكمية",
+    "only_left": "تبقى {count} قطع فقط!",
+    "in_stock": "متوفر وجاهز للشحن",
+    "add_to_cart": "أضف إلى السلة",
+    "adding": "جاري الإضافة...",
+    "view_cart": "عرض السلة",
+    "select_color": "اختر اللون",
+    "select_size": "اختر المقاس",
+    "quantity": "الكمية",
+    "your_selection": "اختيارك",
+    "secure_checkout": "دفع آمن",
+    "free_returns": "إرجاع مجاني",
+    "secure_payment": "دفع محمي",
+    "reviews": "({count} تقييمات)"
+  },
+  "About": {
+    "hero_title": "عن متجر علي",
+    "hero_subtitle": "وجهتك الموثوقة للأحذية عالية الجودة منذ 2025",
+    "story_title": "قصتنا",
+    "story_p1": "تأسس متجر علي بمهمة بسيطة: توفير أحذية عالية الجودة بأسعار معقولة للعملاء في جميع أنحاء مصر. ما بدأ كمتجر صغير في القاهرة نما ليصبح وجهة موثوقة عبر الإنترنت لآلاف العملاء الراضين.",
+    "story_p2": "نؤمن بأن الجميع يستحق الحصول على أحذية مريحة وأنيقة ومتينة دون كسر الميزانية. لهذا السبب نختار مجموعتنا بعناية من العلامات التجارية العالمية الرائدة بما في ذلك نايك وأديداس وبوما وغيرها.",
+    "story_p3": "التزامنا برضا العملاء هو الدافع وراء كل ما نقوم به. من موقعنا سهل الاستخدام إلى الشحن السريع والإرجاع السهل، نعمل باستمرار لتحسين تجربة التسوق الخاصة بك.",
+    "stats_sold": "منتج مباع",
+    "stats_customers": "عميل سعيد",
+    "stats_rating": "متوسط تقييم",
+    "stats_years": "سنوات خبرة",
+    "values_title": "قيمنا",
+    "val_q_badge": "الجودة أولاً",
+    "val_q_title": "منتجات أصلية",
+    "val_q_desc": "نبيع فقط منتجات أصلية 100٪ من موزعين معتمدين. يتم فحص كل عنصر بعناية قبل الشحن.",
+    "val_c_badge": "التركيز على العميل",
+    "val_c_title": "رضاك يهمنا",
+    "val_c_desc": "فريق الدعم المخصص لدينا جاهز دائمًا للمساعدة. نقدم إرجاع واستبدال سهل خلال 15 يومًا.",
+    "val_p_badge": "تسعير عادل",
+    "val_p_title": "أفضل قيمة",
+    "val_p_desc": "نعمل مباشرة مع العلامات التجارية لتقديم أسعار تنافسية دون التنازل عن الجودة.",
+    "why_title": "لماذا تختار متجر علي؟",
+    "why_shipping": "شحن مجاني",
+    "why_shipping_desc": "للطلبات التي تحتوي على 3 منتجات أو أكثر",
+    "why_cod": "الدفع عند الاستلام",
+    "why_cod_desc": "ادفع عند استلام طلبك",
+    "why_returns": "إرجاع 15 يوم",
+    "why_returns_desc": "إرجاع سهل لعيوب التصنيع",
+    "why_secure": "تسوق آمن",
+    "why_secure_desc": "بياناتك محمية وآمنة"
+  },
+  "ordersPage": {
+    "title": "إدارة الطلبات",
+    "total_suffix": "إجمالي الطلبات",
+    "no_orders_title": "لا توجد طلبات",
+    "no_orders_desc": "عند قيام العملاء بعمل طلبات، ستظهر هنا.",
+    "items": "العناصر",
+    "details": "تفاصيل الطلب",
+    "currency": "جنيه",
+    "status_pending": "قيد الانتظار",
+    "status_processing": "قيد المعالجة",
+    "status_shipped": "تم الشحن",
+    "status_delivered": "تم التسليم",
+    "status_cancelled": "ملغى"
+  },
+  "analytics": {
+    "visitors_title": "حركة الزوار (آخر 7 أيام)",
+    "devices_title": "الأجهزة",
+    "sales_title": "ذكاء المبيعات والتحليلات",
+    "top_color": "أكثر لون شائع",
+    "top_size": "أكثر مقاس شائع",
+    "cart_activity": "نشاط عربات الشراء",
+    "top_products": "أكثر المنتجات مشاهدة",
+    "growth_suggestions": "اقتراحات النمو من الذكاء الاصطناعي",
+    "top_pages": "أكثر الصفحات زيارة",
+    "cart_base": "بناءً على الإضافات إلى العربة",
+    "cart_week": "العناصر المضافة للعربة هذا الأسبوع",
+    "visits": "زيارات",
+    "unknown": "غير معروف",
+    "suggestion_opportunity": "فرصة",
+    "suggestion_attention": "بحاجة إلى انتباه",
+    "suggestion_tip": "نصيحة",
+    "desktop": "كمبيوتر",
+    "mobile": "هاتف",
+    "tablet": "تابلت",
+    "total_sessions": "إجمالي الجلسات"
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }

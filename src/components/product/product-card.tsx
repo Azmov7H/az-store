@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo, useCallback, lazy, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types/product";
@@ -17,20 +17,23 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { calculateFinalPrice, truncate } from "@/lib/utils/format";
-import ProductDialog from "./product-dialog";
+
+// Lazy load the dialog component
+const ProductDialog = lazy(() => import("./product-dialog"));
 
 interface ProductCardProps {
     product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
     const { addItem } = useCart();
 
     const finalPrice = calculateFinalPrice(product.price, product.discount);
 
-    const handleAddToCart = (quantity: number, color: string, size: string) => {
+    const handleAddToCart = useCallback((quantity: number, color: string, size: string) => {
         addItem({
             id: product.id,
             _id: product._id,
@@ -50,7 +53,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         });
 
         setDialogOpen(false);
-    };
+    }, [addItem, product]);
 
     return (
         <>
@@ -130,21 +133,26 @@ export default function ProductCard({ product }: ProductCardProps) {
                         onClick={() => setDialogOpen(true)}
                         disabled={product.stock === 0}
                         className="w-full"
+                        aria-label={product.stock === 0 ? "Out of stock" : `Add ${product.title} to cart`}
                     >
                         {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                     </Button>
                 </CardFooter>
             </Card>
 
-            {/* Product Dialog */}
+            {/* Product Dialog - Lazy Loaded */}
             {dialogOpen && (
-                <ProductDialog
-                    open={dialogOpen}
-                    product={product}
-                    onClose={() => setDialogOpen(false)}
-                    onAddToCart={handleAddToCart}
-                />
+                <Suspense fallback={<div className="sr-only">Loading product details...</div>}>
+                    <ProductDialog
+                        open={dialogOpen}
+                        product={product}
+                        onClose={() => setDialogOpen(false)}
+                        onAddToCart={handleAddToCart}
+                    />
+                </Suspense>
             )}
         </>
     );
-}
+});
+
+export default ProductCard;

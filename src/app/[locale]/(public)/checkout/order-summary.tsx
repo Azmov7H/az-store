@@ -31,24 +31,44 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
 
             <CardContent className="space-y-4">
                 <ScrollArea className="max-h-96">
-                    <div className="space-y-2 pr-4">
+                    <div className="space-y-3 pr-4">
                         {items.map((item) => {
+                            const originalPrice = item.price;
                             const finalPrice = calculateFinalPrice(item.price, item.discount);
                             const itemTotal = finalPrice * item.quantity;
+                            const hasDiscount = item.discount > 0;
+
                             return (
                                 <div
                                     key={`${item.id}-${item.selectedColor}-${item.selectedSize}`}
-                                    className="flex justify-between text-sm"
+                                    className="flex justify-between text-sm pb-3 border-b last:border-0"
                                 >
                                     <div className="flex-1 pr-2">
                                         <p className="font-medium truncate">{item.title}</p>
                                         <p className="text-xs text-muted-foreground">
                                             {item.selectedColor}, {item.selectedSize} × {item.quantity}
                                         </p>
+                                        {hasDiscount && (
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <Badge variant="destructive" className="text-xs px-1.5 py-0">
+                                                    -{item.discount}%
+                                                </Badge>
+                                                <span className="text-xs line-through text-muted-foreground">
+                                                    {(originalPrice * item.quantity).toFixed(2)} EGP
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
-                                    <span className="font-semibold whitespace-nowrap">
-                                        {itemTotal.toFixed(2)} EGP
-                                    </span>
+                                    <div className="text-right">
+                                        <span className="font-semibold whitespace-nowrap">
+                                            {itemTotal.toFixed(2)} EGP
+                                        </span>
+                                        {hasDiscount && (
+                                            <p className="text-xs text-green-600 dark:text-green-400">
+                                                Save {((originalPrice - finalPrice) * item.quantity).toFixed(2)} EGP
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                             );
                         })}
@@ -62,6 +82,20 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                         <span>{t("subtotal")}</span>
                         <span>{subtotal.toFixed(2)} EGP</span>
                     </div>
+
+                    {/* Show total discount savings if any items have discounts */}
+                    {items.some(item => item.discount > 0) && (
+                        <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
+                            <span>Total Discount Savings</span>
+                            <span>
+                                -{items.reduce((total, item) => {
+                                    const originalPrice = item.price * item.quantity;
+                                    const finalPrice = calculateFinalPrice(item.price, item.discount) * item.quantity;
+                                    return total + (originalPrice - finalPrice);
+                                }, 0).toFixed(2)} EGP
+                            </span>
+                        </div>
+                    )}
 
                     <div className="flex justify-between text-sm">
                         <span>{t("shipping")}</span>

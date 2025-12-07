@@ -42,6 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
+
 /* theme.css */
 
 /* ======================== */
@@ -61,19 +62,23 @@
   --primary: #111111;
   --primary-foreground: #ffffff;
 
-  --secondary: #6b7280; /* gray-500 */
+  --secondary: #6b7280;
+  /* gray-500 */
   --secondary-foreground: #ffffff;
 
   --accent: #111111;
   --accent-foreground: #ffffff;
 
-  --destructive: #dc2626; /* red-600 */
+  --destructive: #dc2626;
+  /* red-600 */
   --destructive-foreground: #ffffff;
 
-  --muted: #f3f4f6; /* gray-100 */
+  --muted: #f3f4f6;
+  /* gray-100 */
   --muted-foreground: #6b7280;
 
-  --radius: 0.625rem; /* default rounded */
+  --radius: 0.625rem;
+  /* default rounded */
 }
 
 /* ======================== */
@@ -81,7 +86,8 @@
 /* ======================== */
 .dark {
   --background: #1a1a1a;
-  --foreground: #FFD700; /* gold */
+  --foreground: #FFD700;
+  /* gold */
   --card: #2c2c2c;
   --card-foreground: #FFD700;
   --popover: #2c2c2c;
@@ -117,7 +123,9 @@
   }
 
   /* Card, Popover, Sheet */
-  .card, .popover, .sheet-content {
+  .card,
+  .popover,
+  .sheet-content {
     @apply bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)];
   }
 
@@ -125,24 +133,31 @@
   button {
     @apply rounded-[var(--radius)] transition-all duration-200;
   }
+
   button[data-variant="default"] {
     @apply bg-[var(--primary)] text-[var(--primary-foreground)];
   }
+
   button[data-variant="secondary"] {
     @apply bg-[var(--secondary)] text-[var(--secondary-foreground)];
   }
+
   button[data-variant="destructive"] {
     @apply bg-[var(--destructive)] text-[var(--destructive-foreground)];
   }
+
   button[data-variant="outline"] {
     @apply border-[var(--border)] text-[var(--primary)];
   }
+
   button[data-variant="ghost"] {
     @apply text-[var(--foreground)];
   }
 
   /* Inputs, Textareas, Selects */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     @apply bg-[var(--input)] text-[var(--foreground)] border-[var(--border)] rounded-[var(--radius)];
   }
 
@@ -155,15 +170,18 @@
   .tab-list {
     @apply border-b-[var(--border)];
   }
+
   .tab {
     @apply text-[var(--foreground)];
   }
+
   .tab[data-state="active"] {
     @apply text-[var(--primary)];
   }
 
   /* Checkbox, Radio, Switch */
-  input[type="checkbox"], input[type="radio"] {
+  input[type="checkbox"],
+  input[type="radio"] {
     @apply border-[var(--border)] text-[var(--primary)];
   }
 
@@ -178,7 +196,8 @@
   }
 
   /* Dropdowns / Menus */
-  .dropdown-menu, .menu-content {
+  .dropdown-menu,
+  .menu-content {
     @apply bg-[var(--popover)] text-[var(--popover-foreground)] border-[var(--border)];
   }
 
@@ -186,11 +205,23 @@
   ::-webkit-scrollbar {
     width: 8px;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--background);
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--primary);
     border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
   }
 }

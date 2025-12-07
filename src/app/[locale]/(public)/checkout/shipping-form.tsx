@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,52 +29,31 @@ interface ShippingFormProps {
     onNext: () => void;
 }
 
-const CITIES: Record<string, string[]> = {
-    القاهرة: [
-        "مدينة نصر",
-        "المعادى",
-        "التجمع الخامس",
-        "المقطم",
-        "القاهرة الجديدة",
-        "وسط البلد",
-        "الزمالك",
-        "شبرا",
-        "السلام",
-        "حدائق القبة",
-        "عين شمس",
-        "العباسية",
-        "حلوان",
-        "منشية ناصر",
-        "روض الفرج",
-        "الوايلى",
-        "بولاق",
-        "المطرية",
-        "المعصرة",
-        "المرج",
-    ],
-    الجيزة: [
-        "المهندسين",
-        "الدقي",
-        "الهرم",
-        "الجيزة الجديدة",
-        "6 أكتوبر",
-        "العمرانية",
-        "الشيخ زايد",
-        "منشأة القناطر",
-        "الوراق",
-        "بولاق الدكرور",
-        "الصف",
-        "حدائق أهرامات",
-        "الجيزة الغربية",
-    ],
-};
-
 export default function ShippingForm({
     formData,
     setFormData,
     onNext,
 }: ShippingFormProps) {
     const t = useTranslations("ShippingForm");
+    const [cities, setCities] = useState<Record<string, string[]>>({});
+
+    useEffect(() => {
+        const fetchDistricts = async () => {
+            try {
+                const res = await fetch("/api/districts");
+                if (res.ok) {
+                    const data = await res.json();
+                    // data might be wrapped or direct, api returned { data: ... } or just ...
+                    // Checking route.jsx again: createSuccessResponse({ city:..., districts:... }) or createSuccessResponse(DISTRICTS_DATA)
+                    // createSuccessResponse typically wraps in { success: true, data: ... }
+                    setCities(data.data || {});
+                }
+            } catch (error) {
+                console.error("Failed to fetch districts:", error);
+            }
+        };
+        fetchDistricts();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -87,7 +67,7 @@ export default function ShippingForm({
         setFormData({
             ...formData,
             customerCity: value,
-            customerDistrict: CITIES[value]?.[0] || "",
+            customerDistrict: cities[value]?.[0] || "",
         });
     };
 
@@ -158,7 +138,7 @@ export default function ShippingForm({
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="">
-                                {Object.keys(CITIES).map((city) => (
+                                {Object.keys(cities).map((city) => (
                                     <SelectItem className="" key={city} value={city}>
                                         {city}
                                     </SelectItem>
@@ -177,7 +157,7 @@ export default function ShippingForm({
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="">
-                                {(CITIES[formData.customerCity] || []).map((district) => (
+                                {(cities[formData.customerCity] || []).map((district) => (
                                     <SelectItem className="" key={district} value={district}>
                                         {district}
                                     </SelectItem>

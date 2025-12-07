@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCart } from "@/hooks/use-cart";
 import { calculateFinalPrice } from "@/lib/utils/format";
+import { analytics } from "@/lib/analytics";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -189,7 +190,13 @@ export default function CartPage() {
                                 <span>{total.toFixed(2)} EGP</span>
                             </div>
 
-                            <Button variant="default" size="default" className="w-full" asChild>
+                            <Button
+                                variant="default"
+                                size="default"
+                                className="w-full"
+                                onClick={() => analytics.checkoutStart(total, items.length)}
+                                asChild
+                            >
                                 <Link href="/checkout">{t("checkout")}</Link>
                             </Button>
                         </CardContent>

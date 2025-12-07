@@ -1,24 +1,48 @@
-// src/proxy.ts
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
+import { globalRateLimiter } from "@/lib/rate-limit";
+import { authUtils } from "@/lib/auth";
 
 // Middleware i18next
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // تنفيذ الـ i18next أولًا
-  const intlResponse = intlMiddleware(request);
-  if (intlResponse) return intlResponse;
+  // 1. API Rate Limiting
+  if (pathname.startsWith("/api/")) {
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const isAllowed = globalRateLimiter.check(ip);
 
-  // حماية Dashboard
-  if (pathname.startsWith("/dashboard")) {
-    const token = request.cookies.get("dashboard-auth")?.value || "";
-    if (token !== process.env.DASHBOARD_SECRET) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+    if (!isAllowed) {
+      return new NextResponse(
+        JSON.stringify({ success: false, error: "Too many requests" }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
     }
+  }
+
+  // 2. Dashboard Protection (JWT-based)
+  // Check for dashboard in path (handles /dashboard and /en/dashboard, /ar/dashboard)
+  if (pathname.includes("/dashboard")) {
+    const token = request.cookies.get("admin_token")?.value || "";
+
+    if (!token || !authUtils.verifyJWT(token)) {
+      const url = request.nextUrl.clone();
+      // Preserve locale in redirect
+      const locale = pathname.match(/^\/(en|ar)/)?.[1] || "en";
+      url.pathname = `/${locale}/auth/login`;
+      return NextResponse.redirect(url);
+    }
+
+    // Token is valid, continue to i18n middleware
+  }
+
+  // 3. i18n Middleware (for non-API routes)
+  if (!pathname.startsWith("/api")) {
+    const response = intlMiddleware(request);
+    return response;
   }
 
   return NextResponse.next();
@@ -26,7 +50,9 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|trpc|_next|_vercel|.*\\..*).*)", // i18next
-    "/dashboard/:path*",                        // حماية Dashboard
+    "/",
+    "/(ar|en)/:path*",
+    "/((?!api|_next|_vercel|.*\\..*).*)",
+    "/api/:path*"
   ],
 };

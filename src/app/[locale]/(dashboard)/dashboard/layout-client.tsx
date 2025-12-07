@@ -24,7 +24,7 @@ export default function DashboardLayoutClient({ children }: DashboardLayoutClien
 
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-64 bg-background border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:translate-x-0 lg:static lg:z-0 lg:border-r lg:border-border/50 ${sidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
                     }`}
             >
                 <AppSidebar onClose={() => setSidebarOpen(false)} />

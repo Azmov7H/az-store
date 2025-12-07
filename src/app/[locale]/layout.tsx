@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/context/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://ali-store-sh.vercel.app"),
@@ -15,18 +16,15 @@ export const metadata: Metadata = {
         "Ali Store is an advanced e-commerce store offering top brands like Nike, Adidas, and Puma. Fast checkout, multi-language support, and high-quality customer experience.",
     keywords: [
         "Ali Store",
-        "e-commerce",
-        "Nike shoes",
-        "Adidas shoes",
-        "Puma shoes",
-        "online shoe shop",
-        "sports shoes",
-        "running shoes",
-        "best online store",
-       "احذية رجالي",
-       "اسعار احذية",
-       "سنيكرز رجالي"
-
+        "shoes",
+        "sneakers",
+        "Nike",
+        "Adidas",
+        "Puma",
+        "running",
+        "fashion",
+        "men shoes",
+        "women shoes",
     ],
     robots: {
         index: true,
@@ -124,6 +122,7 @@ export default async function LocaleLayout({
                         disableTransitionOnChange
                     >
                         <Toaster position="top-right" richColors />
+                        <AnalyticsTracker />
                         {children}
                     </ThemeProvider>
                 </NextIntlClientProvider>

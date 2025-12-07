@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { calculateFinalPrice } from "@/lib/utils/format";
 import { createOrder } from "@/lib/services/order-service";
+import { analytics } from "@/lib/analytics";
 import type { CartItem } from "@/types/cart";
 import type { CreateOrderData } from "@/types/order";
 
@@ -68,6 +69,10 @@ export default function PaymentStep({
             const order = await createOrder(orderData);
             setOrderId(order.orderId);
             toast.success(t("success"));
+
+            // Track successful purchase
+            analytics.checkoutSuccess(order.orderId, total);
+
             clearCart();
 
             // Redirect to home after 3 seconds

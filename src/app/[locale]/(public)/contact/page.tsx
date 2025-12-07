@@ -32,7 +32,17 @@ export default function ContactPage() {
         setLoading(true);
 
         // Simulate API call
-        setTimeout(() => {
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.message || "Failed to send message");
+
             toast.success("Message sent successfully! We'll get back to you soon.");
             setFormData({
                 name: "",
@@ -41,8 +51,12 @@ export default function ContactPage() {
                 subject: "",
                 message: "",
             });
+        } catch (error: any) {
+            toast.error(error.message || "Something went wrong. Please try again.");
+            console.error(error);
+        } finally {
             setLoading(false);
-        }, 1000);
+        }
     };
 
     return (

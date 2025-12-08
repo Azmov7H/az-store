@@ -6,7 +6,7 @@ import { Package, Clock, Box, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 interface Order {
-    _id: string;
+    _id?: string;
     orderId: string;
     customerName: string;
     status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";

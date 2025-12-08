@@ -60,17 +60,17 @@ export default async function AnalyticsPage() {
     return (
         <div className="w-full max-w-7xl mx-auto p-6 space-y-8 animate-in fade-in zoom-in-95 duration-500">
             <div className="flex flex-col gap-2">
-                <h2 className="text-3xl font-bold tracking-tight">Store Analytics</h2>
+                <h2 className="text-3xl font-bold tracking-tight">{t("title")} </h2>
                 <p className="text-muted-foreground">
-                    Deep dive into your store's performance, customer behavior, and traffic sources.
+                   {t("des")}
                 </p>
             </div>
 
             <Tabs defaultValue="customers" className="w-full">
                 <TabsList className="grid w-full grid-cols-3 max-w-[600px] mb-8">
-                    <TabsTrigger value="customers">Customers</TabsTrigger>
-                    <TabsTrigger value="traffic">Traffic & Visitors</TabsTrigger>
-                    <TabsTrigger value="advanced">Revenue & Sales</TabsTrigger>
+                    <TabsTrigger value="customers">{t("t1")}</TabsTrigger>
+                    <TabsTrigger value="traffic">{t("t2")}</TabsTrigger>
+                    <TabsTrigger value="advanced">{t("t3")}</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="customers" className="space-y-6">

@@ -62,6 +62,7 @@ export default function PaymentStep({
             })),
             subtotal,
             discount: 0,
+            shipping,
             total,
         };
 

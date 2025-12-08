@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getOrders } from "@/lib/services/order-service";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, Package, ShoppingCart, Clock, TrendingUp } from "lucide-react";
 import type { Order } from "@/types/order";
+
+import RecentOrdersWidget from "../../../../components/dashboard/recent-orders-widget";
+import LowStockWidget from "../../../../components/dashboard/low-stock-widget";
+import QuickActionsWidget from "../../../../components/dashboard/quick-actions";
+import { getLowStockProducts, type StockAlert } from "@/lib/services/dashboard-service";
 
 export const dynamic = "force-dynamic";
 
@@ -13,34 +18,23 @@ export const metadata: Metadata = {
     description: "Manage your store performance and orders",
 };
 
-import { getTrafficData, getAdvancedAnalytics } from "@/lib/services/analytics-service";
-import VisitorAnalytics from "@/components/dashboard/visitor-analytics";
-import AdvancedAnalytics from "@/components/dashboard/advanced-analytics";
-
-// ... existing imports
-
 export default async function DashboardPage() {
     const t = await getTranslations("dashboard");
 
     let orders: Order[] = [];
-    let trafficData = null;
-    let advancedData = null;
+    let lowStockProducts: StockAlert[] = [];
 
     try {
-        const [ordersRes, trafficRes, advancedRes] = await Promise.all([
+        const [ordersRes, lowStockRes] = await Promise.all([
             getOrders(),
-            getTrafficData(),
-            getAdvancedAnalytics()
+            getLowStockProducts()
         ]);
         orders = ordersRes;
-        trafficData = trafficRes;
-        advancedData = advancedRes;
+        lowStockProducts = lowStockRes;
     } catch (error) {
         console.error("Failed to fetch dashboard data:", error);
-        // Try individually
         try { orders = await getOrders(); } catch { }
-        try { trafficData = await getTrafficData(); } catch { }
-        try { advancedData = await getAdvancedAnalytics(); } catch { }
+        try { lowStockProducts = await getLowStockProducts(); } catch { }
     }
 
     const totalOrders = orders.length;
@@ -56,14 +50,13 @@ export default async function DashboardPage() {
         <div className="w-full max-w-7xl mx-auto p-6 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* ... existing stats cards ... */}
                 <StatsCard
                     title={t("totalRevenue") || "Total Revenue"}
                     value={`$${totalRevenue.toLocaleString()}`}
                     icon={DollarSign}
                     trend="+12.5%"
                     gradient="from-green-500 to-emerald-700"
-                    subtext="vs last month"
+                    subtext={t("vsLastMonth")}
                 />
                 <StatsCard
                     title={t("totalOrders") || "Total Orders"}
@@ -71,7 +64,7 @@ export default async function DashboardPage() {
                     icon={ShoppingCart}
                     trend="+5.2%"
                     gradient="from-blue-500 to-indigo-700"
-                    subtext="vs last month"
+                    subtext={t("vsLastMonth")}
                 />
                 <StatsCard
                     title={t("pendingOrders") || "Pending"}
@@ -79,7 +72,7 @@ export default async function DashboardPage() {
                     icon={Clock}
                     trend="-2.1%"
                     gradient="from-orange-500 to-amber-700"
-                    subtext="processing now"
+                    subtext={t("processingNow")}
                 />
                 <StatsCard
                     title={t("completedOrders") || "Delivered"}
@@ -87,15 +80,23 @@ export default async function DashboardPage() {
                     icon={Package}
                     trend="+8.4%"
                     gradient="from-purple-500 to-pink-700"
-                    subtext="successfully shipped"
+                    subtext={t("successfullyShipped")}
                 />
             </div>
 
-            {/* Visitor Analytics */}
-            {trafficData && <VisitorAnalytics data={trafficData} />}
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Left Column: Recent Orders (Takes up 2 columns) */}
+                <div className="lg:col-span-2 space-y-6">
+                    <RecentOrdersWidget orders={orders} />
+                </div>
 
-            {/* Advanced Insights */}
-            {advancedData && <AdvancedAnalytics data={advancedData} />}
+                {/* Right Column: Operational Widgets (Takes up 1 column) */}
+                <div className="lg:col-span-1 space-y-6">
+                    <QuickActionsWidget />
+                    <LowStockWidget products={lowStockProducts} />
+                </div>
+            </div>
         </div>
     );
 }

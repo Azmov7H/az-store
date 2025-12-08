@@ -21,6 +21,8 @@ interface ShoeData {
     description: string;
     price: number;
     discount?: number;
+    category: string;
+    gender: string;
     availableColors: string[];
     availableSizes: string[];
     stock: number;
@@ -41,6 +43,12 @@ export function validateShoeData(data: Partial<ShoeData>): ValidationResult {
     }
     if (data.discount !== undefined && (data.discount < 0 || data.discount > 100)) {
         errors.push("Discount must be between 0-100");
+    }
+    if (!data.category) {
+        errors.push("Category is required");
+    }
+    if (!data.gender) {
+        errors.push("Gender/Target is required");
     }
     if (!Array.isArray(data.availableColors)) {
         errors.push("Available colors must be an array");

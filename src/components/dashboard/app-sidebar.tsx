@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Package, Users, Settings, X, LogOut ,CalendarArrowDown  } from "lucide-react";
+import { Home, Package, Users, Settings, X, LogOut, CalendarArrowDown , TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import Logo from "../layout/logo";
@@ -15,6 +15,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
     { title: "overview", url: "/dashboard", icon: Home },
+    { title: "analytics", url: "/dashboard/analytics", icon: TrendingUp },
     { title: "orders", url: "/dashboard/orders", icon: CalendarArrowDown },
     { title: "products", url: "/dashboard/products", icon: Package },
     { title: "customers", url: "/dashboard/customers", icon: Users },

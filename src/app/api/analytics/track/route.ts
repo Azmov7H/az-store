@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db/connection";
-
+import { UAParser } from "ua-parser-js";
 import { AnalyticsSession } from "@/lib/db";
 
 interface AnalyticsEventBody {
@@ -46,14 +46,40 @@ export async function POST(req: Request): Promise<NextResponse> {
         let session = await AnalyticsSession.findOne({ sessionId });
 
         if (!session) {
+            // Parse User Agent
+            const userAgent = req.headers.get("user-agent") || "";
+            const parser = new UAParser(userAgent);
+            const browser = parser.getBrowser();
+            const os = parser.getOS();
+            const device = parser.getDevice();
+
+            // Attempt to get IP and Location from headers
+            const forwardedFor = req.headers.get("x-forwarded-for");
+            const ip = forwardedFor ? forwardedFor.split(",")[0] : "127.0.0.1";
+
+            // Try to get country from standard CDN headers (Vercel, Cloudflare, etc.)
+            const country = req.headers.get("x-vercel-ip-country") ||
+                req.headers.get("cf-ipcountry") ||
+                "Unknown";
+
+            const city = req.headers.get("x-vercel-ip-city") || "Unknown";
+            const region = req.headers.get("x-vercel-ip-region") || "Unknown";
+
+            // Determine device type if not strictly parsed
+            const deviceType = device.type || (userAgent.match(/mobile/i) ? "mobile" : "desktop");
+
             // New session
             session = new AnalyticsSession({
                 sessionId,
-                device: deviceInfo?.device || "desktop",
-                browser: deviceInfo?.userAgent,
-                os: "unknown",
-                ip: "anonymized",
-                location: { country: "unknown" },
+                device: deviceType,
+                browser: `${browser.name || "Unknown"} ${browser.version || ""}`.trim(),
+                os: `${os.name || "Unknown"} ${os.version || ""}`.trim(),
+                ip: ip,
+                location: {
+                    country,
+                    city,
+                    region
+                },
                 events: [],
                 startTime: new Date(),
                 lastActive: new Date(),

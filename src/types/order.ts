@@ -20,6 +20,7 @@ export interface Order {
     products: OrderProduct[];
     subtotal: number;
     discount: number;
+    shipping: number;
     total: number;
     status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
     notes?: string;
@@ -37,6 +38,7 @@ export interface CreateOrderData {
     products: OrderProduct[];
     subtotal: number;
     discount: number;
+    shipping: number;
     total: number;
     notes?: string;
 }

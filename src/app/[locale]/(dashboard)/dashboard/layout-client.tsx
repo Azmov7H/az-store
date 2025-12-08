@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import type { Metadata } from "next";
-import AppSidebar from "@/components/dashboard/app-sidebar";
-import DashboardHeader from "@/components/dashboard/dashboard-header";
+import AppSidebar from "../../../../components/dashboard/app-sidebar";
+import DashboardHeader from "../../../../components/dashboard/dashboard-header";
 
 interface DashboardLayoutClientProps {
     children: React.ReactNode;

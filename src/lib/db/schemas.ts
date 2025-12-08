@@ -11,6 +11,7 @@ export interface IShoe {
     discount: number;
     image: string;
     category: "running" | "casual" | "formal" | "sports" | "sandals" | "boots";
+    gender: "men" | "women" | "kids" | "unisex";
     availableColors: string[];
     availableSizes: string[];
     stock: number;
@@ -41,6 +42,7 @@ export interface IOrder {
     products: IOrderProduct[];
     subtotal: number;
     discount: number;
+    shipping: number;
     total: number;
     status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
     notes?: string;
@@ -86,6 +88,12 @@ const shoeSchema = new Schema<IShoe>(
             enum: ["running", "casual", "formal", "sports", "sandals", "boots"],
             required: true,
         },
+        gender: {
+            type: String,
+            enum: ["men", "women", "kids", "unisex"],
+            required: true,
+            default: "unisex"
+        },
         availableColors: [{ type: String }],
         availableSizes: [{ type: String }],
         stock: { type: Number, required: true, default: 0 },
@@ -124,6 +132,7 @@ const orderSchema = new Schema<IOrder>(
         ],
         subtotal: { type: Number, required: true },
         discount: { type: Number, default: 0 },
+        shipping: { type: Number, default: 0 },
         total: { type: Number, required: true },
         status: {
             type: String,

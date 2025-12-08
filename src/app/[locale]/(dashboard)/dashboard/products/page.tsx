@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import DashboardProductCard from "@/components/dashboard/dashboard-product-card";
-import ProductEditDialog from "@/components/dashboard/product-edit-dialog";
+import DashboardProductCard from "../../../../../components/dashboard/dashboard-product-card";
+import ProductEditDialog from "../../../../../components/dashboard/product-edit-dialog";
 import { getShoes, createShoe, updateShoe, deleteShoe } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";

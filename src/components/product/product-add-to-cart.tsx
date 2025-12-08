@@ -15,9 +15,10 @@ import { cn } from "@/lib/utils";
 
 interface ProductAddToCartProps {
     product: Product;
+    button:Number | string;
 }
 
-export default function ProductAddToCart({ product }: ProductAddToCartProps) {
+export default function ProductAddToCart({ product , button }: ProductAddToCartProps) {
     const t = useTranslations("ProductPage");
     const router = useRouter();
     const { addItem } = useCart();
@@ -210,7 +211,7 @@ export default function ProductAddToCart({ product }: ProductAddToCartProps) {
                         ) : (
                             <>
                                 <ShoppingCart className="w-5 h-5 mr-2" />
-                                {t("add_to_cart")} - {(product.price).toFixed(2)}
+                                {t("add_to_cart")} - {button}
                             </>
                         )}
                     </Button>

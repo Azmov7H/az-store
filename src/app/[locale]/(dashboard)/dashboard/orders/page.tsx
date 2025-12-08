@@ -68,6 +68,11 @@ function OrderCard({ order, t }: { order: Order; t: any }) {
                         </Badge>
                         <CardTitle className="text-base font-bold flex items-center gap-2">
                             {order.total} {t("currency")}
+                            {order.shipping > 0 && (
+                                <span className="text-[10px] font-normal text-muted-foreground bg-muted px-1.5 py-0.5 rounded-sm">
+                                    (+{order.shipping} ship)
+                                </span>
+                            )}
                         </CardTitle>
                     </div>
                     <Badge variant="outline" className={cn("px-3 py-1 capitalize font-bold shadow-sm border", getStatusColor(order.status))}>

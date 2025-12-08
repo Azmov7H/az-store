@@ -182,7 +182,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </div>
 
                         {/* Add to Cart Component */}
-                        <ProductAddToCart product={product} />
+                        <ProductAddToCart product={product} button={finalPrice.toFixed(2)} />
                     </div>
                 </div>
 

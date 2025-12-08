@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db/connection";
-import { AnalyticsSession } from "@/lib/db/schemas";
+import { AnalyticsSession, Order } from "@/lib/db/schemas";
 
 export interface DeviceData {
     name: string;
@@ -16,6 +16,7 @@ export interface DailyTrafficData {
 export interface TrafficData {
     devices: DeviceData[];
     browsers: DeviceData[];
+    os: DeviceData[];
     dailyTraffic: DailyTrafficData[];
     totalSessions: number;
 }
@@ -32,7 +33,14 @@ export async function getTrafficData(): Promise<TrafficData> {
     const browsers = await AnalyticsSession.aggregate([
         { $group: { _id: "$browser", count: { $sum: 1 } } },
         { $sort: { count: -1 } },
-        { $limit: 10 },
+        { $limit: 5 },
+    ]);
+
+    // OS breakdown
+    const os = await AnalyticsSession.aggregate([
+        { $group: { _id: "$os", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 5 },
     ]);
 
     // Sessions over last 7 days
@@ -70,6 +78,7 @@ export async function getTrafficData(): Promise<TrafficData> {
     return {
         devices: devices.map((d) => ({ name: d._id || "unknown", value: d.count })),
         browsers: browsers.map((b) => ({ name: b._id || "unknown", value: b.count })),
+        os: os.map((o) => ({ name: o._id || "unknown", value: o.count })),
         dailyTraffic: filledDailyTraffic,
         totalSessions
     };
@@ -175,4 +184,139 @@ export async function getAdvancedAnalytics(): Promise<AdvancedAnalyticsData> {
     }
 
     return { topProducts, topPages, salesInsight, suggestions };
+}
+
+export interface CustomerAnalytics {
+    totalCustomers: number;
+    newCustomersLastMonth: number;
+    activeCustomers: number;
+    churnRiskCount: number;
+    vipCount: number;
+    customerLifeTimeValue: number;
+    retentionRate: number;
+    customerGrowth: { date: string; count: number }[];
+}
+
+export async function getCustomerAnalytics(): Promise<CustomerAnalytics> {
+    await connectDB();
+
+    const customerStats = await Order.aggregate([
+        {
+            $group: {
+                _id: "$customerEmail",
+                firstOrder: { $min: "$createdAt" },
+                lastOrder: { $max: "$createdAt" },
+                totalSpend: { $sum: "$total" },
+                orderCount: { $sum: 1 }
+            }
+        }
+    ]);
+
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const sixtyDaysAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
+
+    let newCustomers = 0;
+    let activeCustomers = 0;
+    let churnRisk = 0;
+    let vips = 0;
+    let totalLTV = 0;
+    const totalCustomers = customerStats.length;
+
+    const growthMap = new Map<string, number>();
+
+    for (const c of customerStats) {
+        if (new Date(c.firstOrder) > thirtyDaysAgo) newCustomers++;
+        if (new Date(c.lastOrder) > thirtyDaysAgo) activeCustomers++;
+        if (new Date(c.lastOrder) < sixtyDaysAgo) churnRisk++;
+        if (c.totalSpend > 500) vips++;
+        totalLTV += c.totalSpend;
+
+        const monthKey = new Date(c.firstOrder).toISOString().slice(0, 7);
+        growthMap.set(monthKey, (growthMap.get(monthKey) || 0) + 1);
+    }
+
+    const avgLTV = totalCustomers > 0 ? totalLTV / totalCustomers : 0;
+    const returningCustomers = customerStats.filter(c => c.orderCount > 1).length;
+    const retentionRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
+
+    const growthData: { date: string; count: number }[] = [];
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date();
+        d.setMonth(d.getMonth() - i);
+        const monthKey = d.toISOString().slice(0, 7);
+        growthData.push({
+            date: monthKey,
+            count: growthMap.get(monthKey) || 0
+        });
+    }
+
+    return {
+        totalCustomers,
+        newCustomersLastMonth: newCustomers,
+        activeCustomers,
+        churnRiskCount: churnRisk,
+        vipCount: vips,
+        customerLifeTimeValue: Math.round(avgLTV),
+        retentionRate: Math.round(retentionRate),
+        customerGrowth: growthData
+    };
+}
+
+export interface RevenueData {
+    date: string;
+    revenue: number;
+}
+
+export interface LocationData {
+    country: string;
+    count: number;
+}
+
+export async function getRevenueAnalytics(): Promise<RevenueData[]> {
+    await connectDB();
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    sevenDaysAgo.setHours(0, 0, 0, 0);
+
+    const revenueStats = await Order.aggregate([
+        { $match: { createdAt: { $gte: sevenDaysAgo }, status: { $ne: "cancelled" } } },
+        {
+            $group: {
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                totalRevenue: { $sum: "$total" }
+            }
+        },
+        { $sort: { _id: 1 } }
+    ]);
+
+    const filledRevenue: RevenueData[] = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split("T")[0];
+        const found = revenueStats.find(r => r._id === dateStr);
+        filledRevenue.push({
+            date: dateStr,
+            revenue: found ? found.totalRevenue : 0
+        });
+    }
+    return filledRevenue.reverse();
+}
+
+export async function getLocationAnalytics(): Promise<LocationData[]> {
+    await connectDB();
+
+    const locationStats = await AnalyticsSession.aggregate([
+        { $match: { "location.country": { $exists: true, $ne: null } } },
+        { $group: { _id: "$location.country", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 10 }
+    ]);
+
+    return locationStats.map(l => ({
+        country: l._id || "Unknown",
+        count: l.count
+    }));
 }

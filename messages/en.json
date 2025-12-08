@@ -3,6 +3,7 @@
     "overview": "Overview",
     "products": "Products",
     "customers": "Customers",
+    "analytics": "Analytics",
     "settings": "Settings",
     "orders": "Orders",
     "logout": "Logout"
@@ -200,7 +201,23 @@
     "createdAt": "Created At",
     "name": "Name",
     "phone": "Phone",
-    "email": "Email"
+    "email": "Email",
+    "vsLastMonth": "vs last month",
+    "processingNow": "processing now",
+    "successfullyShipped": "successfully shipped",
+    "recentActivity": "Recent Activity",
+    "viewAll": "View All",
+    "noRecentOrders": "No recent orders found",
+    "lowStockAlerts": "Low Stock Alerts",
+    "manageStock": "Manage Stock",
+    "noStockAlerts": "No stock alerts!",
+    "inventoryHealthy": "Inventory looks healthy",
+    "itemsLeft": "{count} left",
+    "quickActions": "Quick Actions",
+    "addProduct": "Add Product",
+    "manageOrders": "Manage Orders",
+    "customers": "Customers",
+    "settings": "Settings"
   },
   "products": {
     "productName": "Products",

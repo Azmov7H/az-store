@@ -3,7 +3,20 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/context/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import "./globals.css";
+import { Cairo, Inter } from 'next/font/google';
+import './globals.css';
+
+const cairo = Cairo({
+  subsets: ['arabic'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+});
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
@@ -90,7 +103,7 @@ export default async function LocaleLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
+        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning  className={`${cairo.className} ${inter.className}`}>
             <head>
                 <link rel="icon" href="/favicon.ico" />
             </head>

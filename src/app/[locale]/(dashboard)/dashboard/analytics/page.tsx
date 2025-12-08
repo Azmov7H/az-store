@@ -6,11 +6,11 @@ import {
     getLocationAnalytics,
     getRevenueAnalytics
 } from "@/lib/services/analytics-service";
-import VisitorAnalytics from "@/components/dashboard/visitor-analytics";
-import AdvancedAnalytics from "@/components/dashboard/advanced-analytics";
-import CustomerAnalyticsView from "@/components/dashboard/customer-analytics-view";
-import LocationAnalytics from "@/components/dashboard/location-analytics";
-import RevenueChart from "@/components/dashboard/revenue-chart";
+import VisitorAnalytics from "../../../../../components/dashboard/visitor-analytics";
+import AdvancedAnalytics from "../../../../../components/dashboard/advanced-analytics";
+import CustomerAnalyticsView from "../../../../../components/dashboard/customer-analytics-view";
+import LocationAnalytics from "../../../../../components/dashboard/location-analytics";
+import RevenueChart from "../../../../../components/dashboard/revenue-chart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";

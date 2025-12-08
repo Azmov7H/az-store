@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { DollarSign, Package, ShoppingCart, Clock, TrendingUp } from "lucide-react";
 import type { Order } from "@/types/order";
 
-import RecentOrdersWidget from "@/components/dashboard/recent-orders-widget";
-import LowStockWidget from "@/components/dashboard/low-stock-widget";
-import QuickActionsWidget from "@/components/dashboard/quick-actions";
+import RecentOrdersWidget from "../../../../components/dashboard/recent-orders-widget";
+import LowStockWidget from "../../../../components/dashboard/low-stock-widget";
+import QuickActionsWidget from "../../../../components/dashboard/quick-actions";
 import { getLowStockProducts, type StockAlert } from "@/lib/services/dashboard-service";
 
 export const dynamic = "force-dynamic";

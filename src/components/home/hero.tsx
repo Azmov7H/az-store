@@ -18,8 +18,8 @@ export default function Hero() {
 
     return (
         <section
-            className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-cover bg-center animate-bgSlide dark:brightness-90"
-            style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+            className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-cover bg-center animate-bgSlide dark:brightness-60"
+            style={{ backgroundImage: "url('https://res.cloudinary.com/do15wh7gm/image/upload/v1765213408/Gemini_Generated_Image_9v9yne9v9yne9v9y_ukilak.png')" }}
             aria-label="Hero section"
         >
             {/* Premium Gradient Overlay */}

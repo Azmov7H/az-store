@@ -5,6 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils/cn";
 import { User, MapPin, Box } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import type { Order } from "@/types/order";
 
 export const dynamic = "force-dynamic";
@@ -132,7 +138,56 @@ function OrderCard({ order, t }: { order: Order; t: any }) {
                         hour: '2-digit',
                         minute: '2-digit'
                     })}</span>
-                    <span>{t("details")} →</span>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant="outline">{t("details")} →</Button>
+                        </PopoverTrigger>
+<PopoverContent className="w-80">
+    <div className="space-y-2 text-sm">
+        <p>
+            <span className="font-semibold">Order ID:</span> {order.orderId}
+        </p>
+        <p>
+            <span className="font-semibold">Customer Name:</span> {order.customerName}
+        </p>
+        <p>
+            <span className="font-semibold">Customer Email:</span> {order.customerEmail}
+        </p>
+        <p>
+            <span className="font-semibold">Customer Phone:</span> {order.customerPhone || "N/A"}
+        </p>
+        <p>
+            <span className="font-semibold">City:</span> {order.customerCity || "N/A"}
+        </p>
+        <p>
+            <span className="font-semibold">District:</span> {order.customerDistrict || "N/A"}
+        </p>
+        <p>
+            <span className="font-semibold">Street:</span> {order.customerStreet || "N/A"}
+        </p>
+
+        <div className="pt-2 space-y-2">
+            {order.products.map((p, idx) => (
+                <div
+                    key={idx}
+                    className="border-t border-border/50 pt-2 space-y-1"
+                >
+                    <p>
+                        <span className="font-semibold">Color:</span>{" "}
+                        {p.selectedColor || "N/A"}
+                    </p>
+                    <p>
+                        <span className="font-semibold">Size:</span>{" "}
+                        {p.selectedSize || "N/A"}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+</PopoverContent>
+
+                    </Popover>
+               
                 </div>
             </CardContent>
         </Card>

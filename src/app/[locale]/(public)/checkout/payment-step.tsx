@@ -116,18 +116,17 @@ export default function PaymentStep({
                             {t("orderId", { id: orderId })}
                         </p>
                         <p className="text-sm text-muted-foreground mt-2">
-                            Redirecting to homepage...
+                            {t("redirectHint")}
                         </p>
                     </div>
                 ) : (
                     <>
                         <div className="bg-muted p-4 rounded-lg">
                             <p className="text-sm text-muted-foreground mb-2">
-                                Payment on delivery (Cash on Delivery)
+                                {t("codInfo")}
                             </p>
                             <p className="text-sm">
-                                You will pay <span className="font-bold">{total.toFixed(2)} EGP</span> when
-                                you receive your order.
+                                {t("codPay", { amount: `${total.toFixed(2)} EGP` })}
                             </p>
                         </div>
 

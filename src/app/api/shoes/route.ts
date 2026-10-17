@@ -1,11 +1,12 @@
 import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db/connection";
 import { Shoe } from "@/lib/db/schemas";
+import type { IShoe } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateShoeData } from "@/lib/validators";
 
 interface ShoesQuery {
-    category?: string;
+    category?: IShoe["category"];
     price?: {
         $gte?: number;
         $lte?: number;
@@ -30,7 +31,7 @@ export async function GET(request: NextRequest) {
 
         // Filter by category
         if (category) {
-            query.category = category;
+            query.category = category as ShoesQuery["category"];
         }
 
         // Filter by price range

@@ -26,8 +26,8 @@ export default function CheckoutPage() {
         customerName: "",
         customerEmail: "",
         customerPhone: "",
-        customerCity: "القاهرة",
-        customerDistrict: "مدينة نصر",
+        customerCity: "",
+        customerDistrict: "",
         customerStreet: "",
     });
 
@@ -37,7 +37,7 @@ export default function CheckoutPage() {
                 <div className="text-center">
                     <h1 className="text-2xl font-bold mb-4">{t("emptyCart")}</h1>
                     <p className="text-muted-foreground">
-                        Add some products to your cart to checkout
+                        {t("emptyCartHint")}
                     </p>
                 </div>
             </div>
@@ -71,13 +71,13 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-center gap-16 mt-2 text-sm">
                         <span className={step >= 1 ? "font-semibold" : "text-muted-foreground"}>
-                            Shipping
+                            {t("stepShipping")}
                         </span>
                         <span className={step >= 2 ? "font-semibold" : "text-muted-foreground"}>
-                            Review
+                            {t("stepReview")}
                         </span>
                         <span className={step >= 3 ? "font-semibold" : "text-muted-foreground"}>
-                            Payment
+                            {t("stepPayment")}
                         </span>
                     </div>
                 </div>

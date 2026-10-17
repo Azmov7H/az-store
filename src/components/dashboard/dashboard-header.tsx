@@ -1,31 +1,33 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Bell, Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "../layout/theme-toggle";
 
 interface DashboardHeaderProps {
-    pageTitle: string;
     toggleSidebar?: () => void;
     sidebarOpen?: boolean;
 }
 
 export default function DashboardHeader({
-    pageTitle,
     toggleSidebar,
     sidebarOpen = false
 }: DashboardHeaderProps) {
     const pathname = usePathname();
+    const t = useTranslations("Sidebar");
 
-    // Get page title from pathname
+    // Get page title from pathname (locale-safe)
+    const path = pathname.replace(/^\/(en|ar)(?=\/|$)/, "") || "/";
     const getPageTitle = () => {
-        if (pathname.includes("/products")) return "Products";
-        if (pathname.includes("/customers")) return "Customers";
-        if (pathname.includes("/setting")) return "Settings";
-        return "Dashboard Overview";
+        if (path.includes("/analytics")) return t("analytics");
+        if (path.includes("/orders")) return t("orders");
+        if (path.includes("/products")) return t("products");
+        if (path.includes("/customers")) return t("customers");
+        if (path.includes("/setting")) return t("settings");
+        return t("overview");
     };
 
     return (
@@ -55,7 +57,7 @@ export default function DashboardHeader({
                         {getPageTitle()}
                     </h1>
                     <p className="text-sm text-muted-foreground font-medium hidden md:block">
-                        Welcome back, Admin
+                        {t("welcome")}
                     </p>
                 </div>
             </div>
@@ -66,7 +68,7 @@ export default function DashboardHeader({
                 <div className="hidden md:flex relative w-64 mr-2">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
-                        placeholder="Search..."
+                        placeholder={t("searchPlaceholder")}
                         className="pl-9 h-10 rounded-full bg-secondary/50 border-transparent focus:bg-background transition-all"
                     />
                 </div>

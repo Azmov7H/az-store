@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Home, Package, Users, Settings, X, LogOut, CalendarArrowDown , TrendingUp } from "lucide-react";
+import { Link as LocaleLink, usePathname } from "@/i18n/navigation";
+import { Home, Package, Users, Settings, X, LogOut, CalendarArrowDown, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Logo from "../layout/logo";
 
@@ -25,6 +25,13 @@ const navItems: NavItem[] = [
 interface AppSidebarProps {
     onClose?: () => void;
 }
+
+const handleLogout = () => {
+    fetch("/api/logout", { method: "POST" })
+        .then(() => toast.success("Logged out successfully"))
+        .catch(() => toast.error("Logout failed"))
+        .finally(() => window.location.href = "/");
+};
 
 export default function AppSidebar({ onClose }: AppSidebarProps) {
     const pathname = usePathname();
@@ -57,7 +64,7 @@ export default function AppSidebar({ onClose }: AppSidebarProps) {
                     const Icon = item.icon;
 
                     return (
-                        <Link
+                        <LocaleLink
                             key={item.title}
                             href={item.url}
                             onClick={onClose}
@@ -74,14 +81,14 @@ export default function AppSidebar({ onClose }: AppSidebarProps) {
                             {active && (
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
                             )}
-                        </Link>
+                        </LocaleLink>
                     );
                 })}
             </nav>
 
             {/* Footer */}
             <div className="p-4 border-t border-border/50">
-                <Button variant="ghost" className="w-full justification-start gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10">
+                <Button variant="ghost" onClick={handleLogout} className="w-full justification-start gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10">
                     <LogOut className="h-5 w-5" />
                     <span className="font-medium">{t("logout")}</span>
                 </Button>

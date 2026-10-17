@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db/connection";
 import { Order } from "@/lib/db/schemas";
+import type { IOrder } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { generateOrderId } from "@/lib/helpers";
 
@@ -102,8 +103,8 @@ export async function GET(request: NextRequest) {
         const page = Number.parseInt(url.searchParams.get("page") || "1") || 1;
         const limit = Number.parseInt(url.searchParams.get("limit") || "10") || 10;
 
-        const query: { status?: string } = {};
-        if (status) query.status = status;
+        const query: { status?: IOrder["status"] } = {};
+        if (status) query.status = status as IOrder["status"];
 
         const orders = await Order.find(query)
             .limit(limit)

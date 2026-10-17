@@ -54,12 +54,12 @@ export default function RevenueChart({ data }: RevenueChartProps) {
                                 fontSize={12}
                                 tickLine={false}
                                 axisLine={false}
-                                tickFormatter={(value) => `$${value}`}
+                                tickFormatter={(value) => `${value} EGP`}
                             />
                             <Tooltip
                                 cursor={{ fill: 'var(--muted)', opacity: 0.2 }}
                                 contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
-                                formatter={(value: number) => [`${value} EG`, "Revenue"]}
+                                formatter={(value) => [`${value} EGP`, "Revenue"]}
                             />
                             <Bar
                                 dataKey="revenue"

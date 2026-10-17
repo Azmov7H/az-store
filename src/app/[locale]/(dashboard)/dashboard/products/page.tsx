@@ -20,14 +20,13 @@ import { Slider } from "@/components/ui/slider";
 
 // Define strict types for our data
 interface Product {
-    _id: string;
+    id: string;
     title: string;
     price: number;
     image: string;
     category: string;
     stock: number;
     discount?: number;
-    // Add other fields as needed based on your API
 }
 
 export default function ProductsPage() {
@@ -83,7 +82,7 @@ export default function ProductsPage() {
     const handleSubmit = async (form: any) => {
         try {
             if (selected) {
-                await updateShoe(selected._id, form);
+                await updateShoe(selected.id, form);
                 toast.success("Product updated successfully.");
             } else {
                 await createShoe(form);
@@ -255,10 +254,10 @@ export default function ProductsPage() {
                 <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>
                     {filteredShoes.map((shoe) => (
                         <DashboardProductCard
-                            key={shoe._id}
+                            key={shoe.id}
                             product={shoe}
                             onEdit={() => { setSelected(shoe); setOpen(true) }}
-                            onDelete={() => handleDelete(shoe._id)}
+                            onDelete={() => handleDelete(shoe.id)}
                             viewMode={viewMode}
                         />
                     ))}

@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, Settings, Users } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 export default function QuickActionsWidget() {
@@ -34,7 +34,7 @@ export default function QuickActionsWidget() {
                     </Link>
                 </Button>
                 <Button variant="outline" className="h-20 flex flex-col gap-2 hover:border-gray-500/50 hover:bg-gray-500/5" asChild>
-                    <Link href="/dashboard/settings">
+                    <Link href="/dashboard/setting">
                         <Settings className="w-6 h-6 text-gray-500" />
                         <span>{t("settings")}</span>
                     </Link>

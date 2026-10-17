@@ -6,7 +6,9 @@
     "analytics": "Analytics",
     "settings": "Settings",
     "orders": "Orders",
-    "logout": "Logout"
+    "logout": "Logout",
+    "welcome": "Welcome back, Admin",
+    "searchPlaceholder": "Search..."
   },
   "customers": {
     "title": "Customers",
@@ -298,7 +300,10 @@
     "back": "Back",
     "success": "Order placed successfully!",
     "error": "Failed to create order",
-    "orderId": "Order Success! ID: {id}"
+    "orderId": "Order Success! ID: {id}",
+    "redirectHint": "Redirecting to homepage...",
+    "codInfo": "Payment on delivery (Cash on Delivery)",
+    "codPay": "You will pay {amount} when you receive your order."
   },
   "ReviewOrder": {
     "title": "Review Your Order",
@@ -319,6 +324,40 @@
     "district": "District",
     "street": "Street",
     "continue": "Continue to Review",
+    "checkout": "Checkout"
+  },
+  "Checkout": {
+    "emptyCart": "Your cart is empty",
+    "emptyCartHint": "Add some products to your cart to checkout",
+    "stepShipping": "Shipping",
+    "stepReview": "Review",
+    "stepPayment": "Payment"
+  },
+  "LoginPage": {
+    "title": "Welcome back",
+    "subtitle": "Enter your credentials to access the admin dashboard",
+    "username": "Username",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "success": "Login successful!",
+    "invalid": "Invalid credentials. Please try again.",
+    "error": "An error occurred. Please try again later."
+  },
+  "carts": {
+    "loading": "Loading...",
+    "cart": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continue": "Continue Shopping",
+    "items": "Items",
+    "color": "Color",
+    "size": "Size",
+    "remove": "Remove",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "FREE",
+    "total": "Total",
     "checkout": "Checkout"
   },
   "Features": {

@@ -40,8 +40,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
             return createErrorResponse(validation.error || "Validation failed", 400);
         }
 
-        // Update using MongoDB _id
-        const shoe = await Shoe.findByIdAndUpdate(id, body, { new: true });
+        // Update using the custom `id` field (single ID convention)
+        const shoe = await Shoe.findOneAndUpdate({ id }, body, { new: true });
 
         if (!shoe) {
             return createErrorResponse("Shoe not found", 404);

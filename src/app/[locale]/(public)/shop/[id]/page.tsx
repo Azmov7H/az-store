@@ -55,7 +55,7 @@ async function RelatedProducts({ category, currentId }: { category: string; curr
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 {related.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
         </section>
@@ -147,11 +147,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
                             <div className="flex items-baseline gap-4 mb-6">
                                 <span className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                                    {finalPrice.toFixed(2)} EG
+                                    {finalPrice.toFixed(2)} EGP
                                 </span>
                                 {product.discount > 0 && (
                                     <span className="text-xl text-muted-foreground line-through decoration-2 decoration-destructive/30">
-                                        {product.price.toFixed(2)} EG
+                                        {product.price.toFixed(2)} EGP
                                     </span>
                                 )}
                             </div>

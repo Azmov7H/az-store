@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db/connection";
 import { Contact } from "@/lib/db/schemas";
+import type { IContact } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateEmail } from "@/lib/validators";
 
@@ -22,9 +23,9 @@ export async function GET(request: NextRequest) {
         const page = Number.parseInt(url.searchParams.get("page") || "1") || 1;
         const limit = Number.parseInt(url.searchParams.get("limit") || "10") || 10;
 
-        const query: { status?: string } = {};
+        const query: { status?: IContact["status"] } = {};
         if (status && VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])) {
-            query.status = status;
+            query.status = status as IContact["status"];
         }
 
         const contacts = await Contact.find(query)

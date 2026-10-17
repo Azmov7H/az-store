@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { calculateFinalPrice } from "@/lib/utils/format";
 import { createOrder } from "@/lib/api";
 import { analytics } from "@/lib/analytics";
+import { calculateShipping } from "@/lib/constants";
 import type { CartItem } from "@/types/cart";
 import type { CreateOrderData, Order } from "@/types/order";
 
@@ -44,7 +45,7 @@ export default function PaymentStep({
         return sum + finalPrice * item.quantity;
     }, 0);
 
-    const shipping = items.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(items.length);
     const total = subtotal + shipping;
 
     const handleSubmit = async () => {

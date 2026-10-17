@@ -1,11 +1,12 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { contactSchema } from "@/lib/schemas/contact";
+import { CONTACT_STATUSES } from "@/lib/constants";
 import { authUtils } from "@/lib/auth";
 import { getContacts, createContact } from "@/lib/services/contact-service";
 import type { IContact } from "@/lib/db/schemas";
 
-const VALID_STATUSES = ["new", "read", "resolved"] as const;
+const VALID_STATUSES = CONTACT_STATUSES;
 
 export async function GET(request: NextRequest) {
     // Contact messages are private leads — admin only

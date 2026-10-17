@@ -4,6 +4,7 @@ import { Order as OrderModel } from "@/lib/db/schemas";
 import type { IOrder, IOrderProduct } from "@/lib/db/schemas";
 import type { CreateOrderData, Order } from "@/types/order";
 import { generateOrderId } from "@/lib/helpers";
+import { calculateShipping } from "@/lib/constants";
 
 type OrderDoc = IOrder & { _id: unknown };
 
@@ -142,7 +143,7 @@ export async function createOrder(
         selectedSize: item.selectedSize || "N/A",
     }));
 
-    const shipping = products.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(products.length);
     const subtotal = products.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const total = subtotal + shipping - (orderData.discount || 0);
 

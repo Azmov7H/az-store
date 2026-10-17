@@ -6,7 +6,7 @@ import { Clock, Box, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { Order } from "@/types/order";
-import { ORDER_STATUS_COLORS } from "@/lib/order-status";
+import { ORDER_STATUS_COLORS } from "@/lib/constants";
 
 export default function RecentOrdersWidget({ orders }: { orders: Order[] }) {
     const t = useTranslations("dashboard");

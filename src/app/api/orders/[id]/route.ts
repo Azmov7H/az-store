@@ -1,10 +1,11 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { authUtils } from "@/lib/auth";
+import { ORDER_STATUSES } from "@/lib/constants";
 import { getOrderById, updateOrder } from "@/lib/services/order-service";
 import type { IOrderProduct } from "@/lib/db/schemas";
 
-const VALID_STATUSES = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"] as const;
+const VALID_STATUSES = ORDER_STATUSES;
 
 interface RouteParams {
     params: Promise<{ id: string }>;

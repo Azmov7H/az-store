@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { calculateShipping } from "@/lib/constants";
 
 const noopSubscribe = () => () => {};
 
@@ -39,7 +40,7 @@ export default function CartPage() {
         return sum + finalPrice * item.quantity;
     }, 0);
 
-    const shipping = items.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(items.length);
     const total = subtotal + shipping;
 
     return (

@@ -1,7 +1,5 @@
 import { z } from "zod";
-
-export const SHOE_CATEGORIES = ["running", "casual", "formal", "sports", "sandals", "boots"] as const;
-export const SHOE_GENDERS = ["men", "women", "kids", "unisex"] as const;
+import { SHOE_CATEGORIES, SHOE_GENDERS } from "@/lib/constants";
 
 // Core field validators (no defaults) so partial updates don't inject implicit values
 const shoeShape = {

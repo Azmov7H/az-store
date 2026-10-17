@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import type { Order } from "@/types/order";
-import { ORDER_STATUS_COLORS } from "@/lib/order-status";
+import { ORDER_STATUS_COLORS } from "@/lib/constants";
 import type { TranslationFn } from "@/types/translation";
 
 export const dynamic = "force-dynamic";

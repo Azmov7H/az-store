@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils";
 import { User, MapPin, Box } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import type { Order } from "@/types/order";
+import { ORDER_STATUS_COLORS } from "@/lib/order-status";
+import type { TranslationFn } from "@/types/translation";
 
 export const dynamic = "force-dynamic";
 
@@ -44,25 +46,14 @@ export default async function OrdersPage() {
                         </p>
                     </div>
                 ) : (
-                    orders.map((order) => <OrderCard key={order._id} order={order} t={t} />)
+                    orders.map((order) => <OrderCard key={order.orderId} order={order} t={t} />)
                 )}
             </div>
         </div>
     );
 }
 
-function OrderCard({ order, t }: { order: Order; t: any }) {
-    const getStatusColor = (status: Order["status"]) => {
-        switch (status) {
-            case "pending": return "text-amber-500 bg-amber-500/10 border-amber-500/20";
-            case "confirmed":
-            case "processing": return "text-blue-500 bg-blue-500/10 border-blue-500/20";
-            case "shipped": return "text-purple-500 bg-purple-500/10 border-purple-500/20";
-            case "delivered": return "text-green-500 bg-green-500/10 border-green-500/20";
-            case "cancelled": return "text-red-500 bg-red-500/10 border-red-500/20";
-            default: return "text-gray-500 bg-gray-500/10 border-gray-500/20";
-        }
-    };
+function OrderCard({ order, t }: { order: Order; t: TranslationFn }) {
 
     return (
         <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 bg-card/50 backdrop-blur-sm">
@@ -81,7 +72,7 @@ function OrderCard({ order, t }: { order: Order; t: any }) {
                             )}
                         </CardTitle>
                     </div>
-                    <Badge variant="outline" className={cn("px-3 py-1 capitalize font-bold shadow-sm border", getStatusColor(order.status))}>
+                    <Badge variant="outline" className={cn("px-3 py-1 capitalize font-bold shadow-sm border", ORDER_STATUS_COLORS[order.status])}>
                         {t(`status_${order.status}`) || order.status}
                     </Badge>
                 </div>
@@ -131,13 +122,17 @@ function OrderCard({ order, t }: { order: Order; t: any }) {
                 </div>
 
                 <div className="pt-2 flex justify-between items-center text-xs text-muted-foreground font-medium">
-                    <span>{new Date(order.createdAt || Date.now()).toLocaleDateString(undefined, {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    })}</span>
+                    <span>
+                        {order.createdAt
+                            ? new Date(order.createdAt).toLocaleDateString(undefined, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })
+                            : "—"}
+                    </span>
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button variant="outline">{t("details")} →</Button>

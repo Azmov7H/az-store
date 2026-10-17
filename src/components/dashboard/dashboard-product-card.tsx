@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, Package, Layers } from "lucide-react";
 import { calculateFinalPrice } from "@/lib/utils/format";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils";
 
 interface DashboardProductCardProps {
     product: any;

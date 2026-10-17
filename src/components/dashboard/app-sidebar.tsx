@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Link as LocaleLink, usePathname } from "@/i18n/navigation";
 import { Home, Package, Users, Settings, X, LogOut, CalendarArrowDown, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -26,16 +27,25 @@ interface AppSidebarProps {
     onClose?: () => void;
 }
 
-const handleLogout = () => {
-    fetch("/api/logout", { method: "POST" })
-        .then(() => toast.success("Logged out successfully"))
-        .catch(() => toast.error("Logout failed"))
-        .finally(() => window.location.href = "/");
-};
-
 export default function AppSidebar({ onClose }: AppSidebarProps) {
     const pathname = usePathname();
     const t = useTranslations("Sidebar");
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("/api/logout", { method: "POST" });
+            if (res.ok) {
+                toast.success("Logged out successfully");
+                router.push("/");
+                router.refresh();
+            } else {
+                toast.error("Logout failed");
+            }
+        } catch {
+            toast.error("Logout failed");
+        }
+    };
 
     return (
         <div className="flex flex-col h-full bg-card/50 backdrop-blur-xl border-r border-border/50 transition-all duration-300">

@@ -76,7 +76,7 @@ export default async function Testimonials() {
                                 </div>
 
                                 <p className="text-lg leading-relaxed text-foreground/90 italic mb-8 flex-grow">
-                                    "{testimonial.text}"
+                                    &quot;{testimonial.text}&quot;
                                 </p>
 
                                 <div className="flex items-center gap-4 pt-6 border-t border-border/50">

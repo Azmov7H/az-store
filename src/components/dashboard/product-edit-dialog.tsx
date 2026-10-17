@@ -37,6 +37,37 @@ interface ProductEditDialogProps {
     defaultData?: any;
 }
 
+const EMPTY_FORM = {
+    title: "",
+    price: "",
+    discount: "",
+    stock: "",
+    category: "",
+    gender: "unisex",
+    sizes: "",
+    colors: "",
+    description: "",
+    image: "",
+};
+
+type ProductForm = typeof EMPTY_FORM;
+
+function buildFormData(data?: any): ProductForm {
+    if (!data || Object.keys(data).length === 0) return EMPTY_FORM;
+    return {
+        title: data.title || "",
+        price: data.price?.toString() || "",
+        discount: data.discount?.toString() || "",
+        stock: data.stock?.toString() || "",
+        category: data.category || "",
+        gender: data.gender || "unisex",
+        sizes: data.availableSizes?.join(", ") || "",
+        colors: data.availableColors?.join(", ") || "",
+        description: data.description || "",
+        image: data.image || "",
+    };
+}
+
 export default function ProductEditDialog({
     open,
     setOpen,
@@ -44,18 +75,8 @@ export default function ProductEditDialog({
     defaultData = {},
 }: ProductEditDialogProps) {
     const [categories, setCategories] = useState<any[]>([]);
-    const [formData, setFormData] = useState({
-        title: "",
-        price: "",
-        discount: "",
-        stock: "",
-        category: "",
-        gender: "unisex",
-        sizes: "",
-        colors: "",
-        description: "",
-        image: "",
-    });
+    // Initialize once from defaultData (parent remounts the dialog per selection via `key`)
+    const [formData, setFormData] = useState(() => buildFormData(defaultData));
 
     // Fetch categories
     useEffect(() => {
@@ -64,37 +85,6 @@ export default function ProductEditDialog({
             .then((data) => data.success && setCategories(data.data))
             .catch(() => {});
     }, []);
-
-    // Set default data
-    useEffect(() => {
-        if (defaultData && Object.keys(defaultData).length > 0) {
-            setFormData({
-                title: defaultData.title || "",
-                price: defaultData.price?.toString() || "",
-                discount: defaultData.discount?.toString() || "",
-                stock: defaultData.stock?.toString() || "",
-                category: defaultData.category || "",
-                gender: defaultData.gender || "unisex",
-                sizes: defaultData.availableSizes?.join(", ") || "",
-                colors: defaultData.availableColors?.join(", ") || "",
-                description: defaultData.description || "",
-                image: defaultData.image || "",
-            });
-        } else {
-            setFormData({
-                title: "",
-                price: "",
-                discount: "",
-                stock: "",
-                category: "",
-                gender: "unisex",
-                sizes: "",
-                colors: "",
-                description: "",
-                image: "",
-            });
-        }
-    }, [defaultData, open]);
 
     // Submit handler
     const handleSubmit = (e: React.FormEvent) => {

@@ -1,18 +1,17 @@
 import { NextRequest } from "next/server";
-import { connectDB } from "@/lib/db/connection";
-import { Contact } from "@/lib/db/schemas";
-import type { IContact } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateEmail } from "@/lib/validators";
 import { authUtils } from "@/lib/auth";
+import { getContacts, createContact } from "@/lib/services/contact-service";
+import type { IContact } from "@/lib/db/schemas";
 
 const VALID_STATUSES = ["new", "read", "resolved"] as const;
 
 interface ContactBody {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     phone?: string;
-    message: string;
+    message?: string;
 }
 
 export async function GET(request: NextRequest) {
@@ -22,29 +21,20 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        await connectDB();
-
         const url = new URL(request.url);
         const status = url.searchParams.get("status");
         const page = Number.parseInt(url.searchParams.get("page") || "1") || 1;
         const limit = Number.parseInt(url.searchParams.get("limit") || "10") || 10;
 
-        const query: { status?: IContact["status"] } = {};
-        if (status && VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])) {
-            query.status = status as IContact["status"];
-        }
-
-        const contacts = await Contact.find(query)
-            .limit(limit)
-            .skip((page - 1) * limit)
-            .sort({ createdAt: -1 });
-
-        const total = await Contact.countDocuments(query);
-
-        return createSuccessResponse({
-            contacts,
-            pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+        const data = await getContacts({
+            status: status && VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])
+                ? (status as IContact["status"])
+                : undefined,
+            page,
+            limit,
         });
+
+        return createSuccessResponse(data);
     } catch (error) {
         if (process.env.NODE_ENV === "development") {
             console.error("GET /api/contact error:", error);
@@ -55,7 +45,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        await connectDB();
         const body: ContactBody = await request.json();
 
         // Validate required fields
@@ -68,16 +57,12 @@ export async function POST(request: NextRequest) {
             return createErrorResponse("Invalid email address", 400);
         }
 
-        const contact = new Contact({
-            id: `contact-${Date.now()}`,
+        const contact = await createContact({
             name: body.name,
             email: body.email,
-            phone: body.phone || null,
+            phone: body.phone,
             message: body.message,
-            status: "new",
         });
-
-        await contact.save();
 
         return createSuccessResponse(
             { id: contact.id },

@@ -1,9 +1,8 @@
 import { NextRequest } from "next/server";
-import { connectDB } from "@/lib/db/connection";
-import { Order } from "@/lib/db/schemas";
-import type { IOrder, IOrderProduct } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { authUtils } from "@/lib/auth";
+import { getOrderById, updateOrder } from "@/lib/services/order-service";
+import type { IOrderProduct } from "@/lib/db/schemas";
 
 const VALID_STATUSES = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"] as const;
 
@@ -32,10 +31,9 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     try {
-        await connectDB();
         const { id } = await params;
 
-        const order = await Order.findOne({ orderId: id });
+        const order = await getOrderById(id);
         if (!order) {
             return createErrorResponse("Order not found", 404);
         }
@@ -55,33 +53,15 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     try {
-        await connectDB();
         const { id } = await params;
-        const raw = (await request.json()) as OrderUpdateBody;
-
-        // Only forward whitelisted fields (mass-assignment protection)
-        const body: OrderUpdateBody = {};
-        if (raw.status !== undefined) body.status = raw.status;
-        if (raw.notes !== undefined) body.notes = raw.notes;
-        if (raw.customerName !== undefined) body.customerName = raw.customerName;
-        if (raw.customerEmail !== undefined) body.customerEmail = raw.customerEmail;
-        if (raw.customerPhone !== undefined) body.customerPhone = raw.customerPhone;
-        if (raw.customerCity !== undefined) body.customerCity = raw.customerCity;
-        if (raw.customerDistrict !== undefined) body.customerDistrict = raw.customerDistrict;
-        if (raw.customerStreet !== undefined) body.customerStreet = raw.customerStreet;
-        if (raw.products !== undefined) body.products = raw.products;
-        if (raw.discount !== undefined) body.discount = raw.discount;
+        const body = (await request.json()) as OrderUpdateBody;
 
         // Validate status update
         if (body.status && !VALID_STATUSES.includes(body.status)) {
             return createErrorResponse("Invalid order status", 400);
         }
 
-        const order = await Order.findOneAndUpdate(
-            { orderId: id },
-            body as Partial<IOrder>,
-            { new: true }
-        );
+        const order = await updateOrder(id, body);
         if (!order) {
             return createErrorResponse("Order not found", 404);
         }
@@ -94,3 +74,4 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         return createErrorResponse("Failed to update order", 400);
     }
 }
+

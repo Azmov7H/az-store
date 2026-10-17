@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getProductById, getProducts } from "@/lib/services/product-service";
+import { getProductById, getProducts } from "@/lib/services/shoe-service";
 import { getTranslations } from "next-intl/server";
 import { calculateFinalPrice } from "@/lib/utils/format";
 import { Badge } from "@/components/ui/badge";

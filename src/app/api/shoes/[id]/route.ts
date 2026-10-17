@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
-import { connectDB } from "@/lib/db/connection";
-import { Shoe } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateShoeData } from "@/lib/validators";
 import { authUtils } from "@/lib/auth";
+import { deleteShoeById, getShoeById, updateShoeById } from "@/lib/services/shoe-service";
+import type { IShoe } from "@/lib/db/schemas";
 
 interface RouteParams {
     params: Promise<{ id: string }>;
@@ -11,10 +11,9 @@ interface RouteParams {
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
     try {
-        await connectDB();
         const { id } = await params;
 
-        const shoe = await Shoe.findOne({ id });
+        const shoe = await getShoeById(id);
         if (!shoe) {
             return createErrorResponse("Shoe not found", 404);
         }
@@ -34,8 +33,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     try {
-        await connectDB();
-
         const { id } = await params;
         const body = await request.json();
 
@@ -45,9 +42,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
             return createErrorResponse(validation.error || "Validation failed", 400);
         }
 
-        // Update using the custom `id` field (single ID convention)
-        const shoe = await Shoe.findOneAndUpdate({ id }, body, { new: true });
-
+        const shoe = await updateShoeById(id, body as Partial<IShoe>);
         if (!shoe) {
             return createErrorResponse("Shoe not found", 404);
         }
@@ -67,15 +62,14 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     }
 
     try {
-        await connectDB();
         const { id } = await params;
 
-        const shoe = await Shoe.findOneAndDelete({ id });
+        const shoe = await deleteShoeById(id);
         if (!shoe) {
             return createErrorResponse("Shoe not found", 404);
         }
 
-        return createSuccessResponse({ message: "Shoe deleted successfully", shoe });
+        return createSuccessResponse({ message: "Shoe deleted successfully", id: shoe.id });
     } catch (error) {
         if (process.env.NODE_ENV === "development") {
             console.error("DELETE /api/shoes/[id] error:", error);

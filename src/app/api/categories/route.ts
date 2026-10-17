@@ -1,20 +1,7 @@
-import { NextResponse } from "next/server";
-
-const CATEGORIES = [
-    "running",
-    "casual",
-    "formal",
-    "sports",
-    "sandals",
-    "boots"
-];
+import { createSuccessResponse } from "@/lib/api-response";
+import { getCategories } from "@/lib/services/category-service";
 
 export async function GET() {
-    return NextResponse.json({
-        success: true,
-        data: CATEGORIES.map(c => ({
-            id: c,
-            name: c.charAt(0).toUpperCase() + c.slice(1)
-        }))
-    });
+    const categories = await getCategories();
+    return createSuccessResponse(categories);
 }

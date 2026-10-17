@@ -1,4 +1,4 @@
-import { getProducts } from "./product-service";
+import { getProducts } from "./shoe-service";
 import { getOrders } from "./order-service";
 
 import { getCommits } from "./commit-service";

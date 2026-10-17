@@ -66,10 +66,56 @@ export async function updateOrderStatus(
     id: string,
     status: Order["status"]
 ): Promise<Order | null> {
+    return updateOrder(id, { status });
+}
+
+/**
+ * Update whitelisted order fields. Orders are financial records:
+ * arbitrary client fields must never reach the DB (mass-assignment protection).
+ */
+export async function updateOrder(
+    id: string,
+    patch: Partial<
+        Pick<
+            IOrder,
+            | "status"
+            | "notes"
+            | "customerName"
+            | "customerEmail"
+            | "customerPhone"
+            | "customerCity"
+            | "customerDistrict"
+            | "customerStreet"
+            | "products"
+            | "discount"
+        >
+    >
+): Promise<Order | null> {
+    const allowed: Record<string, true> = {
+        status: true,
+        notes: true,
+        customerName: true,
+        customerEmail: true,
+        customerPhone: true,
+        customerCity: true,
+        customerDistrict: true,
+        customerStreet: true,
+        products: true,
+        discount: true,
+    };
+
+    const update: Record<string, unknown> = {};
+    for (const key of Object.keys(patch)) {
+        if (allowed[key] && (patch as Record<string, unknown>)[key] !== undefined) {
+            update[key] = (patch as Record<string, unknown>)[key];
+        }
+    }
+    if (Object.keys(update).length === 0) return getOrderById(id);
+
     await connectDB();
     const doc = (await OrderModel.findOneAndUpdate(
         { orderId: id },
-        { status },
+        update,
         { new: true }
     ).lean()) as unknown as OrderDoc | null;
     return doc ? toOrderDTO(doc) : null;

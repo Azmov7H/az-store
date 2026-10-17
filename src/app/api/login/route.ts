@@ -7,9 +7,10 @@ export async function POST(req: Request): Promise<NextResponse> {
         const { user, pass } = body;
 
         if (authUtils.verifyAdmin(user, pass)) {
-            const token = authUtils.signJWT({ user, role: "admin" });
+            const response = NextResponse.json({ success: true });
 
-            const response = NextResponse.json({ success: true, token });
+            // Token is delivered only via the secure httpOnly cookie, never in the body
+            const token = authUtils.signJWT({ user, role: "admin" });
 
             // Set secure cookie
             response.cookies.set("admin_token", token, {

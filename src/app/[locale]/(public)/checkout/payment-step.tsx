@@ -7,10 +7,10 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { calculateFinalPrice } from "@/lib/utils/format";
-import { createOrder } from "@/lib/services/order-service";
+import { createOrder } from "@/lib/api";
 import { analytics } from "@/lib/analytics";
 import type { CartItem } from "@/types/cart";
-import type { CreateOrderData } from "@/types/order";
+import type { CreateOrderData, Order } from "@/types/order";
 
 interface FormData {
     customerName: string;
@@ -67,12 +67,14 @@ export default function PaymentStep({
         };
 
         try {
-            const order = await createOrder(orderData);
-            setOrderId(order.orderId);
+            const res = await createOrder<Order>(orderData);
+            const created = res.data;
+            if (!res.success || !created?.orderId) throw new Error("Order creation failed");
+            setOrderId(created.orderId);
             toast.success(t("success"));
 
             // Track successful purchase
-            analytics.checkoutSuccess(order.orderId, total);
+            analytics.checkoutSuccess(created.orderId, total);
 
             clearCart();
 

@@ -4,6 +4,7 @@ import { Contact } from "@/lib/db/schemas";
 import type { IContact } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateEmail } from "@/lib/validators";
+import { authUtils } from "@/lib/auth";
 
 const VALID_STATUSES = ["new", "read", "resolved"] as const;
 
@@ -15,6 +16,11 @@ interface ContactBody {
 }
 
 export async function GET(request: NextRequest) {
+    // Contact messages are private leads — admin only
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
+
     try {
         await connectDB();
 

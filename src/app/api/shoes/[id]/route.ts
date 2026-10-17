@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/db/connection";
 import { Shoe } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateShoeData } from "@/lib/validators";
+import { authUtils } from "@/lib/auth";
 
 interface RouteParams {
     params: Promise<{ id: string }>;
@@ -28,6 +29,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
+
     try {
         await connectDB();
 
@@ -57,6 +62,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
+
     try {
         await connectDB();
         const { id } = await params;

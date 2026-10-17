@@ -4,6 +4,7 @@ import { Shoe } from "@/lib/db/schemas";
 import type { IShoe } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { validateShoeData } from "@/lib/validators";
+import { authUtils } from "@/lib/auth";
 
 interface ShoesQuery {
     category?: IShoe["category"];
@@ -77,6 +78,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
+
     try {
         await connectDB();
 

@@ -1,14 +1,7 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateEmail } from "@/lib/validators";
+import { commitSchema } from "@/lib/schemas/commit";
 import { createCommit, getCommitsPaged } from "@/lib/services/commit-service";
-
-interface CommitBody {
-    username?: string;
-    email?: string;
-    commit?: string;
-    rating?: number;
-}
 
 export async function GET(request: NextRequest) {
     try {
@@ -28,32 +21,17 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        const body: CommitBody = await request.json();
-
-        // Validate required fields
-        if (!body.username || !body.email || !body.commit) {
-            return createErrorResponse("Username, email, and review are required", 400);
+        const body = await request.json();
+        const parsed = commitSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
+        const { username, email, commit, rating } = parsed.data;
 
-        // Validate email
-        if (!validateEmail(body.email)) {
-            return createErrorResponse("Invalid email address", 400);
-        }
-
-        // Validate rating
-        if (body.rating && (body.rating < 1 || body.rating > 5)) {
-            return createErrorResponse("Rating must be between 1 and 5", 400);
-        }
-
-        const commit = await createCommit({
-            username: body.username,
-            email: body.email,
-            commit: body.commit,
-            rating: body.rating,
-        });
+        const saved = await createCommit({ username, email, commit, rating });
 
         return createSuccessResponse(
-            { id: commit.id },
+            { id: saved.id },
             "Thank you for your review! It will be displayed after verification.",
             201
         );

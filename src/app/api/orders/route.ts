@@ -1,21 +1,22 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
 import { authUtils } from "@/lib/auth";
+import { createOrderSchema } from "@/lib/schemas/order";
 import { createOrder, getOrders } from "@/lib/services/order-service";
-import type { CreateOrderData, Order } from "@/types/order";
+import type { Order } from "@/types/order";
 
 export async function POST(request: NextRequest) {
     try {
-        const body = (await request.json()) as CreateOrderData & { discount?: number };
+        const body = await request.json();
+        const parsed = createOrderSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
+        }
 
-        // The service enforces required fields and computes server-side pricing
-        const order = await createOrder(body);
+        // The service computes server-side pricing (ignores client totals)
+        const order = await createOrder(parsed.data);
         return createSuccessResponse(order, "Order created successfully", 201);
     } catch (error) {
-        const message = error instanceof Error ? error.message : undefined;
-        if (message === "Customer name is required." || message === "Customer email is required." || message === "At least one product is required.") {
-            return createErrorResponse(message, 400);
-        }
         if (process.env.NODE_ENV === "development") {
             console.error("POST /api/orders error:", error);
         }

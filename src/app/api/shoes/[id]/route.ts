@@ -1,9 +1,8 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateShoeData } from "@/lib/validators";
+import { shoeUpdateSchema } from "@/lib/schemas/shoe";
 import { authUtils } from "@/lib/auth";
 import { deleteShoeById, getShoeById, updateShoeById } from "@/lib/services/shoe-service";
-import type { IShoe } from "@/lib/db/schemas";
 
 interface RouteParams {
     params: Promise<{ id: string }>;
@@ -36,13 +35,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const { id } = await params;
         const body = await request.json();
 
-        // Validate
-        const validation = validateShoeData(body);
-        if (!validation.valid) {
-            return createErrorResponse(validation.error || "Validation failed", 400);
+        // Partial update: validate only provided fields
+        const parsed = shoeUpdateSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
 
-        const shoe = await updateShoeById(id, body as Partial<IShoe>);
+        const shoe = await updateShoeById(id, parsed.data);
         if (!shoe) {
             return createErrorResponse("Shoe not found", 404);
         }

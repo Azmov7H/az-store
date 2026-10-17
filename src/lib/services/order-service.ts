@@ -122,9 +122,13 @@ export async function updateOrder(
 }
 
 /**
- * Create a new order (server-side pricing; same rules as POST /api/orders)
+ * Create a new order (server-side pricing; same rules as POST /api/orders).
+ * Route handlers pass validated input (Zod) — subtotal/shipping/total are
+ * computed here, never trusted from the client.
  */
-export async function createOrder(orderData: CreateOrderData): Promise<Order> {
+export async function createOrder(
+    orderData: Omit<CreateOrderData, "subtotal" | "shipping" | "total">
+): Promise<Order> {
     if (!orderData.customerName) throw new Error("Customer name is required.");
     if (!orderData.customerEmail) throw new Error("Customer email is required.");
     if (!orderData.products?.length) throw new Error("At least one product is required.");

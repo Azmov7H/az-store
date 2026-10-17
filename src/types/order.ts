@@ -5,7 +5,7 @@ export interface OrderProduct {
     price: number;
     quantity: number;
     selectedColor: string;
-    selectedSize: string;
+    selectedSize?: string;
 }
 
 export interface Order {

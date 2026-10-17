@@ -1,9 +1,8 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateShoeData } from "@/lib/validators";
+import { shoeSchema } from "@/lib/schemas/shoe";
 import { authUtils } from "@/lib/auth";
 import { createShoe, getShoes } from "@/lib/services/shoe-service";
-import type { IShoe } from "@/lib/db/schemas";
 
 type ProductFilters = Parameters<typeof getShoes>[0];
 
@@ -42,12 +41,12 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
 
         // Validate
-        const validation = validateShoeData(body);
-        if (!validation.valid) {
-            return createErrorResponse(validation.error || "Validation failed");
+        const parsed = shoeSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
 
-        const shoe = await createShoe(body as Partial<IShoe> & { title: string; price: number });
+        const shoe = await createShoe(parsed.data);
         return createSuccessResponse(shoe, "Shoe created successfully", 201);
     } catch (error) {
         if (process.env.NODE_ENV === "development") {

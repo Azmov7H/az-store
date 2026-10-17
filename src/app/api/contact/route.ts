@@ -1,18 +1,11 @@
 import { NextRequest } from "next/server";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateEmail } from "@/lib/validators";
+import { contactSchema } from "@/lib/schemas/contact";
 import { authUtils } from "@/lib/auth";
 import { getContacts, createContact } from "@/lib/services/contact-service";
 import type { IContact } from "@/lib/db/schemas";
 
 const VALID_STATUSES = ["new", "read", "resolved"] as const;
-
-interface ContactBody {
-    name?: string;
-    email?: string;
-    phone?: string;
-    message?: string;
-}
 
 export async function GET(request: NextRequest) {
     // Contact messages are private leads — admin only
@@ -45,24 +38,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        const body: ContactBody = await request.json();
-
-        // Validate required fields
-        if (!body.name || !body.email || !body.message) {
-            return createErrorResponse("Name, email, and message are required", 400);
+        const body = await request.json();
+        const parsed = contactSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
 
-        // Validate email
-        if (!validateEmail(body.email)) {
-            return createErrorResponse("Invalid email address", 400);
-        }
-
-        const contact = await createContact({
-            name: body.name,
-            email: body.email,
-            phone: body.phone,
-            message: body.message,
-        });
+        const contact = await createContact(parsed.data);
 
         return createSuccessResponse(
             { id: contact.id },

@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useSyncExternalStore } from "react";
 import type { CartItem } from "@/types/cart";
-import { cartStorageSchema } from "@/lib/schemas/cart";
 
 interface CartContextType {
     items: CartItem[];
@@ -25,6 +24,58 @@ const EMPTY: CartItem[] = [];
 
 let snapshot: CartItem[] = EMPTY;
 let hydrated = false;
+
+function salvageCart(value: unknown): CartItem[] {
+    if (!Array.isArray(value)) return [];
+    const out: CartItem[] = [];
+    for (const raw of value.slice(0, 50)) {
+        if (
+            raw &&
+            typeof raw === "object" &&
+            typeof raw.id === "string" &&
+            raw.id.length > 0 &&
+            typeof raw.title === "string" &&
+            raw.title.length > 0 &&
+            typeof raw.price === "number" &&
+            isFinite(raw.price) &&
+            raw.price >= 0 &&
+            typeof raw.selectedColor === "string" &&
+            raw.selectedColor.length > 0 &&
+            typeof raw.selectedSize === "string" &&
+            raw.selectedSize.length > 0 &&
+            Number.isInteger(raw.quantity) &&
+            raw.quantity >= 1
+        ) {
+            out.push({
+                id: raw.id,
+                title: raw.title,
+                description: typeof raw.description === "string" ? raw.description : "",
+                price: raw.price,
+                discount:
+                    typeof raw.discount === "number" &&
+                    isFinite(raw.discount) &&
+                    raw.discount >= 0 &&
+                    raw.discount <= 100
+                        ? raw.discount
+                        : 0,
+                image:
+                    typeof raw.image === "string" && raw.image.length > 0
+                        ? raw.image
+                        : "",
+                selectedColor: raw.selectedColor,
+                selectedSize: raw.selectedSize,
+                quantity: raw.quantity,
+                stock:
+                    typeof raw.stock === "number" &&
+                    isFinite(raw.stock) &&
+                    raw.stock >= 0
+                        ? raw.stock
+                        : 0,
+            });
+        }
+    }
+    return out;
+}
 
 const cartListeners = new Set<() => void>();
 const hydrationListeners = new Set<() => void>();
@@ -66,8 +117,7 @@ function hydrateFromStorage(): void {
     try {
         const saved = window.localStorage.getItem(CART_KEY);
         if (saved) {
-            const parsed = cartStorageSchema.safeParse(JSON.parse(saved));
-            if (parsed.success) restored = parsed.data;
+            restored = salvageCart(JSON.parse(saved));
         }
     } catch {
         try {

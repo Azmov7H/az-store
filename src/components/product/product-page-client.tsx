@@ -9,7 +9,6 @@ import ProductCard from "@/components/product/product-card";
 import ProductAddToCart from "@/components/product/product-add-to-cart";
 import ProductViewTracker from "@/components/product/product-view-tracker";
 import StickyBuyBar from "@/components/product/sticky-buy-bar";
-import { Star, ChevronRight, Home } from "lucide-react";
 import type { Product } from "@/types/product";
 
 interface ProductPageClientProps {
@@ -28,13 +27,13 @@ export default function ProductPageClient({ product, related }: ProductPageClien
                 <div className="max-w-7xl mx-auto px-4 py-4">
                     <nav className="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
                         <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-                            <Home className="w-4 h-4" /> {t("home")}
+                            <span aria-hidden="true">🏠</span> {t("home")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
+                        <span aria-hidden="true">›</span>
                         <Link href="/shop" className="hover:text-primary transition-colors">
                             {t("shop")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
+                        <span aria-hidden="true">›</span>
                         <span className="text-foreground font-bold truncate max-w-[200px]">{product.title}</span>
                     </nav>
                 </div>
@@ -81,7 +80,7 @@ export default function ProductPageClient({ product, related }: ProductPageClien
                             </Badge>
                             {product.rating > 0 && (
                                 <div className="flex items-center gap-1.5 text-sm font-medium">
-                                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                    <span className="text-yellow-400" aria-hidden="true">★</span>
                                     <span>{product.rating.toFixed(1)}</span>
                                     <span className="text-muted-foreground">{t("reviews", { count: product.reviews })}</span>
                                 </div>

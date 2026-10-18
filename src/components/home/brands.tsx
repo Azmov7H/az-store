@@ -21,10 +21,10 @@ export default async function Brands() {
                     {brands.map((brand, index) => (
                         <div
                             key={index}
-                            className="group cursor-pointer transition-all duration-300 hover:scale-110"
+                            className="group min-w-0 cursor-pointer transition-all duration-300 hover:scale-110"
                         >
                             <h3
-                                className={`text-3xl md:text-4xl font-black tracking-wider bg-gradient-to-r ${brand.gradient} bg-clip-text text-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300`}
+                                className={`text-xl sm:text-2xl md:text-3xl font-black bg-gradient-to-r ${brand.gradient} bg-clip-text text-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300`}
                             >
                                 {brand.name}
                             </h3>

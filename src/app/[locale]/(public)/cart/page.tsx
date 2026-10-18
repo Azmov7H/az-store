@@ -63,7 +63,7 @@ export default function CartPage() {
                         </CardHeader>
 
                         <CardContent className="">
-                            <ScrollArea className="h-max pr-3">
+                            <ScrollArea className="max-h-[60vh] pr-3">
                                 <div className="space-y-6">
                                     {items.map((item) => {
                                         const finalPrice = calculateFinalPrice(
@@ -102,50 +102,52 @@ export default function CartPage() {
                                                         {(finalPrice * item.quantity).toFixed(2)} EGP
                                                     </p>
 
-                                                    <div className="flex items-center gap-3 mt-4">
-                                                        <Button
-                                                            className=""
-                                                            size="icon"
-                                                            variant="outline"
-                                                            onClick={() =>
-                                                                updateQuantity(
-                                                                    item.id,
-                                                                    item.quantity - 1,
-                                                                    item.selectedColor,
-                                                                    item.selectedSize
-                                                                )
-                                                            }
-                                                            disabled={item.quantity === 1}
-                                                            aria-label="Decrease quantity"
-                                                        >
-                                                            −
-                                                        </Button>
+                                                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
+                                                        <div className="flex items-center gap-2 w-full sm:w-auto">
+                                                            <Button
+                                                                className=""
+                                                                size="icon"
+                                                                variant="outline"
+                                                                onClick={() =>
+                                                                    updateQuantity(
+                                                                        item.id,
+                                                                        item.quantity - 1,
+                                                                        item.selectedColor,
+                                                                        item.selectedSize
+                                                                    )
+                                                                }
+                                                                disabled={item.quantity === 1}
+                                                                aria-label="Decrease quantity"
+                                                            >
+                                                                −
+                                                            </Button>
 
-                                                        <span className="text-md font-semibold w-8 text-center">
-                                                            {item.quantity}
-                                                        </span>
+                                                            <span className="text-md font-semibold w-8 text-center">
+                                                                {item.quantity}
+                                                            </span>
 
-                                                        <Button
-                                                            className=""
-                                                            size="icon"
-                                                            variant="outline"
-                                                            onClick={() =>
-                                                                updateQuantity(
-                                                                    item.id,
-                                                                    item.quantity + 1,
-                                                                    item.selectedColor,
-                                                                    item.selectedSize
-                                                                )
-                                                            }
-                                                            aria-label="Increase quantity"
-                                                        >
-                                                            +
-                                                        </Button>
+                                                            <Button
+                                                                className=""
+                                                                size="icon"
+                                                                variant="outline"
+                                                                onClick={() =>
+                                                                    updateQuantity(
+                                                                        item.id,
+                                                                        item.quantity + 1,
+                                                                        item.selectedColor,
+                                                                        item.selectedSize
+                                                                    )
+                                                                }
+                                                                aria-label="Increase quantity"
+                                                            >
+                                                                +
+                                                            </Button>
+                                                        </div>
 
                                                         <Button
                                                             variant="destructive"
                                                             size="default"
-                                                            className="ml-auto"
+                                                            className="ml-auto sm:ml-0 w-full sm:w-auto self-start sm:self-start"
                                                             onClick={() =>
                                                                 removeItem(
                                                                     item.id,

@@ -62,14 +62,14 @@ export default function CheckoutPage() {
                                 </div>
                                 {s < 3 && (
                                     <div
-                                        className={`w-16 h-1 ${step > s ? "bg-primary" : "bg-muted"
-                                            }`}
+                                        className={`w-12 sm:w-16 h-1 ${step > s ? "bg-primary" : "bg-muted"
+                }`}
                                     />
                                 )}
                             </div>
                         ))}
                     </div>
-                    <div className="flex justify-center gap-16 mt-2 text-sm">
+                    <div className="flex justify-center gap-8 sm:gap-16 mt-2 text-xs sm:text-sm">
                         <span className={step >= 1 ? "font-semibold" : "text-muted-foreground"}>
                             {t("stepShipping")}
                         </span>

@@ -25,6 +25,7 @@ export interface ProductFilters {
     maxPrice?: number;
     colors?: string[];
     sizes?: string[];
+    sort?: "newest" | "price_asc" | "price_desc";
 }
 
 export interface ProductsResponse {

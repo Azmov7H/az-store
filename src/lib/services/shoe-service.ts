@@ -73,11 +73,15 @@ export const getShoes = unstable_cache(
         const limit = filters.limit ?? 10;
         const query = buildQuery(filters);
 
+        let sort: Record<string, 1 | -1> = { createdAt: -1 };
+        if (filters.sort === "price_asc") sort = { price: 1 };
+        else if (filters.sort === "price_desc") sort = { price: -1 };
+
         const [docs, total] = await Promise.all([
             Shoe.find(query)
                 .limit(limit)
                 .skip((page - 1) * limit)
-                .sort({ createdAt: -1 })
+                .sort(sort)
                 .lean() as unknown as ShoeDoc[],
             Shoe.countDocuments(query),
         ]);

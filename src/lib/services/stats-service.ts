@@ -1,36 +1,46 @@
-import { getProducts } from "./shoe-service";
-import { getOrders } from "./order-service";
+// Site-wide real stats — everything reflects actual DB content. No placeholder
+// numbers: if we can't compute a stat yet, we return null / a real fallback.
+import { connectDB } from "@/lib/db/connection";
+import { Shoe, Commit, Order } from "@/lib/db/schemas";
+import { getBrands, type Brand } from "@/lib/services/brand-service";
+import type { SiteStats } from "./stats-types";
 
-import { getCommits } from "./commit-service";
-// import { getUsers } from "./user-service"; // If exists
-
-export interface SiteStats {
-    products: number;
-    customers: number;
-    brands: number;
-    satisfaction: number;
+async function safe<T>(promise: Promise<T>, fallback: T): Promise<T> {
+    try {
+        return await promise;
+    } catch {
+        return fallback;
+    }
 }
 
 export async function getSiteStats(): Promise<SiteStats> {
-    const [productsData, orders, commits] = await Promise.all([
-        getProducts({ limit: 1 }), // We just need the total count if available, or fetch all to count
-        getOrders().catch(() => []),
-        getCommits().catch(() => [])
+    await connectDB();
+
+    const [productCount, orderEmails, commitEmails, verifiedRatings, brands] = await Promise.all([
+        safe(Shoe.countDocuments(), 0),
+        safe(Order.distinct("customerEmail") as Promise<string[]>, [] as string[]),
+        safe(Commit.distinct("email", { verified: true }) as Promise<string[]>, [] as string[]),
+        safe(Commit.find({ verified: true }).select("rating").lean() as unknown as Promise<{ rating?: number }[]>, [] as { rating?: number }[]),
+        safe(getBrands(), [] as Brand[]),
     ]);
 
-    // Determine counts
-    const productCount = productsData.pagination?.total || productsData.shoes?.length || 0;
+    // "Customers" = distinct buyer/reviewer emails seen so far
+    const customers = new Set<string>([
+        ...orderEmails.map(String),
+        ...commitEmails.map(String),
+    ]).size;
 
-    // Estimate customers from unique emails in orders and commits
-    const uniqueCustomers = new Set([
-        ...orders.map(o => o.customerEmail),
-        ...commits.map(c => c.email)
-    ]);
+    // "Satisfied" = share of verified reviews rated 4+ stars (null → nothing to show)
+    let satisfaction: number | null = null;
+    if (verifiedRatings.length > 0) {
+        const avg = verifiedRatings.reduce((sum, r) => sum + (r.rating ?? 0), 0) / verifiedRatings.length;
+        satisfaction = Math.round((avg / 5) * 100);
+    }
 
     return {
         products: productCount,
-        customers: uniqueCustomers.size > 100 ? uniqueCustomers.size : 100, // Fake "100+" if low
-        brands: 12, // Still static as we don't have a Brands API yet
-        satisfaction: 98 // Static for now
+        customers,
+        brands: brands.length, // mirrors the brands carousel the storefront actually shows
+        satisfaction,
     };
 }

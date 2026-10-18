@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getOrders } from "@/lib/services/order-service";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { DollarSign, Package, ShoppingCart, Clock, TrendingUp } from "lucide-react";
+import { DollarSign, Package, ShoppingCart, Clock } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { Order } from "@/types/order";
 
@@ -53,25 +52,22 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatsCard
                     title={t("totalRevenue") || "Total Revenue"}
-                    value={`$${totalRevenue.toLocaleString()}`}
+                    value={`${totalRevenue.toLocaleString()} EGP`}
                     icon={DollarSign}
-                    trend="+12.5%"
                     gradient="from-green-500 to-emerald-700"
-                    subtext={t("vsLastMonth")}
+                    subtext={t("allTimeTotal")}
                 />
                 <StatsCard
                     title={t("totalOrders") || "Total Orders"}
                     value={totalOrders}
                     icon={ShoppingCart}
-                    trend="+5.2%"
                     gradient="from-blue-500 to-indigo-700"
-                    subtext={t("vsLastMonth")}
+                    subtext={t("allTimeTotal")}
                 />
                 <StatsCard
                     title={t("pendingOrders") || "Pending"}
                     value={pendingOrders}
                     icon={Clock}
-                    trend="-2.1%"
                     gradient="from-orange-500 to-amber-700"
                     subtext={t("processingNow")}
                 />
@@ -79,7 +75,6 @@ export default async function DashboardPage() {
                     title={t("completedOrders") || "Delivered"}
                     value={completedOrders}
                     icon={Package}
-                    trend="+8.4%"
                     gradient="from-purple-500 to-pink-700"
                     subtext={t("successfullyShipped")}
                 />
@@ -106,12 +101,11 @@ interface StatsCardProps {
     title: string;
     value: string | number;
     icon: LucideIcon;
-    trend: string;
     gradient: string;
     subtext: string;
 }
 
-function StatsCard({ title, value, icon: Icon, trend, gradient, subtext }: StatsCardProps) {
+function StatsCard({ title, value, icon: Icon, gradient, subtext }: StatsCardProps) {
     return (
         <Card className="relative overflow-hidden border-none shadow-xl bg-card/50 backdrop-blur-sm hover:-translate-y-1 transition-transform duration-300">
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-[0.08] dark:opacity-[0.15]`} />
@@ -120,9 +114,6 @@ function StatsCard({ title, value, icon: Icon, trend, gradient, subtext }: Stats
                     <div className={`p-3 rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-lg`}>
                         <Icon className="w-6 h-6" />
                     </div>
-                    <Badge variant="secondary" className="font-semibold text-green-600 bg-green-500/10 dark:text-green-400 dark:bg-green-500/20">
-                        <TrendingUp className="w-3 h-3 mr-1" /> {trend}
-                    </Badge>
                 </div>
                 <div className="space-y-1">
                     <h3 className="text-sm font-medium text-muted-foreground">{title}</h3>

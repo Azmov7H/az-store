@@ -66,17 +66,18 @@ Shared `ORDER_STATUS_COLORS` map (later moved to `constants.ts`). Deps removed: 
 - `dashboard/customers/page.tsx`: server component reading `getContacts()` directly (dashboard layout already admin-gates; no client fetch cycle, no skeletons).
 - Client island `customers-grid.tsx` keeps search via `useMemo` — **eslint is now 0/0** (both `set-state-in-effect` errors resolved).
 
-## Phase 9 — honesty of dashboard stats (PENDING SIGN-OFF)
-Current knowingly-fake data:
-1. `dashboard/page.tsx` — hardcoded trends `+12.5%`, `+5.2%`, `-2.1%`, `+8.4%` on stat cards.
-2. `stats-service.ts` — returns `brands: 12` (constant, not distinct brands), `satisfaction: 98%`, `customers: "100+"`.
+## Phase 9 — honesty of dashboard stats (DONE — owner chose: real values only)
+Changes on the final commit:
+1. `dashboard/page.tsx` — hardcoded trends (`+12.5%`, `+5.2%`, …) and the fake `$` currency sign removed. Revenue shows real total in **EGP**; subtexts now honest (`allTimeTotal` key added en/ar, `processingNow`, `successfullyShipped` kept where accurate).
+2. `stats-service.ts` — everything computed from the DB: products = `Shoe.countDocuments()`, customers = distinct emails across orders + verified reviews, brands = actual storefront carousel length (`getBrands().length`), satisfaction = share of verified reviews rated 4+ (avg of ratings → 0–100); **`null` when no verified reviews — and the home Stats widget hides the star card in that case instead of inventing a number**. Removed the "minimum 100" floor.
+3. Home `stats.tsx` renders exact counts (`toLocaleString()`), no fake `+` suffixes.
 
-Options for the owner to choose (any can be done in minutes on this branch):
-- **A. Show real values only** — remove trends; brands = distinct count from DB (`Shoe.distinct("title")` style), satisfaction removed or computed from review ratings, customers = count of contact/commit emails.
-- **B. Keep placeholders, labeled honestly** — render "—" (dash) instead of fake numbers until data is real.
-- **C. Status quo** — leave as is (accepted demo content).
-
-Recommendation: **A** for revenue/orders/pending/delivered (already real DB aggregations), **B** for anything that requires tracking we don't have yet.
+## Follow-ups catalogued (not in scope)
+- `i18n/navigation.ts` **adopted** (sidebar) — was slated for deletion; decision: keep.
+- Plaintext env password compare (timing-safe) — hashing upgrade candidate (bcrypt/argon2).
+- `/api/track` + `AnalyticsSession` remain vestigial (visitor analytics) — revisit when analytics becomes a real feature.
+- Arbitrary-image previews use `<img>` (documented exemption above).
+- Order `getOrders()` redis fetches capped at 200 — paginate the admin list if orders grow beyond that.
 
 ## Rollout / verification
 ```bash

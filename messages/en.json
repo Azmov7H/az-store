@@ -231,7 +231,8 @@
     "addProduct": "Add Product",
     "manageOrders": "Manage Orders",
     "customers": "Customers",
-    "settings": "Settings"
+    "settings": "Settings",
+    "allTimeTotal": "across all orders"
   },
   "products": {
     "productName": "Products",

@@ -168,7 +168,8 @@
     "addProduct": "إضافة منتج",
     "manageOrders": "إدارة الطلبات",
     "customers": "العملاء",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "allTimeTotal": "إجمالي كل الطلبات"
   },
   "products": {
     "addProduct": "إضافة منتج",

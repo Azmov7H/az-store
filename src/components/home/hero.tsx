@@ -22,15 +22,15 @@ export default function Hero() {
             style={{ backgroundImage: "url('https://res.cloudinary.com/do15wh7gm/image/upload/v1765213408/Gemini_Generated_Image_9v9yne9v9yne9v9y_ukilak.png')" }}
             aria-label={t("heroSection")}
         >
-            {/* Dark Overlay for less brightness */}
-            <div className="absolute  bg-black/30 dark:bg-black/50" />
-            <div className="absolute   from-transparent via-transparent to-background/90" />
+            {/* Dark overlays for text contrast */}
+            <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
+            <div className="absolute inset-0 from-transparent via-black/40 to-transparent dark:via-black/60" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 flex flex-col items-center text-center">
                 
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 animate-fadeIn">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
                     <span className="relative flex h-3 w-3">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
@@ -41,24 +41,24 @@ export default function Hero() {
                 </div>
 
                 {/* Logo with animation */}
-                <Logo className="h-24 w-auto border-2 border-orange-600 p-2 rounded-md mb-6 animate-logoBounce" />
+                <Logo className="h-24 w-auto border-2 border-orange-600 p-2 rounded-md mb-6" />
 
                 {/* Buttons with animation */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto">
                     <Button
                         asChild
                         size="lg"
-                        className="h-14 px-8 text-lg font-bold rounded-full bg-white text-black hover:bg-gray-100 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] animate-buttonPop"
+                        className="h-14 px-8 text-lg font-bold rounded-full bg-white text-black hover:bg-gray-100 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                     >
                         <Link href="/shop" className="flex items-center gap-2">
-                            {t("shopNow")} <ArrowRight className="w-5 h-5" />
+                            {t("shopNow")} <ArrowRight className="w-5 h-5 flip-rtl" />
                         </Link>
                     </Button>
                     <Button
                         asChild
                         variant="outline"
                         size="lg"
-                        className="h-14 px-8 text-lg font-bold rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all animate-buttonPop"
+                        className="h-14 px-8 text-lg font-bold rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all"
                     >
                         <Link href="/about">
                             {t("learnMore")}
@@ -95,38 +95,7 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* Animations */}
-            <style jsx>{`
-                @keyframes bgSlide {
-                    0% { background-position: center 0%; }
-                    50% { background-position: center 100%; }
-                    100% { background-position: center 0%; }
-                }
-                section {
-                    animation: bgSlide 60s ease-in-out infinite alternate;
-                }
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                .animate-fadeIn {
-                    animation: fadeIn 1s ease-out forwards;
-                }
-                @keyframes logoBounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-10px); }
-                }
-                .animate-logoBounce {
-                    animation: logoBounce 2s ease-in-out infinite;
-                }
-                @keyframes buttonPop {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.05); }
-                }
-                .animate-buttonPop {
-                    animation: buttonPop 2s ease-in-out infinite;
-                }
-            `}</style>
+
         </section>
     );
 }

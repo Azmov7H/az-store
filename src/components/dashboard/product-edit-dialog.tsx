@@ -202,7 +202,7 @@ export default function ProductEditDialog({
                                         onChange={handleChange}
                                         required
                                         placeholder="Nike Air Max 90"
-                                        className="glass-input"
+                                        className=""
                                     />
                                 </div>
 
@@ -219,7 +219,7 @@ export default function ProductEditDialog({
                                                 setFormData({ ...formData, category })
                                             }
                                         >
-                                            <SelectTrigger className="glass-input">
+                                            <SelectTrigger className="">
                                                 <SelectValue placeholder="Choose category" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -243,7 +243,7 @@ export default function ProductEditDialog({
                                                 setFormData({ ...formData, gender })
                                             }
                                         >
-                                            <SelectTrigger className="glass-input">
+                                            <SelectTrigger className="">
                                                 <SelectValue placeholder="Choose target" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -270,7 +270,7 @@ export default function ProductEditDialog({
                                             onChange={handleChange}
                                             required
                                             placeholder="1200"
-                                            className="glass-input"
+                                            className=""
                                         />
                                     </div>
 
@@ -285,7 +285,7 @@ export default function ProductEditDialog({
                                             value={formData.discount}
                                             onChange={handleChange}
                                             placeholder="10"
-                                            className="glass-input"
+                                            className=""
                                         />
                                     </div>
                                 </div>
@@ -303,7 +303,7 @@ export default function ProductEditDialog({
                                         onChange={handleChange}
                                         required
                                         placeholder="50"
-                                        className="glass-input"
+                                        className=""
                                     />
                                 </div>
                             </div>
@@ -319,7 +319,7 @@ export default function ProductEditDialog({
                                         onChange={handleChange}
                                         placeholder="38, 39, 40"
                                         required
-                                        className="glass-input"
+                                        className=""
                                     />
 
                                     <div className="flex gap-2 mt-2 flex-wrap">
@@ -346,7 +346,7 @@ export default function ProductEditDialog({
                                         onChange={handleChange}
                                         placeholder="Black, White"
                                         required
-                                        className="glass-input"
+                                        className=""
                                     />
 
                                     <div className="flex flex-wrap gap-3 mt-2">
@@ -384,7 +384,7 @@ export default function ProductEditDialog({
                                 required
                                 rows={4}
                                 placeholder="Write a detailed product description..."
-                                className="glass-input resize-none"
+                                className=" resize-none"
                             />
                         </div>
 
@@ -402,7 +402,7 @@ export default function ProductEditDialog({
                                     onChange={handleChange}
                                     placeholder="https://example.com/image.jpg"
                                     required
-                                    className="glass-input flex-1"
+                                    className=" flex-1"
                                 />
 
                                 <CldUploadWidget

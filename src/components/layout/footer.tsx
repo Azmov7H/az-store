@@ -40,7 +40,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 relative z-10">
                 {/* Brand Section */}
                 <div>
-                    <h2 className="text-2xl font-bold text-yellow-400 mb-4">
+                    <h2 className="text-2xl font-bold text-primary mb-4">
                         {t("brand")}
                     </h2>
                     <p className="text-sm leading-relaxed">{t("about")}</p>
@@ -54,7 +54,7 @@ export default function Footer() {
                             <li key={link.key}>
                                 <Link
                                     href={link.href}
-                                    className="hover:text-yellow-400 cursor-pointer transition-colors duration-300"
+                                    className="block px-3 py-1 text-start hover:text-primary cursor-pointer transition-colors duration-300 rounded-md hover:bg-accent/50"
                                 >
                                     {t(link.key)}
                                 </Link>
@@ -67,16 +67,16 @@ export default function Footer() {
                 <div>
                     <h3 className="font-semibold text-lg mb-4">{t("contact")}</h3>
                     <ul className="space-y-3 text-sm">
-                        <li className="flex items-center gap-2">
-                            <Phone className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                        <li className="flex items-center gap-2 px-3 py-1">
+                            <Phone className="w-5 h-5 text-primary" aria-hidden="true" />
                             <span>{t("phone")}</span>
                         </li>
                         <li className="flex items-center gap-2">
-                            <Mail className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                            <Mail className="w-5 h-5 text-primary" aria-hidden="true" />
                             <span>{t("email")}</span>
                         </li>
                         <li className="flex items-center gap-2">
-                            <MapPin className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                            <MapPin className="w-5 h-5 text-primary" aria-hidden="true" />
                             <span>{t("address")}</span>
                         </li>
                     </ul>
@@ -84,14 +84,14 @@ export default function Footer() {
                     {/* Social Icons */}
                     <div className="flex gap-4 mt-6" role="list" aria-label="Social media links">
                         {socialLinks.map((social) => (
-                            <a
-                                key={social.id}
-                                href={social.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-yellow-400 hover:text-yellow-500 transition-colors"
-                                aria-label={social.label}
-                            >
+                                <a
+                                    key={social.id}
+                                    href={social.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 rounded-full text-primary hover:text-primary hover:bg-yellow-500/10 transition-colors"
+                                    aria-label={social.label}
+                                >
                                 {social.icon}
                             </a>
                         ))}
@@ -100,7 +100,7 @@ export default function Footer() {
             </div>
 
             {/* Copyright */}
-            <div className="text-center mt-10 text-xs text-gray-400 relative z-10">
+            <div className="text-center mt-10 text-xs text-muted-foreground relative z-10">
                 © {new Date().getFullYear()} {t("brand")}. {t("copyright")}
             </div>
         </footer>

@@ -25,14 +25,14 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
     const total = subtotal + shipping;
 
     return (
-        <Card className="lg:col-span-1 sticky top-20 h-fit">
+        <Card className="lg:col-span-1 sticky top-[calc(var(--header-height)+1rem)] h-fit">
             <CardHeader className="">
                 <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-4">
                 <ScrollArea className="max-h-96">
-                    <div className="space-y-3 pr-4">
+                    <div className="space-y-3 pe-4">
                         {items.map((item) => {
                             const originalPrice = item.price;
                             const finalPrice = calculateFinalPrice(item.price, item.discount);
@@ -44,7 +44,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                                     key={`${item.id}-${item.selectedColor}-${item.selectedSize}`}
                                     className="flex justify-between text-sm pb-3 border-b last:border-0"
                                 >
-                                    <div className="flex-1 pr-2">
+                                    <div className="flex-1 pe-2">
                                         <p className="font-medium truncate">{item.title}</p>
                                         <p className="text-xs text-muted-foreground">
                                             {item.selectedColor}, {item.selectedSize} × {item.quantity}
@@ -60,7 +60,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="text-right">
+                                    <div className="text-end">
                                         <span className="font-semibold whitespace-nowrap">
                                             {itemTotal.toFixed(2)} EGP
                                         </span>

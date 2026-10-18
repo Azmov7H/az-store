@@ -77,12 +77,12 @@ const DashboardProductCard = memo(function DashboardProductCard({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {product.discount > 0 && (
-                    <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground shadow-lg animate-in zoom-in">
+                    <Badge className="absolute top-3 end-3 bg-destructive text-destructive-foreground shadow-lg animate-in zoom-in">
                         -{product.discount}%
                     </Badge>
                 )}
 
-                <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
+                <div className="absolute top-3 start-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
                     <Badge variant="secondary" className="backdrop-blur-md bg-background/80">
                         {product.category}
                     </Badge>
@@ -119,7 +119,7 @@ const DashboardProductCard = memo(function DashboardProductCard({
                         className="w-full shadow-lg shadow-primary/20"
                         onClick={onEdit}
                     >
-                        <Edit className="h-3.5 w-3.5 mr-1.5" />
+                        <Edit className="h-3.5 w-3.5 me-1.5" />
                         Edit
                     </Button>
                     <Button
@@ -128,7 +128,7 @@ const DashboardProductCard = memo(function DashboardProductCard({
                         className="w-full hover:bg-destructive/10 hover:text-destructive"
                         onClick={onDelete}
                     >
-                        <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+                        <Trash2 className="h-3.5 w-3.5 me-1.5" />
                         Delete
                     </Button>
                 </div>

@@ -76,26 +76,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
     return (
         <div className="min-h-screen bg-neutral-50/50 dark:bg-background">
             {/* Breadcrumb Header */}
-            <div className="w-full border-b bg-background/50 backdrop-blur-sm sticky top-[64px] z-10">
+            <div className="w-full border-b bg-background/50 backdrop-blur-sm sticky top-[var(--header-height)] z-10">
                 <div className="max-w-7xl mx-auto px-4 py-4">
                     <nav className="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
                         <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
                             <Home className="w-4 h-4" /> {t("home")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
                         <Link href="/shop" className="hover:text-primary transition-colors">
                             {t("shop")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
                         <span className="text-foreground font-medium truncate max-w-[200px]">{product.title}</span>
                     </nav>
                 </div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                     {/* Product Image Section */}
-                    <div className="relative group perspective-1000">
+                    <div className="relative group">
                         <div className="relative aspect-square rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 shadow-2xl border border-border/50 transition-all duration-500 hover:shadow-primary/10">
                             <Image
                                 src={product.image}
@@ -191,7 +191,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     fallback={
                         <section className="mt-24">
                             <h2 className="text-2xl font-bold mb-6">Loading related products...</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {Array.from({ length: 4 }).map((_, i) => (
                                     <ProductCardSkeleton key={i} />
                                 ))}

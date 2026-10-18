@@ -9,24 +9,29 @@ export default async function Stats() {
     const stats = [
         {
             icon: Users,
-            value: `${statsData.customers}+`,
+            value: statsData.customers.toLocaleString(),
             label: t("customers"),
         },
         {
             icon: Package,
-            value: `${statsData.products}+`,
+            value: statsData.products.toLocaleString(),
             label: t("products"),
         },
         {
             icon: Store,
-            value: `${statsData.brands}+`,
+            value: String(statsData.brands),
             label: t("brands"),
         },
-        {
-            icon: Star,
-            value: `${statsData.satisfaction}%`,
-            label: t("satisfaction"),
-        },
+        // Satisfaction is only shown when we actually have verified reviews
+        ...(statsData.satisfaction !== null
+            ? [
+                  {
+                      icon: Star,
+                      value: `${statsData.satisfaction}%`,
+                      label: t("satisfaction"),
+                  },
+              ]
+            : []),
     ];
 
     return (

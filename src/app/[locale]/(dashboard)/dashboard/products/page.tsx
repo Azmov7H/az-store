@@ -113,7 +113,7 @@ export default function ProductsPage() {
                             {shoes.length}
                         </span>
                     </h1>
-                    <p className="text-muted-foreground mt-2 pl-11">
+                    <p className="text-muted-foreground mt-2 ps-11">
                         {t("desc")}
                     </p>
                 </div>
@@ -130,17 +130,17 @@ export default function ProductsPage() {
             <div className="flex flex-col md:flex-row items-center gap-4 bg-background/50 p-2 rounded-xl border border-border/50">
                 {/* Search */}
                 <div className="relative flex-1 w-full md:w-auto">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                         placeholder="Search products..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 bg-transparent border-transparent focus-visible:ring-0 focus-visible:bg-secondary/50 rounded-lg transition-all"
+                        className="ps-9 bg-transparent border-transparent focus-visible:ring-0 focus-visible:bg-secondary/50 rounded-lg transition-all"
                     />
                     {searchQuery && (
                         <button
                             onClick={() => setSearchQuery("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                            className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                         >
                             <X className="w-3 h-3" />
                         </button>

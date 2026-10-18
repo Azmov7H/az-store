@@ -42,7 +42,7 @@ export default function LanguageSwitcher() {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="flex items-center gap-2"
+                    className="h-10 min-w-[44px] flex items-center gap-2"
                     aria-label="Change language"
                 >
                     <Globe className="w-4 h-4" />

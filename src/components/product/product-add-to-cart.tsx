@@ -116,18 +116,18 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                                 key={color}
                                 onClick={() => setSelectedColor(color)}
                                 className={cn(
-                                    "relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border-2",
+                                    "relative h-11 min-w-11 rounded-xl text-sm font-medium transition-all duration-200 border-2",
                                     selectedColor === color
                                         ? "border-primary bg-primary/10 text-primary scale-105 shadow-sm"
                                         : "border-transparent bg-secondary hover:bg-secondary/80 text-secondary-foreground"
                                 )}
                             >
                                 {color}
-                                {selectedColor === color && (
-                                    <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md">
-                                        <Check className="w-3 h-3" />
-                                    </span>
-                                )}
+                                    {selectedColor === color && (
+                                        <span className="absolute -top-2 -end-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md" aria-pressed={selectedColor === color}>
+                                            <Check className="w-3 h-3" />
+                                        </span>
+                                    )}
                             </button>
                         ))}
                     </div>
@@ -143,10 +143,11 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                     </div>
                     <div className="flex flex-wrap gap-3">
                         {product.availableSizes.map((size) => (
-                            <button
-                                key={size}
-                                onClick={() => setSelectedSize(size)}
-                                className={cn(
+                                <button
+                                    key={size}
+                                    onClick={() => setSelectedSize(size)}
+                                    aria-pressed={selectedSize === size}
+                                    className={cn(
                                     "relative h-12 min-w-12 px-3 rounded-xl text-sm font-bold transition-all duration-200 border-2 flex items-center justify-center",
                                     selectedSize === size
                                         ? "border-primary bg-primary text-primary-foreground scale-110 shadow-lg shadow-primary/20"
@@ -163,7 +164,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
             {/* Quantity and Actions */}
             <div className="pt-4 space-y-6">
                 <div className="flex items-center justify-between bg-secondary/30 p-2 rounded-2xl border border-secondary">
-                    <span className="font-medium pl-4 text-sm text-muted-foreground">{t("quantity")}</span>
+                    <span className="font-medium ps-4 text-sm text-muted-foreground">{t("quantity")}</span>
                     <div className="flex items-center gap-1 bg-background rounded-xl p-1 shadow-sm">
                         <Button
                             variant="ghost"
@@ -209,7 +210,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                             t("out_of_stock")
                         ) : (
                             <>
-                                <ShoppingCart className="w-5 h-5 mr-2" />
+                                <ShoppingCart className="w-5 h-5 me-2" />
                                 {t("add_to_cart")} - {button}
                             </>
                         )}

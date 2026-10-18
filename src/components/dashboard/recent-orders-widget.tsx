@@ -20,7 +20,7 @@ export default function RecentOrdersWidget({ orders }: { orders: Order[] }) {
                     {t("recentActivity")}
                 </CardTitle>
                 <Link href="/dashboard/orders" className="text-xs text-primary hover:underline flex items-center">
-                    {t("viewAll")} <ArrowRight className="w-3 h-3 ml-1" />
+                    {t("viewAll")} <ArrowRight className="w-3 h-3 me-1 flip-rtl" />
                 </Link>
             </CardHeader>
             <CardContent className="space-y-4">

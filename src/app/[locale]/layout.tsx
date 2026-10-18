@@ -10,12 +10,14 @@ const cairo = Cairo({
   subsets: ['arabic'],
   weight: ['400', '500', '700'],
   display: 'swap',
+  variable: '--font-cairo',
 });
 
 const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   display: 'swap',
+  variable: '--font-inter',
 });
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
@@ -134,7 +136,7 @@ export default async function LocaleLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <Toaster position="top-right" richColors />
+                        <Toaster position={locale === "ar" ? "top-left" : "top-right"} richColors />
                         <AnalyticsTracker />
                         {children}
                     </ThemeProvider>

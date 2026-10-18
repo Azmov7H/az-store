@@ -44,17 +44,17 @@ export default function CustomersGrid({ customers }: { customers: ContactDTO[] }
                             {customers.length}
                         </span>
                     </h1>
-                    <p className="text-muted-foreground mt-2 pl-11">
+                    <p className="text-muted-foreground mt-2 ps-11">
                         {t("desc")}
                     </p>
                 </div>
                 <div className="relative w-full sm:w-72">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                         placeholder={t("searchPlaceholder") || "Search customers..."}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 bg-background/50 border-border/50 focus-visible:ring-primary/20"
+                        className="ps-9 bg-background/50 border-border/50 focus-visible:ring-primary/20"
                     />
                 </div>
             </div>

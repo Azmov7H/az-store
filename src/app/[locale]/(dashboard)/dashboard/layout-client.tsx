@@ -23,7 +23,7 @@ export default function DashboardLayoutClient({ children }: DashboardLayoutClien
 
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:translate-x-0 lg:static lg:z-0 lg:border-r lg:border-border/50 ${sidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+                className={`fixed inset-y-0 ${typeof document !== "undefined" && document.dir === "rtl" ? "right-0" : "left-0"} z-50 w-72 transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-0 lg:border-e lg:border-border/50 ${sidebarOpen ? "translate-x-0 shadow-2xl" : typeof document !== "undefined" && document.dir === "rtl" ? "translate-x-full" : "-translate-x-full"
                     }`}
             >
                 <AppSidebar onClose={() => setSidebarOpen(false)} />

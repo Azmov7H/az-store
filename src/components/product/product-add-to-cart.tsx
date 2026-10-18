@@ -123,11 +123,11 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                                 )}
                             >
                                 {color}
-                                {selectedColor === color && (
-                                    <span className="absolute -top-2 -end-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md">
-                                        <Check className="w-3 h-3" />
-                                    </span>
-                                )}
+                                    {selectedColor === color && (
+                                        <span className="absolute -top-2 -end-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md" aria-pressed={selectedColor === color}>
+                                            <Check className="w-3 h-3" />
+                                        </span>
+                                    )}
                             </button>
                         ))}
                     </div>
@@ -143,10 +143,11 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                     </div>
                     <div className="flex flex-wrap gap-3">
                         {product.availableSizes.map((size) => (
-                            <button
-                                key={size}
-                                onClick={() => setSelectedSize(size)}
-                                className={cn(
+                                <button
+                                    key={size}
+                                    onClick={() => setSelectedSize(size)}
+                                    aria-pressed={selectedSize === size}
+                                    className={cn(
                                     "relative h-12 min-w-12 px-3 rounded-xl text-sm font-bold transition-all duration-200 border-2 flex items-center justify-center",
                                     selectedSize === size
                                         ? "border-primary bg-primary text-primary-foreground scale-110 shadow-lg shadow-primary/20"

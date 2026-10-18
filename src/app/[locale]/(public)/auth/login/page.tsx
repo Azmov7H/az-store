@@ -61,14 +61,14 @@ export default function LoginPage() {
                         <div className="space-y-2">
                             <Label htmlFor="username">{t("username")}</Label>
                             <div className="relative">
-                                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <User className="absolute start-3 top-3 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     id="username"
                                     placeholder="admin"
                                     type="text"
                                     value={user}
                                     onChange={(e) => setUser(e.target.value)}
-                                    className="pl-9 bg-background/50"
+                                    className="ps-9 bg-background/50"
                                     required
                                 />
                             </div>
@@ -76,14 +76,14 @@ export default function LoginPage() {
                         <div className="space-y-2">
                             <Label htmlFor="password">{t("password")}</Label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Lock className="absolute start-3 top-3 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     id="password"
                                     placeholder="••••••••"
                                     type="password"
                                     value={pass}
                                     onChange={(e) => setPass(e.target.value)}
-                                    className="pl-9 bg-background/50"
+                                    className="ps-9 bg-background/50"
                                     required
                                 />
                             </div>

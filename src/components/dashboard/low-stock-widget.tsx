@@ -19,7 +19,7 @@ export default function LowStockWidget({ products }: { products: StockAlert[] })
                     {t("lowStockAlerts")}
                 </CardTitle>
                 <Link href="/dashboard/products" className="text-xs text-amber-600 hover:text-amber-800 flex items-center">
-                    {t("manageStock")} <ArrowRight className="w-3 h-3 ml-1" />
+                    {t("manageStock")} <ArrowRight className="w-3 h-3 me-1 flip-rtl" />
                 </Link>
             </CardHeader>
             <CardContent>

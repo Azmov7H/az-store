@@ -130,6 +130,10 @@
     font-family: var(--font-arabic);
   }
 
+  [dir="rtl"] .flip-rtl {
+    transform: rotate(180deg);
+  }
+
   /* Scrollbar (WebKit) */
   ::-webkit-scrollbar {
     width: 8px;

@@ -82,11 +82,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
                             <Home className="w-4 h-4" /> {t("home")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
                         <Link href="/shop" className="hover:text-primary transition-colors">
                             {t("shop")}
                         </Link>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/50 flip-rtl" />
                         <span className="text-foreground font-medium truncate max-w-[200px]">{product.title}</span>
                     </nav>
                 </div>

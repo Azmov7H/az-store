@@ -124,7 +124,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                             >
                                 {color}
                                 {selectedColor === color && (
-                                    <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md">
+                                    <span className="absolute -top-2 -end-2 bg-primary text-primary-foreground rounded-full p-0.5 shadow-md">
                                         <Check className="w-3 h-3" />
                                     </span>
                                 )}
@@ -163,7 +163,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
             {/* Quantity and Actions */}
             <div className="pt-4 space-y-6">
                 <div className="flex items-center justify-between bg-secondary/30 p-2 rounded-2xl border border-secondary">
-                    <span className="font-medium pl-4 text-sm text-muted-foreground">{t("quantity")}</span>
+                    <span className="font-medium ps-4 text-sm text-muted-foreground">{t("quantity")}</span>
                     <div className="flex items-center gap-1 bg-background rounded-xl p-1 shadow-sm">
                         <Button
                             variant="ghost"
@@ -209,7 +209,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                             t("out_of_stock")
                         ) : (
                             <>
-                                <ShoppingCart className="w-5 h-5 mr-2" />
+                                <ShoppingCart className="w-5 h-5 me-2" />
                                 {t("add_to_cart")} - {button}
                             </>
                         )}

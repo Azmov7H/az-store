@@ -47,7 +47,7 @@ export default function Navbar() {
                             className="relative group hover:text-primary transition-colors"
                         >
                             {t(link.key)}
-                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                            <span className="absolute start-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
                         </Link>
                     ))}
                 </nav>
@@ -62,7 +62,7 @@ export default function Navbar() {
                     >
                         <ShoppingBag className="h-5 w-5 text-foreground" />
                         {itemCount > 0 && (
-                            <Badge className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] h-5 w-5 flex items-center justify-center p-0">
+                            <Badge className="absolute -top-1 -end-1 bg-green-500 text-white text-[10px] h-5 w-5 flex items-center justify-center p-0">
                                 {itemCount > 99 ? "99+" : itemCount}
                             </Badge>
                         )}
@@ -87,7 +87,14 @@ export default function Navbar() {
                             </Button>
                         </SheetTrigger>
 
-                        <SheetContent side="right" className="w-64 bg-background p-6">
+                        <SheetContent
+                            side={
+                                typeof document !== "undefined" && document.dir === "rtl"
+                                    ? "left"
+                                    : "right"
+                            }
+                            className="w-64 bg-background p-6"
+                        >
                             <SheetHeader>
                                 <SheetTitle className="text-lg font-semibold">
                                     {t("menu")}

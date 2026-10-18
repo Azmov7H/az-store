@@ -66,21 +66,21 @@ export default function DashboardHeader({
             <div className="flex items-center gap-3">
                 {/* Search Bar (Hidden on Mobile) */}
                 <div className="hidden md:flex relative w-64 mr-2">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder={t("searchPlaceholder")}
-                        className="pl-9 h-10 rounded-full bg-secondary/50 border-transparent focus:bg-background transition-all"
+                        className="ps-9 h-10 rounded-full bg-secondary/50 border-transparent focus:bg-background transition-all"
                     />
                 </div>
 
                 {/* Notifications */}
                 <Button variant="ghost" size="icon" className="relative rounded-full hover:bg-primary/10 hover:text-primary transition-colors h-10 w-10">
                     <Bell className="h-5 w-5" />
-                    <span className="absolute top-2 right-2.5 h-2 w-2 rounded-full bg-red-500 animate-pulse ring-2 ring-background"></span>
+                    <span className="absolute top-2 end-2.5 h-2 w-2 rounded-full bg-red-500 animate-pulse ring-2 ring-background"></span>
                 </Button>
 
                 {/* Theme Toggle */}
-                <div className="border-l pl-3 ml-1 border-border/50">
+                <div className="border-s ps-3 ms-1 border-border/50">
                     <ModeToggle />
                 </div>
             </div>

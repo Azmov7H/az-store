@@ -136,7 +136,7 @@ export default async function LocaleLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <Toaster position="top-right" richColors />
+                        <Toaster position={locale === "ar" ? "top-left" : "top-right"} richColors />
                         <AnalyticsTracker />
                         {children}
                     </ThemeProvider>

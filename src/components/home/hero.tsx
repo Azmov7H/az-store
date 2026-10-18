@@ -51,7 +51,7 @@ export default function Hero() {
                         className="h-14 px-8 text-lg font-bold rounded-full bg-white text-black hover:bg-gray-100 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                     >
                         <Link href="/shop" className="flex items-center gap-2">
-                            {t("shopNow")} <ArrowRight className="w-5 h-5" />
+                            {t("shopNow")} <ArrowRight className="w-5 h-5 flip-rtl" />
                         </Link>
                     </Button>
                     <Button

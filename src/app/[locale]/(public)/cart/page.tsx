@@ -63,7 +63,7 @@ export default function CartPage() {
                         </CardHeader>
 
                         <CardContent className="">
-                            <ScrollArea className="max-h-[60vh] pr-3">
+                            <ScrollArea className="max-h-[60vh] pe-3">
                                 <div className="space-y-6">
                                     {items.map((item) => {
                                         const finalPrice = calculateFinalPrice(
@@ -147,7 +147,7 @@ export default function CartPage() {
                                                         <Button
                                                             variant="destructive"
                                                             size="default"
-                                                            className="ml-auto sm:ml-0 w-full sm:w-auto self-start sm:self-start"
+                                                            className="ms-auto sm:ms-0 w-full sm:w-auto self-start sm:self-start"
                                                             onClick={() =>
                                                                 removeItem(
                                                                     item.id,

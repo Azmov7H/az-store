@@ -70,7 +70,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                     </Link>
 
                     {/* Badges */}
-                    <div className="absolute top-3 right-3 flex flex-col gap-2">
+                    <div className="absolute top-3 end-3 flex flex-col gap-2">
                         {product.discount > 0 && (
                             <Badge className="bg-red-600 text-white">
                                 -{product.discount}%

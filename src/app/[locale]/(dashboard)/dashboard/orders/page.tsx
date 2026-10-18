@@ -109,11 +109,11 @@ function OrderCard({ order, t }: { order: Order; t: TranslationFn }) {
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                         {t("items")} ({order.products.length})
                     </p>
-                    <div className="space-y-2 max-h-[120px] overflow-y-auto pr-1">
+                    <div className="space-y-2 max-h-[120px] overflow-y-auto pe-1">
                         {order.products.map((p, idx) => (
                             <div key={idx} className="flex justify-between text-sm group/item">
                                 <span className="truncate flex-1 font-medium text-foreground/80 group-hover/item:text-primary transition-colors">
-                                    <span className="text-xs text-muted-foreground mr-2 font-mono">{p.quantity}x</span>
+                                    <span className="text-xs text-muted-foreground me-2 font-mono">{p.quantity}x</span>
                                     {p.title}
                                 </span>
                             </div>
@@ -135,7 +135,7 @@ function OrderCard({ order, t }: { order: Order; t: TranslationFn }) {
                     </span>
                     <Popover>
                         <PopoverTrigger asChild>
-                            <Button variant="outline">{t("details")} →</Button>
+                            <Button variant="outline">{t("details")} <span className="flip-rtl">→</span></Button>
                         </PopoverTrigger>
 <PopoverContent className="w-80">
     <div className="space-y-2 text-sm">

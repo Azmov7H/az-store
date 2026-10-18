@@ -49,8 +49,8 @@ export default async function Testimonials() {
         <section className="w-full py-24 bg-neutral-50/50 dark:bg-neutral-900/50 relative overflow-hidden">
             {/* Background decorations */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-primary/5 rounded-full blur-3xl opacity-50" />
-                <div className="absolute bottom-[10%] right-[5%] w-80 h-80 bg-primary/10 rounded-full blur-3xl opacity-30" />
+                <div className="absolute top-[10%] start-[5%] w-64 h-64 bg-primary/5 rounded-full blur-3xl opacity-50" />
+                <div className="absolute bottom-[10%] end-[5%] w-80 h-80 bg-primary/10 rounded-full blur-3xl opacity-30" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4">
@@ -69,7 +69,7 @@ export default async function Testimonials() {
                             key={i}
                             className="relative group border-none shadow-lg bg-card/50 backdrop-blur-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-visible"
                         >
-                            <div className="absolute -top-6 left-8 bg-background p-3 rounded-2xl shadow-md border border-border group-hover:scale-110 transition-transform duration-300">
+                            <div className="absolute -top-6 start-8 bg-background p-3 rounded-2xl shadow-md border border-border group-hover:scale-110 transition-transform duration-300">
                                 <Quote className="w-6 h-6 text-primary" aria-hidden="true" />
                             </div>
 
@@ -97,7 +97,7 @@ export default async function Testimonials() {
                                             />
                                             <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
                                         </Avatar>
-                                        <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-0.5 border-2 border-background" title="Verified Buyer">
+                                        <div className="absolute -bottom-1 -end-1 bg-green-500 rounded-full p-0.5 border-2 border-background" title="Verified Buyer">
                                             <BadgeCheck className="w-3 h-3 text-white" />
                                         </div>
                                     </div>

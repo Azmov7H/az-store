@@ -71,7 +71,8 @@
     "trust_shipping": "Free Shipping",
     "trust_support": "24/7 Support",
     "trust_returns": "Easy Returns",
-    "trust_payment": "Secure Payment"
+    "trust_payment": "Secure Payment",
+    "heroSection": "Ali Store featured shoe collection"
   },
   "Footer": {
     "brand": "AN Store",
@@ -232,7 +233,8 @@
     "manageOrders": "Manage Orders",
     "customers": "Customers",
     "settings": "Settings",
-    "allTimeTotal": "across all orders"
+    "allTimeTotal": "across all orders",
+    "orders": "Orders"
   },
   "products": {
     "productName": "Products",
@@ -359,7 +361,12 @@
     "shipping": "Shipping",
     "free": "FREE",
     "total": "Total",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to cart",
+    "free_shipping": "Free shipping when you buy 3 items or more.",
+    "money_back": "15-day return policy against manufacturing defects",
+    "secure_checkout": "Cash on delivery"
   },
   "Features": {
     "heading": "Why Shop With Us?",
@@ -375,7 +382,8 @@
   },
   "Brands": {
     "heading": "Featured Brands",
-    "description": "Discover the latest collections from top global brands"
+    "description": "Discover the latest collections from top global brands",
+    "title": "Featured Brands"
   },
   "Stats": {
     "customers": "Happy Customers",

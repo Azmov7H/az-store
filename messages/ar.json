@@ -28,7 +28,25 @@
     "profile": "الملف الشخصي",
     "account": "الحساب",
     "notifications": "الإشعارات",
-    "appearance": "المظهر"
+    "appearance": "المظهر",
+    "subtitle": "إدارة إعدادات حسابك وتفضيلاتك.",
+    "profileInfo": "معلومات الملف الشخصي",
+    "profileDesc": "حدِّث صورتك وتفاصيلك الشخصية.",
+    "changePhoto": "تغيير الصورة",
+    "photoSpecs": "JPG أو GIF أو PNG. بحد أقصى 1 ميجابايت.",
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "bio": "نبذة",
+    "saveChanges": "حفظ التغييرات",
+    "saved": "تم حفظ الإعدادات بنجاح",
+    "emailNotifications": "إشعارات البريد الإلكتروني",
+    "emailDesc": "اضبط وقت استلام تنبيهات البريد الإلكتروني.",
+    "newOrders": "طلبات جديدة",
+    "newOrdersDesc": "استلم بريدًا إلكترونيًا عند قبول طلبات جديدة.",
+    "lowStock": "تنبيهات انخفاض المخزون",
+    "lowStockDesc": "احصل على إشعار عندما تقل كميات المنتجات.",
+    "feedback": "ملاحظات العملاء",
+    "feedbackDesc": "استلم بريدًا إلكترونيًا عند وصول ملاحظات جديدة."
   },
   "Navbar": {
     "home": "الرئيسية",
@@ -169,7 +187,8 @@
     "manageOrders": "إدارة الطلبات",
     "customers": "العملاء",
     "settings": "الإعدادات",
-    "allTimeTotal": "إجمالي كل الطلبات"
+    "allTimeTotal": "إجمالي كل الطلبات",
+    "subtitle": "إدارة جميع طلبات العملاء"
   },
   "products": {
     "addProduct": "إضافة منتج",
@@ -198,7 +217,10 @@
     "priceRange": "نطاق السعر",
     "resetFilters": "إعادة تعيين الفلاتر",
     "create": "إنشاء",
-    "update": "تحديث"
+    "update": "تحديث",
+    "noProducts": "لا توجد منتجات",
+    "adjustFilters": "حاول تعديل عوامل التصفية.",
+    "getStarted": "ابدأ بإنشاء أول منتج لك."
   },
   "notifications": {
     "title": "الإشعارات",
@@ -258,7 +280,8 @@
     "city": "المدينة",
     "district": "الحي",
     "street": "الشارع",
-    "continue": "الاستمرار للمراجعة"
+    "continue": "الاستمرار للمراجعة",
+    "checkout": "إتمام الشراء"
   },
   "Checkout": {
     "emptyCart": "سلة المشتريات فارغة",

@@ -51,8 +51,11 @@ export default function ContactPage() {
                 subject: "",
                 message: "",
             });
-        } catch (error: any) {
-            toast.error(error.message || "Something went wrong. Please try again.");
+        } catch (error) {
+            toast.error(
+                (error instanceof Error && error.message) ||
+                    "Something went wrong. Please try again."
+            );
             console.error(error);
         } finally {
             setLoading(false);

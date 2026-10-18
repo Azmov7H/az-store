@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CldUploadWidget } from "next-cloudinary";
+import type { CloudinaryUploadWidgetResults } from "next-cloudinary";
 import {
     Upload,
     Sparkles,
@@ -29,12 +30,21 @@ import {
     Box,
     ImageIcon
 } from "lucide-react";
+import type { Product } from "@/types/product";
+import type { Category } from "@/lib/services/category-service";
+
+// Shape sent to the create/update endpoints after form assembly
+// (partial when creating: server generates the rest).
+export type ProductEditPayload = Partial<Product> & {
+    availableColors: string[];
+    availableSizes: string[];
+};
 
 interface ProductEditDialogProps {
     open: boolean;
     setOpen: (open: boolean) => void;
-    onSubmit: (data: any) => void;
-    defaultData?: any;
+    onSubmit: (data: ProductEditPayload) => void;
+    defaultData?: Product | null;
 }
 
 const EMPTY_FORM = {
@@ -52,7 +62,7 @@ const EMPTY_FORM = {
 
 type ProductForm = typeof EMPTY_FORM;
 
-function buildFormData(data?: any): ProductForm {
+function buildFormData(data?: Product | null): ProductForm {
     if (!data || Object.keys(data).length === 0) return EMPTY_FORM;
     return {
         title: data.title || "",
@@ -72,9 +82,9 @@ export default function ProductEditDialog({
     open,
     setOpen,
     onSubmit,
-    defaultData = {},
+    defaultData,
 }: ProductEditDialogProps) {
-    const [categories, setCategories] = useState<any[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     // Initialize once from defaultData (parent remounts the dialog per selection via `key`)
     const [formData, setFormData] = useState(() => buildFormData(defaultData));
 
@@ -82,7 +92,11 @@ export default function ProductEditDialog({
     useEffect(() => {
         fetch("/api/categories")
             .then((res) => res.json())
-            .then((data) => data.success && setCategories(data.data))
+            .then((data) => {
+                if (data?.success && Array.isArray(data.data)) {
+                    setCategories(data.data as Category[]);
+                }
+            })
             .catch(() => {});
     }, []);
 
@@ -90,14 +104,16 @@ export default function ProductEditDialog({
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const productData = {
+        // Create: payload composed from the form (server fills identity/default fields)
+        // Edit: defaultData spread first, so immutable fields (id, rating...) ride along
+        const productData: ProductEditPayload = {
             ...defaultData,
             title: formData.title,
             price: parseFloat(formData.price) || 0,
             discount: parseFloat(formData.discount) || 0,
             stock: parseInt(formData.stock) || 0,
-            category: formData.category,
-            gender: formData.gender,
+            category: formData.category as Product["category"],
+            gender: formData.gender as Product["gender"],
             availableSizes: formData.sizes.split(",").map((s) => s.trim()).filter(Boolean),
             availableColors: formData.colors.split(",").map((c) => c.trim()).filter(Boolean),
             description: formData.description,
@@ -391,10 +407,11 @@ export default function ProductEditDialog({
 
                                 <CldUploadWidget
                                     uploadPreset="unsigned_upload"
-                                    
-
-                                    onSuccess={(res: any) => {
-                                        const url = res?.info?.secure_url;
+                                    onSuccess={(res: CloudinaryUploadWidgetResults) => {
+                                        const info = res?.info as
+                                            | { secure_url?: string }
+                                            | undefined;
+                                        const url = info?.secure_url;
                                         if (url) {
                                             setFormData({
                                                 ...formData,
@@ -413,6 +430,9 @@ export default function ProductEditDialog({
                             </div>
 
                             {formData.image && (
+                                // Dialog preview of an arbitrary admin-entered URL:
+                                // not eligible for next/image remote optimization.
+                                // eslint-disable-next-line @next/next/no-img-element
                                 <img
                                     src={formData.image}
                                     alt="Preview"

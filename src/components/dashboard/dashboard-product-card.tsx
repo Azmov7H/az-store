@@ -8,9 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Edit, Trash2, Package, Layers } from "lucide-react";
 import { calculateFinalPrice } from "@/lib/utils/format";
 import { cn } from "@/lib/utils";
+import type { Product } from "@/types/product";
 
 interface DashboardProductCardProps {
-    product: any;
+    product: Product;
     onEdit: () => void;
     onDelete: () => void;
     viewMode?: "grid" | "list";

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import DashboardProductCard from "../../../../../components/dashboard/dashboard-product-card";
 import ProductEditDialog from "../../../../../components/dashboard/product-edit-dialog";
+import type { ProductEditPayload } from "../../../../../components/dashboard/product-edit-dialog";
 import { getShoes, createShoe, updateShoe, deleteShoe } from "@/lib/api";
 import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
@@ -72,7 +73,7 @@ export default function ProductsPage() {
             .finally(() => setLoading(false));
     };
 
-    const handleSubmit = async (form: any) => {
+    const handleSubmit = async (form: ProductEditPayload) => {
         try {
             if (selected) {
                 await updateShoe(selected.id, form);
@@ -263,7 +264,7 @@ export default function ProductsPage() {
                 open={open}
                 setOpen={setOpen}
                 onSubmit={handleSubmit}
-                defaultData={selected || {}}
+                defaultData={selected}
             />
         </div>
     );

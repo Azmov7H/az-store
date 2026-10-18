@@ -4,6 +4,7 @@ import { getOrders } from "@/lib/services/order-service";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, Package, ShoppingCart, Clock, TrendingUp } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { Order } from "@/types/order";
 
 import RecentOrdersWidget from "../../../../components/dashboard/recent-orders-widget";
@@ -101,7 +102,16 @@ export default async function DashboardPage() {
     );
 }
 
-function StatsCard({ title, value, icon: Icon, trend, gradient, subtext }: any) {
+interface StatsCardProps {
+    title: string;
+    value: string | number;
+    icon: LucideIcon;
+    trend: string;
+    gradient: string;
+    subtext: string;
+}
+
+function StatsCard({ title, value, icon: Icon, trend, gradient, subtext }: StatsCardProps) {
     return (
         <Card className="relative overflow-hidden border-none shadow-xl bg-card/50 backdrop-blur-sm hover:-translate-y-1 transition-transform duration-300">
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-[0.08] dark:opacity-[0.15]`} />

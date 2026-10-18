@@ -80,12 +80,12 @@ export default function ProductDialog({
                         {/* Price */}
                         <div className="flex items-center gap-3 flex-wrap">
                             <span className="text-2xl font-bold">
-                                ${finalPrice.toFixed(2)}
+                                {finalPrice.toFixed(2)} EGP
                             </span>
                             {product.discount > 0 && (
                                 <>
                                     <span className="line-through opacity-60">
-                                        ${product.price.toFixed(2)}
+                                        {product.price.toFixed(2)} EGP
                                     </span>
                                     <Badge className="bg-red-600 text-white">
                                         -{product.discount}%
@@ -96,11 +96,11 @@ export default function ProductDialog({
 
                         {/* Stock Status */}
                         {product.stock === 0 && (
-                            <Badge variant="destructive">Out of Stock</Badge>
+                            <Badge variant="destructive">{t("outOfStock")}</Badge>
                         )}
                         {product.stock > 0 && product.stock < 10 && (
                             <Badge variant="secondary">
-                                Only {product.stock} left in stock
+                                {t("only_left", { count: product.stock })}
                             </Badge>
                         )}
 
@@ -202,7 +202,7 @@ export default function ProductDialog({
                         disabled={product.stock === 0 || !selectedColor || !selectedSize}
                         className="w-full sm:w-auto"
                     >
-                        {product.stock === 0 ? "Out of Stock" : t("add_to_cart")}
+                        {product.stock === 0 ? t("outOfStock") : t("add_to_cart")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

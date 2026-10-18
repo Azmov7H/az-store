@@ -13,7 +13,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { calculateShipping } from "@/lib/constants";
+import {
+    calculateShipping,
+    FREE_SHIPPING_MIN_ITEMS,
+} from "@/lib/constants";
 
 const noopSubscribe = () => () => {};
 
@@ -190,6 +193,43 @@ export default function CartPage() {
                                     )}
                                 </span>
                             </div>
+
+                            {items.length > 0 && items.length < FREE_SHIPPING_MIN_ITEMS && (
+                                <div className="mt-4 space-y-1">
+                                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                                        <span>
+                                            {FREE_SHIPPING_MIN_ITEMS - items.length === 1
+                                                ? t("freeShippingNudgeOne")
+                                                : t("freeShippingNudgeOther", {
+                                                      count:
+                                                          FREE_SHIPPING_MIN_ITEMS -
+                                                          items.length,
+                                                  })}
+                                        </span>
+                                        <span className="font-medium">
+                                            {
+                                                ((items.length /
+                                                    FREE_SHIPPING_MIN_ITEMS) *
+                                                100
+                                            ).toFixed(0)}
+                                            %
+                                        </span>
+                                    </div>
+                                    <div className="w-full bg-accent/50 rounded-full h-2">
+                                        <div
+                                            className="bg-primary h-2 rounded-full transition-width"
+                                            style={{
+                                                width: `${
+                                                    ((items.length /
+                                                        FREE_SHIPPING_MIN_ITEMS) *
+                                                    100
+                                                ).toFixed(0)
+                                                }%`,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
 
                             <Separator className="" />
 

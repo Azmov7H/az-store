@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+
+export const metadata: Metadata = {
+    title: "About | Ali Store",
+    description:
+        "Ali Store is an advanced e-commerce store offering top brands like Nike, Adidas, and Puma. Fast checkout, multi-language support, and high-quality customer experience.",
+};
 import { ShoppingBag, Award, Users, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";

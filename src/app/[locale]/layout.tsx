@@ -56,7 +56,6 @@ export const metadata: Metadata = {
     creator: "Ali Nagy",
     publisher: "Ali Store",
     alternates: {
-        canonical: "/",
         languages: {
             en: "https://ali-store-sh.vercel.app/en",
             ar: "https://ali-store-sh.vercel.app/ar",
@@ -85,7 +84,7 @@ export const metadata: Metadata = {
         description:
             "Buy Nike, Adidas, and Puma shoes with a premium shopping experience.",
         images: [
-            "https://res.cloudinary.com/do15wh7gm/image/upload/v1765213408/Gemini_Generated_Image_9v9yne9v9yne9v9y_ukilak.png",
+            "https://res.cloudinary.com/do15wh7gm/image/upload/v1764809161/e4293e74-e1a7-4857-9c83-81ac3a27162d_wgjcjk.jpg",
         ],
         creator: "@AliStore",
     },

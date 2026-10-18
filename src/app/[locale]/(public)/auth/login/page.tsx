@@ -102,7 +102,7 @@ export default function LoginPage() {
             </Card>
 
             <div className="absolute bottom-6 text-center text-xs text-muted-foreground">
-                &copy; {new Date().getFullYear()} Az Store. All rights reserved.
+                &copy; {new Date().getFullYear()} {t("brand")}. All rights reserved.
             </div>
         </div>
     );

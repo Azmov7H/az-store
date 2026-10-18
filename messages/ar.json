@@ -75,7 +75,7 @@
     "trust_payment": "دفع آمن"
   },
   "Footer": {
-    "brand": "AN Store",
+    "brand": "Ali Store",
     "about": "متجر أحذية عصري يقدم أحدث الموديلات من نايك وأديداس وبوما وغيرها. هدفنا أن نقدم لك أفضل جودة بأفضل سعر.",
     "quickLinks": "روابط سريعة",
     "home": "الصفحة الرئيسية",
@@ -89,7 +89,7 @@
     "accessories": "إكسسوارات",
     "contact": "تواصل معنا",
     "phone": "01206521571",
-    "email": "support@azstore.com",
+    "email": "support@alistore.com",
     "address": "القاهرة، مصر",
     "copyright": "جميع الحقوق محفوظة."
   },
@@ -311,7 +311,8 @@
     "total": "الإجمالي",
     "checkout": "الدفع",
     "freeShippingNudgeOne": "منتج واحد إضافي للشحن المجاني",
-    "freeShippingNudgeOther": "{count} منتجات إضافية للشحن المجاني"
+    "freeShippingNudgeOther": "{count} منتجات إضافية للشحن المجاني",
+    "outOfStock": "منتج غير متوفر"
   },
   "LoginPage": {
     "title": "أهلاً بعودتك",

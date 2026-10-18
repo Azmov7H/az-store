@@ -28,7 +28,8 @@ export default function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 flex flex-col items-center text-center">
-                
+                <h1 className="text-3xl sm:text-4xl font-black mb-6 tracking-tight">{t("heroSection")}</h1>
+
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
                     <span className="relative flex h-3 w-3">

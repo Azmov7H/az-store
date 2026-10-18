@@ -86,8 +86,8 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
 
                     {/* Show total discount savings if any items have discounts */}
                     {items.some(item => item.discount > 0) && (
-                        <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
-                            <span>Total Discount Savings</span>
+                            <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
+                                <span>{t("totalDiscountSavings")}</span>
                             <span>
                                 -{items.reduce((total, item) => {
                                     const originalPrice = item.price * item.quantity;
@@ -117,9 +117,9 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
 
                 {items.length >= 3 && (
                     <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
-                        <p className="text-sm text-green-700 dark:text-green-300 font-medium">
-                            🎉 Free shipping applied!
-                        </p>
+                            <p className="text-sm text-green-700 dark:text-green-300 font-medium">
+                                {t("freeShippingApplied")}
+                            </p>
                     </div>
                 )}
             </CardContent>

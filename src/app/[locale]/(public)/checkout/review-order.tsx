@@ -99,7 +99,7 @@ export default function ReviewOrder({
                     </div>
                     <div className="flex justify-between text-sm">
                         <span>{t("shipping")}</span>
-                        <span>{shipping === 0 ? "FREE" : `${shipping.toFixed(2)} EGP`}</span>
+                        <span>{shipping === 0 ? t("free") : `${shipping.toFixed(2)} EGP`}</span>
                     </div>
                     <Separator className="" />
                     <div className="flex justify-between font-bold text-lg">

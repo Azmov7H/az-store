@@ -75,7 +75,7 @@
     "heroSection": "Ali Store featured shoe collection"
   },
   "Footer": {
-    "brand": "AN Store",
+    "brand": "Ali Store",
     "about": "A modern shoe store offering the latest models from Nike, Adidas, Puma, and more. Our goal is to provide the best quality at the best price.",
     "quickLinks": "Quick Links",
     "home": "Home",
@@ -89,7 +89,7 @@
     "accessories": "Accessories",
     "contact": "Contact Us",
     "phone": "01206521571",
-    "email": "support@azstore.com",
+    "email": "support@alistore.com",
     "address": "Cairo, Egypt",
     "copyright": "All rights reserved."
   },
@@ -368,7 +368,8 @@
     "money_back": "30-day return policy against manufacturing defects",
     "secure_checkout": "Cash on delivery",
     "freeShippingNudgeOne": "1 more item for free shipping",
-    "freeShippingNudgeOther": "{count} more items for free shipping"
+    "freeShippingNudgeOther": "{count} more items for free shipping",
+    "outOfStock": "Out of Stock"
   },
   "Features": {
     "heading": "Why Shop With Us?",

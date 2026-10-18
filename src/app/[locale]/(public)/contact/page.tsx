@@ -9,8 +9,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 export default function ContactPage() {
+    const t = useTranslations("Contact");
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -20,7 +22,9 @@ export default function ContactPage() {
     });
     const [loading, setLoading] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -43,7 +47,7 @@ export default function ContactPage() {
 
             if (!res.ok) throw new Error(data.message || "Failed to send message");
 
-            toast.success("Message sent successfully! We'll get back to you soon.");
+            toast.success(t("success"));
             setFormData({
                 name: "",
                 email: "",
@@ -53,8 +57,7 @@ export default function ContactPage() {
             });
         } catch (error) {
             toast.error(
-                (error instanceof Error && error.message) ||
-                    "Something went wrong. Please try again."
+                (error instanceof Error && error.message) || t("error")
             );
             console.error(error);
         } finally {
@@ -67,9 +70,11 @@ export default function ContactPage() {
             <div className="max-w-6xl mx-auto px-4 py-12">
                 {/* Hero Section */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                        {t("title")}
+                    </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Have a question? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
+                        {t("subtitle")}
                     </p>
                 </div>
 
@@ -81,10 +86,14 @@ export default function ContactPage() {
                                 <div className="flex items-start gap-4">
                                     <Mail className="h-6 w-6 text-primary mt-1" />
                                     <div>
-                                        <h3 className="font-semibold mb-1">Email</h3>
-                                        <p className="text-muted-foreground">support@alistore.com</p>
+                                        <h3 className="font-semibold mb-1">
+                                            {t("email")}
+                                        </h3>
+                                        <p className="text-muted-foreground">
+                                            support@alistore.com
+                                        </p>
                                         <p className="text-sm text-muted-foreground mt-1">
-                                            We&apos;ll respond within 24 hours
+                                            {t("respondTime")}
                                         </p>
                                     </div>
                                 </div>
@@ -96,8 +105,12 @@ export default function ContactPage() {
                                 <div className="flex items-start gap-4">
                                     <Phone className="h-6 w-6 text-primary mt-1" />
                                     <div>
-                                        <h3 className="font-semibold mb-1">Phone</h3>
-                                        <p className="text-muted-foreground">01206521571</p>
+                                        <h3 className="font-semibold mb-1">
+                                            {t("phone")}
+                                        </h3>
+                                        <p className="text-muted-foreground">
+                                            01206521571
+                                        </p>
                                         <p className="text-sm text-muted-foreground mt-1">
                                             Mon-Sat: 9 AM - 6 PM
                                         </p>
@@ -111,12 +124,14 @@ export default function ContactPage() {
                                 <div className="flex items-start gap-4">
                                     <MapPin className="h-6 w-6 text-primary mt-1" />
                                     <div>
-                                        <h3 className="font-semibold mb-1">Address</h3>
+                                        <h3 className="font-semibold mb-1">
+                                            {t("address")}
+                                        </h3>
                                         <p className="text-muted-foreground">
                                             Cairo, Egypt
                                         </p>
                                         <p className="text-sm text-muted-foreground mt-1">
-                                            Visit our showroom
+                                            {t("visitShowroom")}
                                         </p>
                                     </div>
                                 </div>
@@ -128,12 +143,14 @@ export default function ContactPage() {
                                 <div className="flex items-start gap-4">
                                     <Clock className="h-6 w-6 text-primary mt-1" />
                                     <div>
-                                        <h3 className="font-semibold mb-1">Business Hours</h3>
+                                        <h3 className="font-semibold mb-1">
+                                            {t("businessHours")}
+                                        </h3>
                                         <p className="text-muted-foreground text-sm">
-                                            Monday - Saturday: 9:00 AM - 6:00 PM
+                                            {t("hours")}
                                         </p>
                                         <p className="text-muted-foreground text-sm">
-                                            Sunday: Closed
+                                            {t("sunday")}
                                         </p>
                                     </div>
                                 </div>
@@ -145,13 +162,15 @@ export default function ContactPage() {
                     <div className="lg:col-span-2">
                         <Card className="">
                             <CardHeader className="">
-                                <CardTitle className="">Send us a Message</CardTitle>
+                                <CardTitle className="">{t("sendMessage")}</CardTitle>
                             </CardHeader>
                             <CardContent className="">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div>
-                                            <Label className="" htmlFor="name">Full Name *</Label>
+                                            <Label className="" htmlFor="name">
+                                                {t("fullName")}
+                                            </Label>
                                             <Input
                                                 className=""
                                                 type="text"
@@ -160,11 +179,13 @@ export default function ContactPage() {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                placeholder="John Doe"
+                                                placeholder={t("placeholderName")}
                                             />
                                         </div>
                                         <div>
-                                            <Label className="" htmlFor="email">Email *</Label>
+                                            <Label className="" htmlFor="email">
+                                                {t("emailLabel")}
+                                            </Label>
                                             <Input
                                                 className=""
                                                 id="email"
@@ -173,14 +194,16 @@ export default function ContactPage() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                placeholder="john@example.com"
+                                                placeholder={t("placeholderEmail")}
                                             />
                                         </div>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div>
-                                            <Label className="" htmlFor="phone">Phone</Label>
+                                            <Label className="" htmlFor="phone">
+                                                {t("phoneLabel")}
+                                            </Label>
                                             <Input
                                                 className=""
                                                 id="phone"
@@ -188,26 +211,31 @@ export default function ContactPage() {
                                                 type="tel"
                                                 value={formData.phone}
                                                 onChange={handleChange}
-                                                placeholder="01234567890"
+                                                required
+                                                placeholder={t("placeholderPhone")}
                                             />
                                         </div>
                                         <div>
-                                            <Label className="" htmlFor="subject">Subject *</Label>
+                                            <Label className="" htmlFor="subject">
+                                                {t("subjectLabel")}
+                                            </Label>
                                             <Input
                                                 className=""
-                                                type="text"
                                                 id="subject"
                                                 name="subject"
+                                                type="text"
                                                 value={formData.subject}
                                                 onChange={handleChange}
                                                 required
-                                                placeholder="How can we help?"
+                                                placeholder={t("placeholderSubject")}
                                             />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <Label className="" htmlFor="message">Message *</Label>
+                                        <Label className="" htmlFor="message">
+                                            {t("messageLabel")}
+                                        </Label>
                                         <Textarea
                                             className=""
                                             id="message"
@@ -216,7 +244,7 @@ export default function ContactPage() {
                                             onChange={handleChange}
                                             required
                                             rows={6}
-                                            placeholder="Tell us more about your inquiry..."
+                                            placeholder={t("placeholderMessage")}
                                         />
                                     </div>
 
@@ -238,10 +266,16 @@ export default function ContactPage() {
                                                 })
                                             }
                                         >
-                                            Clear
+                                            {t("clear")}
                                         </Button>
-                                        <Button type="submit" disabled={loading} variant="default" size="default" className="">
-                                            {loading ? "Sending..." : "Send Message"}
+                                        <Button
+                                            type="submit"
+                                            disabled={loading}
+                                            variant="default"
+                                            size="default"
+                                            className=""
+                                        >
+                                            {loading ? t("sendSending") : t("sendIdle")}
                                         </Button>
                                     </div>
                                 </form>
@@ -251,34 +285,42 @@ export default function ContactPage() {
                         {/* FAQ Section */}
                         <Card className="mt-8">
                             <CardHeader className="">
-                                <CardTitle className="">Frequently Asked Questions</CardTitle>
+                                <CardTitle className="">{t("faqTitle")}</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div>
-                                    <h3 className="font-semibold mb-2">How long does shipping take?</h3>
+                                    <h3 className="font-semibold mb-2">
+                                        {t("faq1q")}
+                                    </h3>
                                     <p className="text-muted-foreground text-sm">
-                                        Standard shipping takes 2-5 business days within Cairo and 3-7 days for other cities.
+                                        {t("faq1a")}
                                     </p>
                                 </div>
                                 <Separator className="" />
                                 <div>
-                                    <h3 className="font-semibold mb-2">What is your return policy?</h3>
+                                    <h3 className="font-semibold mb-2">
+                                        {t("faq2q")}
+                                    </h3>
                                     <p className="text-muted-foreground text-sm">
-                                        We offer a 15-day return policy for manufacturing defects. Items must be unused and in original packaging.
+                                        {t("faq2a")}
                                     </p>
                                 </div>
                                 <Separator className="" />
                                 <div>
-                                    <h3 className="font-semibold mb-2">Do you offer cash on delivery?</h3>
+                                    <h3 className="font-semibold mb-2">
+                                        {t("faq3q")}
+                                    </h3>
                                     <p className="text-muted-foreground text-sm">
-                                        Yes! We accept cash on delivery for all orders across Egypt.
+                                        {t("faq3a")}
                                     </p>
                                 </div>
                                 <Separator className="" />
                                 <div>
-                                    <h3 className="font-semibold mb-2">Are your products authentic?</h3>
+                                    <h3 className="font-semibold mb-2">
+                                        {t("faq4q")}
+                                    </h3>
                                     <p className="text-muted-foreground text-sm">
-                                        Absolutely! All our products are 100% authentic and sourced from authorized distributors.
+                                        {t("faq4a")}
                                     </p>
                                 </div>
                             </CardContent>

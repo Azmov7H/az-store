@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getProducts } from "@/lib/services/product-service";
+import { getProducts } from "@/lib/services/shoe-service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://ali-store-sh.vercel.app";

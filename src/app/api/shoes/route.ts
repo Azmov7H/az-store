@@ -1,72 +1,29 @@
 import { NextRequest } from "next/server";
-import { connectDB } from "@/lib/db/connection";
-import { Shoe } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateShoeData } from "@/lib/validators";
+import { shoeSchema } from "@/lib/schemas/shoe";
+import { authUtils } from "@/lib/auth";
+import { createShoe, getShoes } from "@/lib/services/shoe-service";
 
-interface ShoesQuery {
-    category?: string;
-    price?: {
-        $gte?: number;
-        $lte?: number;
-    };
-    $or?: Array<{
-        title?: { $regex: string; $options: string };
-        description?: { $regex: string; $options: string };
-    }>;
-}
+type ProductFilters = Parameters<typeof getShoes>[0];
 
 export async function GET(request: NextRequest) {
     try {
-        await connectDB();
-
         const url = new URL(request.url);
-        const category = url.searchParams.get("category");
-        const search = url.searchParams.get("search")?.toLowerCase();
-        const page = Number.parseInt(url.searchParams.get("page") || "1") || 1;
-        const limit = Number.parseInt(url.searchParams.get("limit") || "10") || 10;
 
-        const query: ShoesQuery = {};
-
-        // Filter by category
-        if (category) {
-            query.category = category;
-        }
-
-        // Filter by price range
         const minPrice = url.searchParams.get("minPrice");
         const maxPrice = url.searchParams.get("maxPrice");
 
-        if (minPrice || maxPrice) {
-            query.price = {};
-            if (minPrice) query.price.$gte = Number(minPrice);
-            if (maxPrice) query.price.$lte = Number(maxPrice);
-        }
+        const filters: ProductFilters = {
+            category: url.searchParams.get("category") ?? undefined,
+            search: url.searchParams.get("search") ?? undefined,
+            minPrice: minPrice ? Number(minPrice) : undefined,
+            maxPrice: maxPrice ? Number(maxPrice) : undefined,
+            page: Number.parseInt(url.searchParams.get("page") || "1") || 1,
+            limit: Number.parseInt(url.searchParams.get("limit") || "10") || 10,
+        };
 
-        // Search by title or description
-        if (search) {
-            query.$or = [
-                { title: { $regex: search, $options: "i" } },
-                { description: { $regex: search, $options: "i" } },
-            ];
-        }
-
-        const shoes = await Shoe.find(query)
-            .limit(limit)
-            .skip((page - 1) * limit)
-            .sort({ createdAt: -1 });
-
-        const total = await Shoe.countDocuments(query);
-
-        return createSuccessResponse({
-            shoes,
-            pagination: {
-                page,
-                limit,
-                total,
-                pages: Math.ceil(total / limit),
-            },
-        });
+        const data = await getShoes(filters);
+        return createSuccessResponse(data);
     } catch (error) {
         if (process.env.NODE_ENV === "development") {
             console.error("GET /api/shoes error:", error);
@@ -76,23 +33,20 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-    try {
-        await connectDB();
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
 
+    try {
         const body = await request.json();
 
         // Validate
-        const validation = validateShoeData(body);
-        if (!validation.valid) {
-            return createErrorResponse(validation.error || "Validation failed");
+        const parsed = shoeSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
 
-        const shoe = new Shoe({
-            id: `shoe-${Date.now()}`,
-            ...body,
-        });
-
-        await shoe.save();
+        const shoe = await createShoe(parsed.data);
         return createSuccessResponse(shoe, "Shoe created successfully", 201);
     } catch (error) {
         if (process.env.NODE_ENV === "development") {

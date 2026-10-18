@@ -14,12 +14,11 @@ import {
 interface Locale {
     code: string;
     label: string;
-    dir: "ltr" | "rtl";
 }
 
 const locales: Locale[] = [
-    { code: "en", label: "English", dir: "ltr" },
-    { code: "ar", label: "العربية", dir: "rtl" },
+    { code: "en", label: "English" },
+    { code: "ar", label: "العربية" },
 ];
 
 export default function LanguageSwitcher() {
@@ -33,12 +32,6 @@ export default function LanguageSwitcher() {
         const segments = pathname.split("/");
         segments[1] = locale;
         const newPath = segments.join("/");
-
-        const selectedLocale = locales.find((l) => l.code === locale);
-        if (selectedLocale) {
-            document.documentElement.dir = selectedLocale.dir;
-            document.documentElement.lang = selectedLocale.code;
-        }
 
         router.push(newPath);
     };

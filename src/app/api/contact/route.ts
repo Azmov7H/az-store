@@ -1,43 +1,34 @@
 import { NextRequest } from "next/server";
-import { connectDB } from "@/lib/db/connection";
-import { Contact } from "@/lib/db/schemas";
 import { createErrorResponse, createSuccessResponse } from "@/lib/api-response";
-import { validateEmail } from "@/lib/validators";
+import { contactSchema } from "@/lib/schemas/contact";
+import { CONTACT_STATUSES } from "@/lib/constants";
+import { authUtils } from "@/lib/auth";
+import { getContacts, createContact } from "@/lib/services/contact-service";
+import type { IContact } from "@/lib/db/schemas";
 
-const VALID_STATUSES = ["new", "read", "resolved"] as const;
-
-interface ContactBody {
-    name: string;
-    email: string;
-    phone?: string;
-    message: string;
-}
+const VALID_STATUSES = CONTACT_STATUSES;
 
 export async function GET(request: NextRequest) {
-    try {
-        await connectDB();
+    // Contact messages are private leads — admin only
+    if (!authUtils.isAdminRequest(request)) {
+        return createErrorResponse("Unauthorized", 401);
+    }
 
+    try {
         const url = new URL(request.url);
         const status = url.searchParams.get("status");
         const page = Number.parseInt(url.searchParams.get("page") || "1") || 1;
         const limit = Number.parseInt(url.searchParams.get("limit") || "10") || 10;
 
-        const query: { status?: string } = {};
-        if (status && VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])) {
-            query.status = status;
-        }
-
-        const contacts = await Contact.find(query)
-            .limit(limit)
-            .skip((page - 1) * limit)
-            .sort({ createdAt: -1 });
-
-        const total = await Contact.countDocuments(query);
-
-        return createSuccessResponse({
-            contacts,
-            pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+        const data = await getContacts({
+            status: status && VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])
+                ? (status as IContact["status"])
+                : undefined,
+            page,
+            limit,
         });
+
+        return createSuccessResponse(data);
     } catch (error) {
         if (process.env.NODE_ENV === "development") {
             console.error("GET /api/contact error:", error);
@@ -48,29 +39,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        await connectDB();
-        const body: ContactBody = await request.json();
-
-        // Validate required fields
-        if (!body.name || !body.email || !body.message) {
-            return createErrorResponse("Name, email, and message are required", 400);
+        const body = await request.json();
+        const parsed = contactSchema.safeParse(body);
+        if (!parsed.success) {
+            return createErrorResponse(parsed.error.issues[0]?.message ?? "Validation failed", 400);
         }
 
-        // Validate email
-        if (!validateEmail(body.email)) {
-            return createErrorResponse("Invalid email address", 400);
-        }
-
-        const contact = new Contact({
-            id: `contact-${Date.now()}`,
-            name: body.name,
-            email: body.email,
-            phone: body.phone || null,
-            message: body.message,
-            status: "new",
-        });
-
-        await contact.save();
+        const contact = await createContact(parsed.data);
 
         return createSuccessResponse(
             { id: contact.id },

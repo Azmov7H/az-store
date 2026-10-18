@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import DashboardProductCard from "../../../../../components/dashboard/dashboard-product-card";
 import ProductEditDialog from "../../../../../components/dashboard/product-edit-dialog";
+import type { ProductEditPayload } from "../../../../../components/dashboard/product-edit-dialog";
 import { getShoes, createShoe, updateShoe, deleteShoe } from "@/lib/api";
+import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,22 +20,9 @@ import {
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 
-// Define strict types for our data
-interface Product {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    category: string;
-    stock: number;
-    discount?: number;
-    // Add other fields as needed based on your API
-}
-
 export default function ProductsPage() {
     const t = useTranslations("products");
     const [shoes, setShoes] = useState<Product[]>([]);
-    const [filteredShoes, setFilteredShoes] = useState<Product[]>([]);
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -41,25 +30,23 @@ export default function ProductsPage() {
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [priceRange, setPriceRange] = useState([0, 5000]);
 
-    const fetchShoes = async () => {
-        try {
-            setLoading(true);
-            const data = await getShoes<Product>();
-            setShoes(data.shoes);
-            setFilteredShoes(data.shoes);
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to load products.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        fetchShoes();
+        let ignore = false;
+
+        getShoes<Product>()
+            .then((data) => {
+                if (!ignore) setShoes(data.shoes);
+            })
+            .catch(() => toast.error("Failed to load products."))
+            .finally(() => {
+                if (!ignore) setLoading(false);
+            });
+
+        return () => { ignore = true; };
     }, []);
 
-    useEffect(() => {
+    // Filters are derived state (no effect needed)
+    const filteredShoes = useMemo(() => {
         let result = shoes;
 
         // Search Filter
@@ -72,25 +59,31 @@ export default function ProductsPage() {
         }
 
         // Price Filter
-        result = result.filter(shoe => {
+        return result.filter(shoe => {
             const finalPrice = shoe.price * (1 - (shoe.discount || 0) / 100);
             return finalPrice >= priceRange[0] && finalPrice <= priceRange[1];
         });
-
-        setFilteredShoes(result);
     }, [searchQuery, shoes, priceRange]);
 
-    const handleSubmit = async (form: any) => {
+    const reloadProducts = () => {
+        setLoading(true);
+        getShoes<Product>()
+            .then((data) => setShoes(data.shoes))
+            .catch(() => toast.error("Failed to load products."))
+            .finally(() => setLoading(false));
+    };
+
+    const handleSubmit = async (form: ProductEditPayload) => {
         try {
             if (selected) {
-                await updateShoe(selected._id, form);
+                await updateShoe(selected.id, form);
                 toast.success("Product updated successfully.");
             } else {
                 await createShoe(form);
                 toast.success("Product created successfully.");
             }
             setOpen(false);
-            fetchShoes();
+            reloadProducts();
         } catch (err) {
             console.error(err);
             toast.error("Failed to save product.");
@@ -101,7 +94,7 @@ export default function ProductsPage() {
         try {
             await deleteShoe(id);
             toast.success("Product deleted.");
-            fetchShoes();
+            reloadProducts();
         } catch (err) {
             console.error(err);
             toast.error("Failed to delete product.");
@@ -255,22 +248,23 @@ export default function ProductsPage() {
                 <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>
                     {filteredShoes.map((shoe) => (
                         <DashboardProductCard
-                            key={shoe._id}
+                            key={shoe.id}
                             product={shoe}
                             onEdit={() => { setSelected(shoe); setOpen(true) }}
-                            onDelete={() => handleDelete(shoe._id)}
+                            onDelete={() => handleDelete(shoe.id)}
                             viewMode={viewMode}
                         />
                     ))}
                 </div>
             )}
 
-            {/* Edit/Create Dialog */}
+            {/* Edit/Create Dialog (remounts per selection to reset form state) */}
             <ProductEditDialog
+                key={selected?.id ?? "new-product"}
                 open={open}
                 setOpen={setOpen}
                 onSubmit={handleSubmit}
-                defaultData={selected || {}}
+                defaultData={selected}
             />
         </div>
     );

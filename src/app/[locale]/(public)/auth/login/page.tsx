@@ -1,21 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, User } from "lucide-react";
 
 export default function LoginPage() {
     const [user, setUser] = useState("");
     const [pass, setPass] = useState("");
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
-    const locale = useLocale();
+    const t = useTranslations("LoginPage");
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,15 +28,15 @@ export default function LoginPage() {
 
             const data = await res.json();
             if (res.ok && data.success) {
-                toast.success("Login successful!");
-                // Force a hard navigation to ensure cookies are sent and middleware runs fresh
-                window.location.href = `/${locale}/dashboard`;
+                toast.success(t("success"));
+                // Hard navigation ensures middleware runs with the fresh cookie
+                window.location.replace("/dashboard");
             } else {
-                toast.error("Invalid credentials. Please try again.");
+                toast.error(t("invalid"));
             }
         } catch (error) {
             console.error("Login error:", error);
-            toast.error("An error occurred. Please try again later.");
+            toast.error(t("error"));
         } finally {
             setLoading(false);
         }
@@ -53,15 +51,15 @@ export default function LoginPage() {
                     <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <Lock className="w-6 h-6 text-primary" />
                     </div>
-                    <CardTitle className="text-2xl font-bold tracking-tight">Welcome back</CardTitle>
+                    <CardTitle className="text-2xl font-bold tracking-tight">{t("title")}</CardTitle>
                     <CardDescription>
-                        Enter your credentials to access the admin dashboard
+                        {t("subtitle")}
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleLogin}>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="username">Username</Label>
+                            <Label htmlFor="username">{t("username")}</Label>
                             <div className="relative">
                                 <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -76,7 +74,7 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">{t("password")}</Label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                                 <Input
@@ -97,7 +95,7 @@ export default function LoginPage() {
                             className="w-full font-semibold shadow-lg shadow-primary/20"
                             disabled={loading}
                         >
-                            {loading ? "Signing in..." : "Sign In"}
+                            {loading ? t("signingIn") : t("signIn")}
                         </Button>
                     </CardFooter>
                 </form>

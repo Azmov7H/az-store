@@ -3,16 +3,24 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Quote, Star, BadgeCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getCommits } from "@/lib/services/commit-service";
+import type { CommitDTO } from "@/lib/services/commit-service";
+
+interface TestimonialItem {
+    name: string;
+    role: string;
+    text: string;
+    rating: number;
+}
 
 export default async function Testimonials() {
     const t = await getTranslations("Testimonials");
     const commits = await getCommits();
 
     // Map commits to testimonials, or use fallback if empty
-    const testimonials = commits.length > 0
-        ? commits.map((commit: any) => ({
+    const testimonials: TestimonialItem[] = commits.length > 0
+        ? commits.map((commit: CommitDTO) => ({
             name: commit.username,
-            role: "Verified Customer",
+            role: t("verifiedRole"),
             text: commit.commit,
             rating: commit.rating || 5,
         }))
@@ -76,7 +84,7 @@ export default async function Testimonials() {
                                 </div>
 
                                 <p className="text-lg leading-relaxed text-foreground/90 italic mb-8 flex-grow">
-                                    "{testimonial.text}"
+                                    &quot;{testimonial.text}&quot;
                                 </p>
 
                                 <div className="flex items-center gap-4 pt-6 border-t border-border/50">

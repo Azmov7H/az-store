@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
 import AppSidebar from "../../../../components/dashboard/app-sidebar";
 import DashboardHeader from "../../../../components/dashboard/dashboard-header";
 
@@ -33,7 +32,6 @@ export default function DashboardLayoutClient({ children }: DashboardLayoutClien
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-w-0">
                 <DashboardHeader
-                    pageTitle="Dashboard"
                     toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
                     sidebarOpen={sidebarOpen}
                 />

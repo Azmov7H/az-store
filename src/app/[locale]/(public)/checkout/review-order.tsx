@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 import { calculateFinalPrice } from "@/lib/utils/format";
+import { calculateShipping } from "@/lib/constants";
 import type { CartItem } from "@/types/cart";
 
 interface FormData {
@@ -37,7 +38,7 @@ export default function ReviewOrder({
         return sum + finalPrice * item.quantity;
     }, 0);
 
-    const shipping = items.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(items.length);
     const total = subtotal + shipping;
 
     return (

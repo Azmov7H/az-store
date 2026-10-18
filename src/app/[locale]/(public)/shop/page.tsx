@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import ProductGrid from "@/components/product/product-grid";
 import ProductCardSkeleton from "@/components/product/product-card-skeleton";
-import { getProducts } from "@/lib/services/product-service";
+import { getProducts } from "@/lib/services/shoe-service";
 
 export const metadata: Metadata = {
     title: "Shop | All Products",

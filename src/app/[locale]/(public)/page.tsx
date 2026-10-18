@@ -7,7 +7,7 @@ import Stats from "@/components/home/stats";
 import Testimonials from "@/components/home/testimonials";
 import ProductGrid from "@/components/product/product-grid";
 import ProductCardSkeleton from "@/components/product/product-card-skeleton";
-import { getProducts } from "@/lib/services/product-service";
+import { getProducts } from "@/lib/services/shoe-service";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";

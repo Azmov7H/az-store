@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -13,13 +13,19 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { calculateShipping } from "@/lib/constants";
+
+const noopSubscribe = () => () => {};
 
 export default function CartPage() {
     const t = useTranslations("carts");
     const { items, removeItem, updateQuantity } = useCart();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => setMounted(true), []);
+    // Client-only gate without setState-in-effect (avoids pre-hydration flash)
+    const mounted = useSyncExternalStore(
+        noopSubscribe,
+        () => true,
+        () => false
+    );
 
     if (!mounted) {
         return (
@@ -34,7 +40,7 @@ export default function CartPage() {
         return sum + finalPrice * item.quantity;
     }, 0);
 
-    const shipping = items.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(items.length);
     const total = subtotal + shipping;
 
     return (

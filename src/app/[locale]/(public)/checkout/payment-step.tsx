@@ -7,10 +7,11 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { calculateFinalPrice } from "@/lib/utils/format";
-import { createOrder } from "@/lib/services/order-service";
+import { createOrder } from "@/lib/api";
 import { analytics } from "@/lib/analytics";
+import { calculateShipping } from "@/lib/constants";
 import type { CartItem } from "@/types/cart";
-import type { CreateOrderData } from "@/types/order";
+import type { CreateOrderData, Order } from "@/types/order";
 
 interface FormData {
     customerName: string;
@@ -44,7 +45,7 @@ export default function PaymentStep({
         return sum + finalPrice * item.quantity;
     }, 0);
 
-    const shipping = items.length >= 3 ? 0 : 40;
+    const shipping = calculateShipping(items.length);
     const total = subtotal + shipping;
 
     const handleSubmit = async () => {
@@ -67,12 +68,14 @@ export default function PaymentStep({
         };
 
         try {
-            const order = await createOrder(orderData);
-            setOrderId(order.orderId);
+            const res = await createOrder<Order>(orderData);
+            const created = res.data;
+            if (!res.success || !created?.orderId) throw new Error("Order creation failed");
+            setOrderId(created.orderId);
             toast.success(t("success"));
 
             // Track successful purchase
-            analytics.checkoutSuccess(order.orderId, total);
+            analytics.checkoutSuccess(created.orderId, total);
 
             clearCart();
 
@@ -116,18 +119,17 @@ export default function PaymentStep({
                             {t("orderId", { id: orderId })}
                         </p>
                         <p className="text-sm text-muted-foreground mt-2">
-                            Redirecting to homepage...
+                            {t("redirectHint")}
                         </p>
                     </div>
                 ) : (
                     <>
                         <div className="bg-muted p-4 rounded-lg">
                             <p className="text-sm text-muted-foreground mb-2">
-                                Payment on delivery (Cash on Delivery)
+                                {t("codInfo")}
                             </p>
                             <p className="text-sm">
-                                You will pay <span className="font-bold">{total.toFixed(2)} EGP</span> when
-                                you receive your order.
+                                {t("codPay", { amount: `${total.toFixed(2)} EGP` })}
                             </p>
                         </div>
 

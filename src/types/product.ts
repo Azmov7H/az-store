@@ -1,6 +1,5 @@
 // Product Types
 export interface Product {
-    _id: string;
     id: string;
     title: string;
     description: string;
@@ -8,6 +7,7 @@ export interface Product {
     discount: number;
     image: string;
     category: 'running' | 'casual' | 'formal' | 'sports' | 'sandals' | 'boots';
+    gender?: 'men' | 'women' | 'kids' | 'unisex';
     availableColors: string[];
     availableSizes: string[];
     stock: number;

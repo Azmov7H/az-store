@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 interface ProductAddToCartProps {
     product: Product;
-    button:Number | string;
+    button?: string;
 }
 
 export default function ProductAddToCart({ product , button }: ProductAddToCartProps) {
@@ -55,7 +55,6 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
         try {
             addItem({
                 id: product.id,
-                _id: product._id,
                 title: product.title,
                 description: product.description,
                 price: product.price,

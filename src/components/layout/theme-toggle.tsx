@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
@@ -13,12 +13,19 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const noopSubscribe = () => () => {};
+const getClientFlag = () => true;
+const getServerFlag = () => false;
+
+// Client-only rendering without setState-in-effect (avoids SSR hydration mismatch)
+function useMounted(): boolean {
+    return useSyncExternalStore(noopSubscribe, getClientFlag, getServerFlag);
+}
+
 export function ModeToggle() {
     const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+    const mounted = useMounted();
     const t = useTranslations("Navbar");
-
-    useEffect(() => setMounted(true), []);
 
     if (!mounted) return null;
 

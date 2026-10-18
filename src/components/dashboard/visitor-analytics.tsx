@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, PieChart, Pie, Cell, Legend } from "recharts";
 import { DeviceData, DailyTrafficData } from "@/lib/services/analytics-service";
+import type { LucideIcon } from "lucide-react";
 import { TrendingUp, Smartphone, Globe, Laptop } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -16,29 +17,15 @@ interface VisitorAnalyticsProps {
     };
 }
 
+interface ChartDatum {
+    name: string;
+    value: number;
+}
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
-export default function VisitorAnalytics({ data }: VisitorAnalyticsProps) {
-    const t = useTranslations("analytics");
-
-    if (!data) return null;
-
-    const { dailyTraffic, devices, browsers, os, totalSessions } = data;
-
-    // Helper to format data for charts
-    const formatData = (items: DeviceData[]) => {
-        return items.length > 0 ? items : [{ name: "No Data", value: 1 }];
-    };
-
-    const deviceData = formatData(devices).map(d => ({
-        ...d,
-        name: d.name === "desktop" ? t("desktop") : d.name === "mobile" ? t("mobile") : d.name === "tablet" ? t("tablet") : d.name
-    }));
-
-    const browserData = formatData(browsers);
-    const osData = formatData(os);
-
-    const ChartCard = ({ title, icon: Icon, data }: { title: string, icon: any, data: any[] }) => (
+function ChartCard({ title, icon: Icon, data }: { title: string, icon: LucideIcon, data: ChartDatum[] }) {
+    return  (
         <Card className="shadow-lg border-border/50 bg-card/50 backdrop-blur-sm flex flex-col">
             <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-base">
@@ -86,6 +73,27 @@ export default function VisitorAnalytics({ data }: VisitorAnalyticsProps) {
             </CardContent>
         </Card>
     );
+}
+
+export default function VisitorAnalytics({ data }: VisitorAnalyticsProps) {
+    const t = useTranslations("analytics");
+
+    if (!data) return null;
+
+    const { dailyTraffic, devices, browsers, os, totalSessions } = data;
+
+    // Helper to format data for charts
+    const formatData = (items: DeviceData[]) => {
+        return items.length > 0 ? items : [{ name: "No Data", value: 1 }];
+    };
+
+    const deviceData = formatData(devices).map(d => ({
+        ...d,
+        name: d.name === "desktop" ? t("desktop") : d.name === "mobile" ? t("mobile") : d.name === "tablet" ? t("tablet") : d.name
+    }));
+
+    const browserData = formatData(browsers);
+    const osData = formatData(os);
 
     return (
         <div className="space-y-6">

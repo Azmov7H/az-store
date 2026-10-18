@@ -36,7 +36,6 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     const handleAddToCart = useCallback((quantity: number, color: string, size: string) => {
         addItem({
             id: product.id,
-            _id: product._id,
             title: product.title,
             description: product.description,
             price: product.price,
@@ -106,11 +105,11 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 <CardContent>
                     <div className="flex items-center gap-2">
                         <span className="text-2xl font-bold">
-                            {finalPrice.toFixed(2)} EG
+                            {finalPrice.toFixed(2)} EGP
                         </span>
                         {product.discount > 0 && (
                             <span className="text-sm line-through opacity-50">
-                                {product.price.toFixed(2)} EG
+                                {product.price.toFixed(2)} EGP
                             </span>
                         )}
                     </div>

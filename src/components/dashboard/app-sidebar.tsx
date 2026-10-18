@@ -89,7 +89,7 @@ export default function AppSidebar({ onClose }: AppSidebarProps) {
 
                             {/* Active Shine Effect */}
                             {active && (
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%]" />
                             )}
                         </LocaleLink>
                     );
@@ -98,7 +98,7 @@ export default function AppSidebar({ onClose }: AppSidebarProps) {
 
             {/* Footer */}
             <div className="p-4 border-t border-border/50">
-                <Button variant="ghost" onClick={handleLogout} className="w-full justification-start gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10">
+                <Button variant="ghost" onClick={handleLogout} className="w-full gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10">
                     <LogOut className="h-5 w-5" />
                     <span className="font-medium">{t("logout")}</span>
                 </Button>

@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     {/* Product Image Section */}
-                    <div className="relative group perspective-1000">
+                    <div className="relative group">
                         <div className="relative aspect-square rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 shadow-2xl border border-border/50 transition-all duration-500 hover:shadow-primary/10">
                             <Image
                                 src={product.image}

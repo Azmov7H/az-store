@@ -122,7 +122,7 @@ export default function CartPage() {
                                                                 −
                                                             </Button>
 
-                                                            <span className="text-md font-semibold w-8 text-center">
+                                                            <span className="text-base font-semibold w-8 text-center">
                                                                 {item.quantity}
                                                             </span>
 
@@ -175,12 +175,12 @@ export default function CartPage() {
                         </CardHeader>
 
                         <CardContent className="space-y-4">
-                            <div className="flex justify-between text-md">
+                            <div className="flex justify-between text-base">
                                 <span>{t("subtotal")}</span>
                                 <span>{subtotal.toFixed(2)} EGP</span>
                             </div>
 
-                            <div className="flex justify-between text-md">
+                            <div className="flex justify-between text-base">
                                 <span>{t("shipping")}</span>
                                 <span>
                                     {shipping === 0 ? (

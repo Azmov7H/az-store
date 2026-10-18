@@ -25,7 +25,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
     const total = subtotal + shipping;
 
     return (
-        <Card className="lg:col-span-1 sticky top-20 h-fit">
+        <Card className="lg:col-span-1 sticky top-[calc(var(--header-height)+1rem)] h-fit">
             <CardHeader className="">
                 <CardTitle className="">{t("title")}</CardTitle>
             </CardHeader>

@@ -54,7 +54,7 @@ export default function Footer() {
                             <li key={link.key}>
                                 <Link
                                     href={link.href}
-                                    className="hover:text-yellow-400 cursor-pointer transition-colors duration-300"
+                                    className="block px-3 py-1 text-start hover:text-yellow-400 cursor-pointer transition-colors duration-300 rounded-md hover:bg-accent/50"
                                 >
                                     {t(link.key)}
                                 </Link>
@@ -67,7 +67,7 @@ export default function Footer() {
                 <div>
                     <h3 className="font-semibold text-lg mb-4">{t("contact")}</h3>
                     <ul className="space-y-3 text-sm">
-                        <li className="flex items-center gap-2">
+                        <li className="flex items-center gap-2 px-3 py-1">
                             <Phone className="w-5 h-5 text-yellow-400" aria-hidden="true" />
                             <span>{t("phone")}</span>
                         </li>
@@ -84,14 +84,14 @@ export default function Footer() {
                     {/* Social Icons */}
                     <div className="flex gap-4 mt-6" role="list" aria-label="Social media links">
                         {socialLinks.map((social) => (
-                            <a
-                                key={social.id}
-                                href={social.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-yellow-400 hover:text-yellow-500 transition-colors"
-                                aria-label={social.label}
-                            >
+                                <a
+                                    key={social.id}
+                                    href={social.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 rounded-full text-yellow-400 hover:text-yellow-500 hover:bg-yellow-500/10 transition-colors"
+                                    aria-label={social.label}
+                                >
                                 {social.icon}
                             </a>
                         ))}

@@ -116,7 +116,7 @@ export default function ProductAddToCart({ product , button }: ProductAddToCartP
                                 key={color}
                                 onClick={() => setSelectedColor(color)}
                                 className={cn(
-                                    "relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border-2",
+                                    "relative h-11 min-w-11 rounded-xl text-sm font-medium transition-all duration-200 border-2",
                                     selectedColor === color
                                         ? "border-primary bg-primary/10 text-primary scale-105 shadow-sm"
                                         : "border-transparent bg-secondary hover:bg-secondary/80 text-secondary-foreground"

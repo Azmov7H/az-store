@@ -108,7 +108,7 @@ export default function Navbar() {
                                         key={link.key}
                                         href={link.href}
                                         onClick={() => setOpen(false)}
-                                        className="hover:text-primary transition-colors"
+                                        className="block w-full px-3 py-3 text-start hover:text-primary transition-colors"
                                     >
                                         {t(link.key)}
                                     </Link>
